@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AccountDialog from "../AccountDialog/index";
 import "./style.css";
 
 export default function index() {
@@ -9,6 +10,7 @@ export default function index() {
     //     role: "admin",
     // });
     const [user, setUser] = useState(null);
+    const [showSignIn, setShowSignIn] = useState(false);
     const [cart, setCart] = useState([
         { price: 20, quantity: 1 },
         { price: 30, quantity: 1 },
@@ -22,9 +24,10 @@ export default function index() {
         return total;
     };
 
+
     return (
         <>
-            <a className="fixed bottom-10 cursor-pointer right-16 rounded-full bg-gray-200 p-2" href="#app">
+            <a className="md:block fixed hidden bottom-10 cursor-pointer right-16 rounded-full bg-gray-200 p-2" href="#app">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -105,7 +108,7 @@ export default function index() {
                                 />
                             </svg>
                             <div className="h-12 w-full absolute top-0 left-0 block cursor-pointer"></div>
-                            <div className="hidden absolute top-12 right-0 user-button-dropdown w-60 text-black text-left text-sm rounded-lg">
+                            <div className="hidden absolute top-12 right-0 user-button-dropdown bg-white my-shadow w-60 text-black text-left text-sm rounded-lg">
                                 <div className="w-auto m-2 p-2 rounded-xl hover:bg-gray-200 cursor-pointer">
                                     <div className="flex items-center">
                                         <img
@@ -163,7 +166,9 @@ export default function index() {
                             </div>
                         </div>
                     ) : (
-                        <button className="flex items-center relative user-button py-1 px-2 rounded-full hover:bg-gray-200 duration-200 ease-in">
+                        <button className="flex items-center relative user-button py-1 px-2 rounded-full hover:bg-gray-200 duration-200 ease-in"
+                            onClick={() => {setShowSignIn(true); console.log("fren")}}
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -220,6 +225,7 @@ export default function index() {
                         )}
                     </button>
                 </div>
+                <AccountDialog show={showSignIn} setShow={setShowSignIn}/>
             </div>
         </>
     );
