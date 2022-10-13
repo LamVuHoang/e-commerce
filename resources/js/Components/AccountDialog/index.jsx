@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import SignIn from "./SignIn/index";
 import SignUp from "./SignUp/index";
+import SignOut from "./SignOut/index";
 
 function index(props) {
     const [show, setShow] = useState(false);
-    const [tab, setTab] = useState(0); // 0: SignIn, 1: SignUp
+    const [tab, setTab] = useState(props.tab || 0); // 0: SignIn, 1: SignUp/ 3: SignOut
     useEffect(() => {
         setShow(props.show);
+        setTab(props.tab);
     }, [props]);
+    const closeDialog = () => {
+        props.setShow(false);
+        props.setTab(0);
+    }
     return (
         <>
             {show == true && (
@@ -21,7 +27,7 @@ function index(props) {
                             strokeWidth={1.5}
                             stroke="currentColor"
                             className="absolute sm:w-6 sm:h-6 sm:-top-2 sm:-right-2 sm:translate-x-0 w-10 h-10 -bottom-12 right-1/2 translate-x-1/2 cursor-pointer rounded-full p-1 bg-white my-shadow hover:bg-gray-200"
-                            onClick={() => {props.setShow(false); setTab(0);}}
+                            onClick={closeDialog}
                         >
                             <path
                                 strokeLinecap="round"
@@ -30,8 +36,9 @@ function index(props) {
                             />
                         </svg>
                         {
-                            tab == 0 ? <SignIn setShow={props.show} setTab={setTab}/>
-                            : <SignUp setShow={props.show} setTab={setTab}/>
+                            tab == 0 ? <SignIn setShow={props.setShow} setTab={props.setTab}/>
+                            : tab == 1? <SignUp setShow={props.setShow} setTab={props.setTab}/>
+                            : <SignOut setShow={props.setShow} setTab={props.setTab}/>
                         }
                     </div>
                 </div>

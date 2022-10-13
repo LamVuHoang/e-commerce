@@ -2,8 +2,8 @@ import "./style.css";
 export default function index() {
     return (
         <>
-            <div className="w-full block bg-gray-100 py-5 md:pb-12 px-5 md:px-12 lg:px-20 xl:px-40 2xl:px-60 flex justify-between items-start text-gray-700">
-                <div className="w-full flex justify-center md:w-1/5">
+            <div className="w-full block bg-white border-t border-gray-200 py-5 md:pb-12 px-5 md:px-12 lg:px-20 xl:px-40 2xl:px-60 flex justify-between items-start text-gray-700 my-shadow">
+                <div className="w-full flex justify-start md:w-1/5">
                     <img
                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1000px-Logo_NIKE.svg.png"
                         className="h-8 footer-title"
