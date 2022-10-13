@@ -1,0 +1,34 @@
+.user-button:hover .user-button-dropdown {
+    display: block;
+    opacity: 1;
+}
+.user-button-dropdown{
+    box-shadow: 0 0 15px 0.5px lightgray;
+    @apply bg-white;
+}
+.user-button-dropdown::before{
+    content: "";
+    position: absolute;
+    left: 81%;
+    top: 0;
+    transform: translateY(-90%);
+    border: 10px solid transparent;
+    border-bottom: 10px solid white;
+}
+.user-button-dropdown-item {
+    @apply block px-4 py-1 cursor-pointer;
+}
+.user-button-dropdown-item:hover {
+    @apply bg-gray-200;
+}
+.break-content{
+    width: auto;
+    margin: 4px 1em;
+    height: 1px;    
+    @apply bg-gray-200;
+}
+.one-line-text{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

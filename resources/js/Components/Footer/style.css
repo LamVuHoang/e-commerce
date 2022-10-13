@@ -1,0 +1,6 @@
+.footer-title{
+    @apply text-xl font-bold text-gray-600 w-auto mt-8;
+}
+.footer-content{
+    @apply text-gray-500 cursor-pointer w-auto;
+}
