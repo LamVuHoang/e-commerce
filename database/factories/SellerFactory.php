@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\Sellers;
+use App\Models\Seller;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Seller>
  */
-class SellersFactory extends Factory
+class SellerFactory extends Factory
 {
-    protected $model = Sellers::class;
+    protected $model = Seller::class;
     /**
      * Define the model's default state.
      *
@@ -23,7 +23,7 @@ class SellersFactory extends Factory
             'phone' => $this->faker->unique()->phoneNumber(),
             'mail' => $this->faker->unique()->email(),
             'ward_id' => random_int(0, 1000),
-            'address_detail' => $this->faker->text(),
+            'address_detail' => $this->faker->text(500),
             'create_date' => $this->faker->dateTimeBetween('-50 years', 'now')
                 ->format('Y-m-d')
         ];

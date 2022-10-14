@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Sellers;
+use App\Models\Seller;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
 
         foreach ($users as $user) {
             if ($user->type === 'Seller') {
-                Sellers::factory()->count(1)->create([
+                Seller::factory()->count(1)->create([
                     'user_id' => $user->user_id
                 ]);
             }

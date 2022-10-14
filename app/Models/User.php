@@ -18,8 +18,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'phone',
+        'mail',
         'password',
-        'type'
+        'first_name',
+        'last_name',
+        'date_of_birth'
     ];
 
     /**
@@ -34,6 +38,6 @@ class User extends Authenticatable
 
     // public function seller()
     // {
-    //     return $this->belongsTo(Sellers::class, 'user_id', 'user_id');
+    //     return $this->belongsTo(Seller::class, 'user_id', 'user_id');
     // }
 }

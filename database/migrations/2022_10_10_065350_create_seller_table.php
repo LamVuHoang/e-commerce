@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sellers', function (Blueprint $table) {
+        Schema::create('seller', function (Blueprint $table) {
             $table->bigInteger('id', true, true);
             $table->bigInteger('user_id', false, true);
-            $table->string('shop_name');
-            $table->string('phone');
-            $table->string('mail');
-            $table->string('ward_id');
-            $table->string('address_detail');
+            $table->string('shop_name', 200);
+            $table->string('phone', 20);
+            $table->string('mail', 50);
+            $table->integer('ward_id');
+            $table->string('address_detail', 500);
             $table->date('create_date');
 
             // Keys

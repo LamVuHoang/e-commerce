@@ -16,18 +16,18 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigInteger('user_id', true, true);
             $table->string('password');
-            $table->enum('type', ['Blocked', 'User', 'Seller', 'Admin']);
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('username')->unique();
-            $table->date('date_of_birth');
-            $table->string('phone')->unique();
-            $table->string('mail')->unique();
-            $table->string('ward_id');
-            $table->string('address_detail');
+            $table->enum('type', ['Blocked', 'User', 'Seller', 'Admin'])->default('User');
+            $table->string('first_name', 20)->nullable();
+            $table->string('last_name', 50)->nullable();
+            $table->string('username', 20)->unique();
+            $table->date('date_of_birth')->nullable();
+            $table->string('phone', 20)->unique()->nullable();
+            $table->string('mail', 50)->unique()->nullable();
+            $table->integer('ward_id', false, true)->nullable();
+            $table->string('address_detail', 500)->nullable();
 
             //Time stamp
-            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('account_verified_at')->nullable();
             $table->timestamps();
 
             $table->rememberToken();

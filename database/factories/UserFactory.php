@@ -17,8 +17,8 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $lastName = fake()->name();
-        $firstName = fake()->name();
+        $lastName = fake()->lastName();
+        $firstName = fake()->firstName();
         $userType = ['Blocked', 'User', 'Seller', 'Admin'];
 
         return [
@@ -32,8 +32,8 @@ class UserFactory extends Factory
             'phone' => fake()->unique()->phoneNumber(),
             'mail' => fake()->unique()->safeEmail(),
             'ward_id' => random_int(1, 1000),
-            'address_detail' => fake()->text(),
-            'email_verified_at' => now(),
+            'address_detail' => fake()->text(500),
+            'account_verified_at' => now(),
         ];
     }
 }
