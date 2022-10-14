@@ -2,10 +2,6 @@
     display: block;
     opacity: 1;
 }
-.user-button-dropdown{
-    box-shadow: 0 0 15px 0.5px lightgray;
-    @apply bg-white;
-}
 .user-button-dropdown::before{
     content: "";
     position: absolute;

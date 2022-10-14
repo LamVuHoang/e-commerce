@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import AccountDialog from "../AccountDialog/index";
 import "./style.css";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function index() {
-    // const [user, setUser] = useState({
-    //     userName: "nhonnguyen3112",
-    //     fullName: "Nhon Nguyen Thanhhhhhhhhhh",
-    //     avatar: "https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1024&h=1280&q=80",
-    //     role: "admin",
-    // });
-    const [user, setUser] = useState(null);
+    const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        // dispatch({ type: 'UPDATE_TOKEN'});
+    }, []);
+
+    const [showDialog, setShowDialog] = useState(false);
+    const [dialogTab, setDialogTab] = useState(0);
     const [cart, setCart] = useState([
         { price: 20, quantity: 1 },
         { price: 30, quantity: 1 },
@@ -22,9 +25,14 @@ export default function index() {
         return total;
     };
 
+    const signOut = () => {
+        setDialogTab(2);
+        setShowDialog(true);
+    }
+
     return (
         <>
-            <a className="fixed bottom-10 cursor-pointer right-16 rounded-full bg-gray-200 p-2" href="#app">
+            <a className="md:block fixed hidden bottom-10 cursor-pointer right-16 rounded-full bg-gray-200 p-2" href="#app">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -41,7 +49,7 @@ export default function index() {
                 </svg>
             </a>
             <div
-                className="w-full block bg-white py-3 px-5 md:px-12 lg:px-20 xl:px-40 2xl:px-60 flex justify-between items-center text-black sticky top-0 left-0 border-b-2 boder-gray-300"
+                className="w-full block bg-white py-3 px-5 md:px-12 lg:px-20 xl:px-40 2xl:px-60 flex justify-between items-center sticky top-0 left-0 border-b-2 boder-gray-300 z-30"
                 id="top"
             >
                 {/* logo */}
@@ -52,17 +60,16 @@ export default function index() {
                     />
                 </button>
                 {/* search */}
-                <form className="md:w-1/2 w-0 overflow-hidden">
-                    <div class="flex">
+                <form className="md:grow w-0 overflow-hidden mx-16">
+                    <div className="flex">
                         <input
                             type="search"
                             id="default-search"
-                            class="block px-4 py-2 w-11/12 text-sm text-gray-800 bg-gray-50 rounded-full border-2 border-gray-300 place-holder-gray-300 focus:outline-none focus:border-gray-700 duration-200 ease-in"
+                            className="grow block px-4 py-2 w-auto text-sm text-gray-800 bg-gray-50 rounded-full border-2 border-gray-300 place-holder-gray-300 focus:outline-none focus:border-gray-700 duration-200 ease-in"
                             placeholder="Search Items, Sellers, Categories,..."
                         />
                         <button
-                            type="submit"
-                            class="text-gray-700 bg-transparent w-1/12 py-2 text-sm rounded-full justify-center items-center flex hover:bg-gray-200 ml-2 duration-200 ease-in"
+                            className="bg-transparent py-2 px-2.5 text-sm rounded-full justify-center items-center flex hover:bg-gray-200 ml-2 duration-200 ease-in"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -82,14 +89,15 @@ export default function index() {
                     </div>
                 </form>
                 {/* user */}
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center w-fit">
                     {user !== null ? (
-                        <div className="flex items-center relative user-button p-2 rounded-full hover:bg-gray-200 duration-200 ease-in">
+                        <div className="flex items-center relative user-button p-2 rounded-full hover:bg-gray-200 duration-200 ease-in grow-0 shrink-0">
                             <img
                                 src={user.avatar}
                                 alt="user-img"
                                 className="h-6 w-6 rounded-full object-cover"
                             />
+                            <span className="mx-2">{user.fullName.split(' ')[0]}</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -105,7 +113,7 @@ export default function index() {
                                 />
                             </svg>
                             <div className="h-12 w-full absolute top-0 left-0 block cursor-pointer"></div>
-                            <div className="hidden absolute top-12 right-0 user-button-dropdown w-60 text-black text-left text-sm rounded-lg">
+                            <div className="hidden absolute top-12 right-0 user-button-dropdown bg-white my-shadow w-60 text-left text-sm rounded-lg">
                                 <div className="w-auto m-2 p-2 rounded-xl hover:bg-gray-200 cursor-pointer">
                                     <div className="flex items-center">
                                         <img
@@ -156,14 +164,16 @@ export default function index() {
                                     Product reviews
                                 </div>
                                 <div className="break-content"></div>
-                                <div className="user-button-dropdown-item">
+                                <div className="user-button-dropdown-item" onClick={signOut}>
                                     Sign out
                                 </div>
                                 <div className="w-full h-2 block"></div>
                             </div>
                         </div>
                     ) : (
-                        <button className="flex items-center relative user-button py-1 px-2 rounded-full hover:bg-gray-200 duration-200 ease-in">
+                        <button className="flex items-center relative user-button py-1 px-2 rounded-full hover:bg-gray-200 duration-200 ease-in"
+                            onClick={() => setShowDialog(true)}
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -220,6 +230,7 @@ export default function index() {
                         )}
                     </button>
                 </div>
+                <AccountDialog show={showDialog} tab={dialogTab} setTab={setDialogTab} setShow={setShowDialog}/>
             </div>
         </>
     );

@@ -3,6 +3,7 @@
 
 #app {
     font-family: 'Poppins', sans-serif;
+    @apply text-gray-700;
 }
 html {
    scroll-behavior: smooth;
@@ -39,5 +40,29 @@ html {
 }
 
 .my-button {
-  @apply text-white font-bold p-3 rounded-lg hover:bg-gradient-to-b hover:from-indigo-600 hover:to-pink-600 bg-gradient-to-r from-sky-500 to-blue-500;
+  @apply font-bold py-3 px-4 rounded-2xl w-full;
+}
+
+.my-button--primary {
+   @apply hover:bg-gray-600 bg-gray-700 text-white;
+}
+
+.my-button--secondary {
+   @apply hover:bg-gray-100 bg-gray-200 text-gray-700;
+}
+
+.my-shadow{
+   box-shadow: 0 0 15px 0.5px rgba(0, 0, 0, 0.2);
+}
+
+.my-dialog{
+   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.my-input{
+   @apply block text-gray-800 bg-gray-50 px-4 py-2 mt-2 rounded-2xl border-2 border-gray-300 focus:outline-none focus:border-gray-700 duration-200 ease-in;
+}
+
+.my-container{
+   @apply px-0 md:px-12 lg:px-20 xl:px-40 2xl:px-60 md:py-3 block;
 }
