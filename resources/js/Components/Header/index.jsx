@@ -69,7 +69,6 @@ export default function index() {
                             placeholder="Search Items, Sellers, Categories,..."
                         />
                         <button
-                            type="submit"
                             className="text-gray-700 bg-transparent py-2 px-2.5 text-sm rounded-full justify-center items-center flex hover:bg-gray-200 ml-2 duration-200 ease-in"
                         >
                             <svg
