@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import './style.css';
 
 function index() {
     const bannerList = [
@@ -19,20 +18,23 @@ function index() {
             href: "https://www.topzone.vn/",
         },
     ];
-    
-    return ( <>
-        <div className="w-full h-96 block bg-black overflow-hidden relative">
-            {
-                bannerList.map((item, index) => {
+
+    return (
+        <>
+            <div className="w-full h-auto block bg-black overflow-hidden relative flex rounded-2xl">
+                {bannerList.map((item, index) => {
                     return (
-                        <a href={item.href} key={index} className="banner-item">
-                            <img src={item.src} alt={item.alt} className="w-full h-fit"/>
-                        </a>
+                        <img
+                            href={item.href}
+                            src={item.src}
+                            alt={item.alt}
+                            className="h-full object-cover"
+                        />
                     );
-                })
-            }
-        </div>
-    </>);
+                })}
+            </div>
+        </>
+    );
 }
 
 export default index;

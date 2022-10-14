@@ -49,7 +49,7 @@ export default function index() {
                 </svg>
             </a>
             <div
-                className="w-full block bg-white py-3 px-5 md:px-12 lg:px-20 xl:px-40 2xl:px-60 flex justify-between items-center text-black sticky top-0 left-0 border-b-2 boder-gray-300"
+                className="w-full block bg-white py-3 px-5 md:px-12 lg:px-20 xl:px-40 2xl:px-60 flex justify-between items-center sticky top-0 left-0 border-b-2 boder-gray-300 z-30"
                 id="top"
             >
                 {/* logo */}
@@ -69,7 +69,7 @@ export default function index() {
                             placeholder="Search Items, Sellers, Categories,..."
                         />
                         <button
-                            className="text-gray-700 bg-transparent py-2 px-2.5 text-sm rounded-full justify-center items-center flex hover:bg-gray-200 ml-2 duration-200 ease-in"
+                            className="bg-transparent py-2 px-2.5 text-sm rounded-full justify-center items-center flex hover:bg-gray-200 ml-2 duration-200 ease-in"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +113,7 @@ export default function index() {
                                 />
                             </svg>
                             <div className="h-12 w-full absolute top-0 left-0 block cursor-pointer"></div>
-                            <div className="hidden absolute top-12 right-0 user-button-dropdown bg-white my-shadow w-60 text-black text-left text-sm rounded-lg">
+                            <div className="hidden absolute top-12 right-0 user-button-dropdown bg-white my-shadow w-60 text-left text-sm rounded-lg">
                                 <div className="w-auto m-2 p-2 rounded-xl hover:bg-gray-200 cursor-pointer">
                                     <div className="flex items-center">
                                         <img

@@ -1,5 +1,5 @@
 .footer-title{
-    @apply text-xl font-bold text-gray-600 w-auto md:mt-8;
+    @apply text-xl font-bold w-auto md:mt-8;
 }
 .footer-content{
     @apply text-gray-500 cursor-pointer w-auto;

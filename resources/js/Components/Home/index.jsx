@@ -3,7 +3,7 @@ import Banner from './Banner';
 export default function index() {
     return (
         <>
-            <div className="block">
+            <div className="my-container">
                 <Banner/>
             </div>
         </>
