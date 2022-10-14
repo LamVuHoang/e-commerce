@@ -1,8 +1,10 @@
+import Banner from './Banner';
+
 export default function index() {
     return (
         <>
-            <div className="h-screen block">
-                
+            <div className="block">
+                <Banner/>
             </div>
         </>
     );

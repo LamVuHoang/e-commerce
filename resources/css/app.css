@@ -51,7 +51,7 @@ html {
 }
 
 .my-shadow{
-   box-shadow: 0 0 15px 0.5px lightgray;
+   box-shadow: 0 0 15px 0.5px rgba(0, 0, 0, 0.2);
 }
 
 .my-dialog{
