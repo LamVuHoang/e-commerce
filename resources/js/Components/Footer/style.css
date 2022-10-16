@@ -1,6 +1,6 @@
 .footer-title{
-    @apply text-xl font-bold w-auto md:mt-8;
+    @apply text-lg font-bold w-auto md:mt-8;
 }
 .footer-content{
-    @apply text-gray-500 cursor-pointer w-auto;
+    @apply text-sm text-gray-500 cursor-pointer w-auto hover:text-gray-700;
 }

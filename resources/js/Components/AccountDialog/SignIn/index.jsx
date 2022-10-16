@@ -4,15 +4,28 @@ import { useDispatch } from "react-redux";
 function index(props) {
     const dispatch = useDispatch();
     const signIn = () => {
-        if(false){
-            dispatch({ type: "UPDATE_TOKEN" });
-            props.setShow(false);
-            props.setTab(0);
-        }
-        else{
-            let invalid = "Something went wrong";
-            setInvalid(invalid);
-        }
+        const url = "http://localhost:8000/api/authentication";
+        const payload = {
+            params: {
+                contact: input.username,
+                password: input.password,
+            },
+        };
+        axios
+            .get(url, payload)
+            .then((response) => {
+                console.log(response.data);
+                props.setShow(false);
+                props.setTab(0);
+            })
+            .catch((error) => {
+                let message = error.response.data.message;
+                if (typeof message === "object") {
+                    message = message.contact[0] || message.password[0];
+                }
+                console.log(message);
+                setInvalid(message);
+            });
     };
     const [input, setInput] = useState({
         username: "",
@@ -34,7 +47,7 @@ function index(props) {
         }
     };
     useEffect(() => {
-        console.log(input)
+        console.log(input);
         if (input.changedUsername && input.changedPassword) {
             if (input.username == "" || input.password == "") {
                 setInvalid("Please fill in all fields");

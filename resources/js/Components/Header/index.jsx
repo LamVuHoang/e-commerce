@@ -49,18 +49,18 @@ export default function index() {
                 </svg>
             </a>
             <div
-                className="w-full block bg-white py-3 px-5 md:px-12 lg:px-20 xl:px-40 2xl:px-60 flex justify-between items-center sticky top-0 left-0 border-b-2 boder-gray-300 z-30"
+                className="w-full block bg-white py-3 px-3 md:px-12 lg:px-20 xl:px-40 2xl:px-60 flex justify-between items-center sticky top-0 left-0 border-b-2 boder-gray-300 z-30"
                 id="top"
             >
                 {/* logo */}
-                <button className="">
+                <button className="px-2">
                     <img
                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1000px-Logo_NIKE.svg.png"
                         className="h-6"
                     />
                 </button>
                 {/* search */}
-                <form className="md:grow w-0 overflow-hidden mx-16">
+                <form className="md:grow w-0 overflow-hidden mx-12 max-w-md">
                     <div className="flex">
                         <input
                             type="search"
@@ -69,7 +69,7 @@ export default function index() {
                             placeholder="Search Items, Sellers, Categories,..."
                         />
                         <button
-                            className="bg-transparent py-2 px-2.5 text-sm rounded-full justify-center items-center flex hover:bg-gray-200 ml-2 duration-200 ease-in"
+                            className="bg-transparent py-2 px-2.5 text-sm rounded-full justify-center items-center flex hover:bg-gray-200 ml-1 duration-200 ease-in"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@ export default function index() {
                                 alt="user-img"
                                 className="h-6 w-6 rounded-full object-cover"
                             />
-                            <span className="mx-2">{user.fullName.split(' ')[0]}</span>
+                            <span className="mx-2 font-bold text-sm">{user.fullName.split(' ')[0]}</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -217,7 +217,7 @@ export default function index() {
                             </svg>
                         </div>
                         {cart.length > 0 ? (
-                            <div className="flex flex-col relative pr-2">
+                            <div className="flex flex-col relative md:pr-2">
                                 <span className="text-left font-bold text-sm -mb-1">
                                     ${priceCal()}
                                 </span>
@@ -226,7 +226,7 @@ export default function index() {
                                 </span>
                             </div>
                         ) : (
-                            <span className="text-sm pr-2">No items</span>
+                            <span className="text-sm md:pr-2">No items</span>
                         )}
                     </button>
                 </div>
