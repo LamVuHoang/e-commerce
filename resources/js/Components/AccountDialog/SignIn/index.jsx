@@ -54,28 +54,27 @@ function index(props) {
                 <input
                     type="text"
                     {...register("username", {
-                        required: true,
-                        // pattern: /^[A-Za-z]+$/i,
+                        required: "Username is required",
                     })}
                     className="w-full block my-input"
                     placeholder="Username, Email or Phone"
                 />
-                {errors.username?.type === "required" && (
+                {errors.username && (
                     <p role="alert" className="mt-1 text-red-800 px-3 text-xs">
-                        * Username is required
+                        {errors.username.message}
                     </p>
                 )}
                 <input
                     type="password"
                     {...register("password", {
-                        required: true,
+                        required: "Password is required",
                     })}
                     className="w-full block my-input"
                     placeholder="Password"
                 />
-                {errors.password?.type === "required" && (
+                {errors.password && (
                     <p role="alert" className="mt-1 text-red-800 px-3 text-xs">
-                        * Password is required
+                        {errors.password.message}
                     </p>
                 )}
                 {invalid && (
@@ -101,9 +100,12 @@ function index(props) {
                 )}
                 <input
                     type="submit"
+                    value="Sign In"
                     className="my-button my-button--primary mb-1 mt-2 disabled:opacity-50"
                 />
             </form>
+            <div className="block border-t-2 border-gray-300 my-3 w-1/2 mx-auto"></div>
+
             <button
                 className="my-button my-button--secondary mb-2 mt-1"
                 onClick={() => props.setTab(1)}

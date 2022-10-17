@@ -23,12 +23,12 @@ function index(props) {
             >
                 <div
                     className={`h-fit bg-white mt-32 p-4 rounded-2xl my-shadow relative ${
-                        tab != 2
+                        (tab != 2 && tab != 3)
                             ? "lg:w-1/3 md:w-1/2 sm:w-2/3 w-5/6"
                             : "xl:w-1/5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-5/6"
                     }`}
                 >
-                    {tab != 2 && (
+                    {(tab != 2 && tab !=3) && (
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
