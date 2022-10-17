@@ -5,7 +5,7 @@ import SignOut from "./SignOut/index";
 
 function index(props) {
     const [show, setShow] = useState(false);
-    const [tab, setTab] = useState(props.tab || 0); // 0: SignIn, 1: SignUp, 2: SignOut
+    const [tab, setTab] = useState(props.tab || 0); // 0: SignIn, 1: SignUp, 2: SignOut, 3: Waiting
     useEffect(() => {
         setShow(props.show);
         setTab(props.tab);

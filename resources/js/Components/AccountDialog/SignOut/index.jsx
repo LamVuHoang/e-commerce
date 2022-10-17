@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { fetchUser } from "../../../Store/Reducers/userReducer/userAction";
 
 function index(props) {
     const dispatch = useDispatch();
     const confirmSignOut = () => {
-        dispatch({type: 'UPDATE_TOKEN'});
+        localStorage.removeItem('token');
+        dispatch(fetchUser());
         cancelSignOut();
     }
     const cancelSignOut = () => {

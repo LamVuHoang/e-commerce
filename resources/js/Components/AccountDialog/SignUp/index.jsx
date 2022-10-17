@@ -31,7 +31,7 @@ function index(props) {
         if(false){
             props.setShow(false);
             props.setTab(0);
-            dispatch({ type: "UPDATE_TOKEN" });
+            dispatch({ type: "FETCH_USER" });
         }
         else{
             let invalid = "Something went wrong";
