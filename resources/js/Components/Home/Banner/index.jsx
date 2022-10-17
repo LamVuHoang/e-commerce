@@ -113,6 +113,7 @@ function index() {
                             <button
                                 className={`h-2 mx-1 bg-gray-300 rounded-full transition-all ${current===index ? 'bg-gray-600 hover:bg-gray-700 w-8' : 'hover:bg-gray-400 w-5'}`}
                                 onClick={() => selectButtonHandler(index)}
+                                key = {index}
                             />
                         );
                     })}

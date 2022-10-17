@@ -14,7 +14,9 @@ function index(props) {
         axios
             .get(url, payload)
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
+                localStorage.setItem('token', response.data.data.token || '')
+                dispatch({ type: "UPDATE_TOKEN" });
                 props.setShow(false);
                 props.setTab(0);
             })
@@ -23,7 +25,6 @@ function index(props) {
                 if (typeof message === "object") {
                     message = message.contact[0] || message.password[0];
                 }
-                console.log(message);
                 setInvalid(message);
             });
     };
@@ -47,7 +48,7 @@ function index(props) {
         }
     };
     useEffect(() => {
-        console.log(input);
+        // console.log(input);
         if (input.changedUsername && input.changedPassword) {
             if (input.username == "" || input.password == "") {
                 setInvalid("Please fill in all fields");
@@ -63,7 +64,7 @@ function index(props) {
                 <input
                     type="text"
                     className="w-full block my-input"
-                    placeholder="Username"
+                    placeholder="Username, Email or Phone number"
                     onChange={(e) => handleChange(0, e.target.value)}
                 />
                 <input

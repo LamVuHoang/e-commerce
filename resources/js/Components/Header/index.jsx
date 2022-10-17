@@ -6,8 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 export default function index() {
     const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
+
     useEffect(() => {
-        // dispatch({ type: 'UPDATE_TOKEN'});
+        dispatch({ type: "UPDATE_TOKEN"});
     }, []);
 
     const [showDialog, setShowDialog] = useState(false);
@@ -28,11 +29,14 @@ export default function index() {
     const signOut = () => {
         setDialogTab(2);
         setShowDialog(true);
-    }
+    };
 
     return (
         <>
-            <a className="md:block fixed hidden bottom-10 cursor-pointer right-16 rounded-full bg-gray-200 p-2" href="#app">
+            <a
+                className="md:block fixed hidden bottom-10 cursor-pointer right-16 rounded-full bg-gray-200 p-2"
+                href="#app"
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -68,9 +72,7 @@ export default function index() {
                             className="grow block px-4 py-2 w-auto text-sm text-gray-800 bg-gray-50 rounded-full border-2 border-gray-300 place-holder-gray-300 focus:outline-none focus:border-gray-700 duration-200 ease-in"
                             placeholder="Search Items, Sellers, Categories,..."
                         />
-                        <button
-                            className="bg-transparent py-2 px-2.5 text-sm rounded-full justify-center items-center flex hover:bg-gray-200 ml-1 duration-200 ease-in"
-                        >
+                        <button className="bg-transparent py-2 px-2.5 text-sm rounded-full justify-center items-center flex hover:bg-gray-200 ml-1 duration-200 ease-in">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -97,7 +99,9 @@ export default function index() {
                                 alt="user-img"
                                 className="h-6 w-6 rounded-full object-cover"
                             />
-                            <span className="mx-2 font-bold text-sm">{user.fullName.split(' ')[0]}</span>
+                            <span className="mx-2 font-bold text-sm">
+                                {user.fullName.split(" ")[0]}
+                            </span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -125,9 +129,11 @@ export default function index() {
                                             <div className="text-md font-bold one-line-text w-32">
                                                 <span>{user.fullName}</span>
                                             </div>
-                                            <div className="text-xs font-medium one-line-text w-32">
-                                                @{user.userName}
-                                            </div>
+                                            {user.username && (
+                                                <div className="text-xs font-medium one-line-text w-32">
+                                                    @{user.userName}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -164,14 +170,18 @@ export default function index() {
                                     Product reviews
                                 </div>
                                 <div className="break-content"></div>
-                                <div className="user-button-dropdown-item" onClick={signOut}>
+                                <div
+                                    className="user-button-dropdown-item"
+                                    onClick={signOut}
+                                >
                                     Sign out
                                 </div>
                                 <div className="w-full h-2 block"></div>
                             </div>
                         </div>
                     ) : (
-                        <button className="flex items-center relative user-button py-1 px-2 rounded-full hover:bg-gray-200 duration-200 ease-in"
+                        <button
+                            className="flex items-center relative user-button py-1 px-2 rounded-full hover:bg-gray-200 duration-200 ease-in"
                             onClick={() => setShowDialog(true)}
                         >
                             <svg
@@ -230,7 +240,12 @@ export default function index() {
                         )}
                     </button>
                 </div>
-                <AccountDialog show={showDialog} tab={dialogTab} setTab={setDialogTab} setShow={setShowDialog}/>
+                <AccountDialog
+                    show={showDialog}
+                    tab={dialogTab}
+                    setTab={setDialogTab}
+                    setShow={setShowDialog}
+                />
             </div>
         </>
     );
