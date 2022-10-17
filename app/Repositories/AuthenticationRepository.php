@@ -17,7 +17,8 @@ class AuthenticationRepository extends BaseRepository
     public function logIn($data)
     {
         $user = $this->query->where('mail', $data['contact'])
-            ->orWhere('phone', $data['contact'])->first();
+            ->orWhere('phone', $data['contact'])
+            ->orWhere('username', $data['contact'])->first();
 
         if ($user && Hash::check($data['password'], $user['password'])) {
             $token = $user->createToken('authToken')->plainTextToken;
@@ -40,10 +41,15 @@ class AuthenticationRepository extends BaseRepository
 
     public function signUp($data)
     {
-        $newData = $this->query->create([
-            "contact" => $data['email'],
-            "password" => bcrypt($data['password']),
-        ]);
+        $user = new User();
+
+        if (preg_match('/[0-9]+/', $data['contact'])) {
+            $user->phone = $data['contact'];
+        } else {
+            $user->mail = $data['contact'];
+        }
+        $user->password = $data['password'];
+        $user->save();
 
         return [
             'message' => 'Sign Up Successfully',
@@ -59,5 +65,9 @@ class AuthenticationRepository extends BaseRepository
             'message' => 'Log out Successfully',
             'status' => 200
         ];
+    }
+
+    public function userData($request)
+    {
     }
 }

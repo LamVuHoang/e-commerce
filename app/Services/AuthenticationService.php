@@ -58,4 +58,17 @@ class AuthenticationService extends BaseService
             "message" => "Logout Unsucessfully"
         ], 400);
     }
+
+    public function userData($request): JsonResponse
+    {
+        $result = $this->_authenticationRepository->userData($request);
+
+        if ($result["status"] === 200) return response()->json([
+            "message" => $result["message"]
+        ], 200);
+
+        return response()->json([
+            "message" => "Logout Unsucessfully"
+        ], 400);
+    }
 }
