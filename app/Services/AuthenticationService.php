@@ -30,7 +30,7 @@ class AuthenticationService extends BaseService
     public function signUp($request)
     {
         $data = $request->safe()->only([
-            'contact',
+            'username',
             'password',
             'password_confirmation',
         ]);

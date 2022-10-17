@@ -43,11 +43,7 @@ class AuthenticationRepository extends BaseRepository
     {
         $user = new User();
 
-        if (preg_match('/[0-9]+/', $data['contact'])) {
-            $user->phone = $data['contact'];
-        } else {
-            $user->mail = $data['contact'];
-        }
+        $user->username = $data['username'];
         $user->password = bcrypt($data['password']);
         $user->save();
 
