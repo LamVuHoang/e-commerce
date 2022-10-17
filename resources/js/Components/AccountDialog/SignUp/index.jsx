@@ -25,14 +25,9 @@ function index(props) {
         axios
             .post(url, payload)
             .then((response) => {
-                // console.log(response.data);
-                localStorage.setItem("token", response.data.data.token || "");
+                console.log(response.data);
                 dispatch(fetchUser());
-                props.setTab(3);
-                setTimeout(() => {
-                    props.setShow(false);
-                    props.setTab(0);
-                }, 1000);
+                props.setTab(4);
             })
             .catch((error) => {
                 let message = error.response.data.message;

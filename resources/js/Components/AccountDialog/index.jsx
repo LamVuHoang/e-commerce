@@ -5,7 +5,7 @@ import SignOut from "./SignOut/index";
 
 function index(props) {
     const [show, setShow] = useState(false);
-    const [tab, setTab] = useState(props.tab || 0); // 0: SignIn, 1: SignUp, 2: SignOut, 3: Waiting
+    const [tab, setTab] = useState(props.tab || 0); // 0: SignIn, 1: SignUp, 2: SignOut, 3: Waiting, 4: SignUp success
     useEffect(() => {
         setShow(props.show);
         setTab(props.tab);
@@ -23,12 +23,12 @@ function index(props) {
             >
                 <div
                     className={`h-fit bg-white mt-32 p-4 rounded-2xl my-shadow relative ${
-                        (tab != 2 && tab != 3)
+                        tab != 2 && tab != 3
                             ? "lg:w-1/3 md:w-1/2 sm:w-2/3 w-5/6"
                             : "xl:w-1/5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-5/6"
                     }`}
                 >
-                    {(tab != 2 && tab !=3) && (
+                    {tab != 2 && tab != 3 && tab != 4 && (
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -54,7 +54,7 @@ function index(props) {
                             setShow={props.setShow}
                             setTab={props.setTab}
                         />
-                    ) : (
+                    ) : tab == 3 ? (
                         <div className="w-full h-full flex flex-col items-center justify-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -74,6 +74,32 @@ function index(props) {
                             <p className="text-gray-500 text-center mt-2">
                                 Please wait...
                             </p>
+                        </div>
+                    ) : (
+                        <div className="w-full h-full flex flex-col items-center justify-center">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="w-10 h-10 text-green-500"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M5 13l4 4L19 7"
+                                />
+                            </svg>
+                            <p className="text-xl font-bold text-center py-3">
+                                Sign up successfully!
+                            </p>
+                            <button
+                                className="my-button my-button--primary mb-2 mt-3"
+                                onClick={() => props.setTab(0)}
+                            >
+                                Sign In Now
+                            </button>
                         </div>
                     )}
                 </div>

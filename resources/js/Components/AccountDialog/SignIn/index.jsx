@@ -33,7 +33,7 @@ function index(props) {
                 setTimeout(() => {
                     props.setShow(false);
                     props.setTab(0);
-                }, 1000);
+                }, 700);
             })
             .catch((error) => {
                 let message = error.response.data.message;

@@ -20,7 +20,7 @@ function index(props) {
         setTimeout(() => {
             props.setShow(false);
             props.setTab(0);
-        }, 1000);
+        }, 300);
     };
     const cancelSignOut = () => {
         props.setShow(false);
