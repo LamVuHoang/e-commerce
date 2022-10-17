@@ -93,7 +93,7 @@ export default function index() {
                 </form>
                 {/* user */}
                 <div className="flex items-center justify-center w-fit">
-                    {user !== null ? (
+                    {user != "unloaded" && ( user !== null ? (
                         <div className="flex items-center relative user-button p-2 rounded-full hover:bg-gray-200 duration-200 ease-in grow-0 shrink-0">
                             <img
                                 src={user.avatar}
@@ -130,7 +130,7 @@ export default function index() {
                                             <div className="text-md font-bold one-line-text w-32">
                                                 <span>{user.fullName}</span>
                                             </div>
-                                            {user.username && (
+                                            {user.userName && (
                                                 <div className="text-xs font-medium one-line-text w-32">
                                                     @{user.userName}
                                                 </div>
@@ -209,7 +209,7 @@ export default function index() {
                                 </span>
                             </div>
                         </button>
-                    )}
+                    ))}
                     <button className="ml-1 flex items-center rounded-full hover:bg-gray-200 duration-200 ease-in">
                         <div className="relative p-2">
                             <svg

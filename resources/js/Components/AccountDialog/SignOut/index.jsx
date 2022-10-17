@@ -1,24 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchUser } from "../../../Store/Reducers/userReducer/userAction";
+import axios from "axios";
 
 function index(props) {
     const dispatch = useDispatch();
     const confirmSignOut = () => {
-        localStorage.removeItem('token');
-        dispatch(fetchUser());
+        let token = localStorage.getItem("token");
+        const url = "http://localhost:8000/api/logout";
+        const config = {
+            headers: {
+                Authorization: "Bearer " + token,
+            },
+        };
+        axios
+            .post(url, config)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch();
+        localStorage.removeItem("token");
+        dispatch({ type: "REMOVE_TOKEN" });
         cancelSignOut();
-    }
+    };
     const cancelSignOut = () => {
         props.setShow(false);
         props.setTab(0);
-    }
+    };
     return (
         <>
-            <p className="text-xl font-bold text-center py-3">Do you want to sign out?</p>
+            <p className="text-xl font-bold text-center py-3">
+                Do you want to sign out?
+            </p>
             <div className="flex mt-2">
-                <button className="my-button my-button--primary mr-1"
-                onClick={confirmSignOut}>
+                <button
+                    className="my-button my-button--primary mr-1"
+                    onClick={confirmSignOut}
+                >
                     Yes
                 </button>
                 <button

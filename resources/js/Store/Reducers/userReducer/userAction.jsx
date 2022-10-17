@@ -18,7 +18,7 @@ export function fetchUser() {
                 dispatch({
                     type: "UPDATE_USER",
                     payload: {
-                        userName: response.data.message.user_name,
+                        userName: response.data.message.username,
                         fullName:
                             response.data.message.first_name +
                             " " +
