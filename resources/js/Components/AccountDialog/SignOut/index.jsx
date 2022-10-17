@@ -6,21 +6,21 @@ function index(props) {
     const dispatch = useDispatch();
     const confirmSignOut = () => {
         let token = localStorage.getItem("token");
-        const url = "http://localhost:8000/api/logout";
+        console.log(token);
+        const url = "api/logout";
         const config = {
             headers: {
                 Authorization: "Bearer " + token,
             },
         };
-        axios
-            .post(url, config)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch();
+        axios.post(url, {}, config);
+        props.setTab(3);
         localStorage.removeItem("token");
         dispatch({ type: "REMOVE_TOKEN" });
-        cancelSignOut();
+        setTimeout(() => {
+            props.setShow(false);
+            props.setTab(0);
+        }, 1000);
     };
     const cancelSignOut = () => {
         props.setShow(false);
