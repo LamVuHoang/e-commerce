@@ -57,6 +57,17 @@ html {
 
 .my-dialog{
    background-color: rgba(0, 0, 0, 0.2);
+   transition: opacity 0.2s ease;
+}
+
+.my-dialog--show{
+   opacity: 1;
+   visibility: visible;
+}
+
+.my-dialog--hide{
+   opacity: 0;
+   visibility: hidden;
 }
 
 .my-input{
@@ -64,5 +75,5 @@ html {
 }
 
 .my-container{
-   @apply px-0 md:px-12 lg:px-20 xl:px-40 2xl:px-60 md:py-3 block;
+   @apply px-2 md:px-12 lg:px-20 xl:px-40 2xl:px-60 md:py-3 block overflow-hidden;
 }

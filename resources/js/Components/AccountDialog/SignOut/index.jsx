@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 function index(props) {
     const dispatch = useDispatch();
     const confirmSignOut = () => {
-        dispatch({type: 'REMOVE_TOKEN'});
+        dispatch({type: 'UPDATE_TOKEN'});
         cancelSignOut();
     }
     const cancelSignOut = () => {

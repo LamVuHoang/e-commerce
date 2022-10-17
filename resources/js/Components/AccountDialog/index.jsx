@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./style.css";
 import SignIn from "./SignIn/index";
 import SignUp from "./SignUp/index";
 import SignOut from "./SignOut/index";
@@ -17,8 +16,9 @@ function index(props) {
     };
     return (
         <>
-            {show == true && (
-                <div className="top-0 left-0 right-0 bottom-0 modal-filter fixed items-center flex flex-col my-dialog">
+                <div className={`top-0 left-0 right-0 bottom-0 modal-filter fixed items-center flex flex-col my-dialog ${
+                    show ? "my-dialog--show" : "my-dialog--hide"
+                }`}>
                     <div
                         className={`h-fit bg-white mt-32 p-4 rounded-2xl my-shadow relative ${
                             tab != 2
@@ -61,7 +61,6 @@ function index(props) {
                         )}
                     </div>
                 </div>
-            )}
         </>
     );
 }
