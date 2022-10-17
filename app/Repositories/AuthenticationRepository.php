@@ -48,7 +48,7 @@ class AuthenticationRepository extends BaseRepository
         } else {
             $user->mail = $data['contact'];
         }
-        $user->password = $data['password'];
+        $user->password = bcrypt($data['password']);
         $user->save();
 
         return [
@@ -67,7 +67,13 @@ class AuthenticationRepository extends BaseRepository
         ];
     }
 
-    public function userData($request)
+    public function userInformation($request)
     {
+        $user = auth('sanctum')->user();
+
+        return [
+            'message' => new UserResource($user),
+            'status' => 200
+        ];
     }
 }

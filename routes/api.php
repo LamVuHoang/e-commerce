@@ -22,4 +22,5 @@ Route::resource('authentication', AuthenticationController::class)->only([
 // AUTHENTICATION REQUIRED
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [AdminAuthenticationController::class, 'destroy']);
+    Route::get('user-information', [AdminAuthenticationController::class, 'userInformation']);
 });

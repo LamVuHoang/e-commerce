@@ -39,8 +39,8 @@ class AuthenticationController extends Controller
         return $this->_authenticationService->logOut($request);
     }
 
-    public function userData(Request $request): JsonResponse
+    public function userInformation(Request $request): JsonResponse
     {
-        return $this->_authenticationService->userData($request);
+        return $this->_authenticationService->userInformation($request);
     }
 }
