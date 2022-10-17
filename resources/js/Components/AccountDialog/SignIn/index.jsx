@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { fetchUser } from "../../../Store/Reducers/userReducer/userAction";
 
 function index(props) {
     const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function index(props) {
             .then((response) => {
                 // console.log(response.data);
                 localStorage.setItem('token', response.data.data.token || '')
-                dispatch({ type: "UPDATE_TOKEN" });
+                dispatch(fetchUser());
                 props.setShow(false);
                 props.setTab(0);
             })

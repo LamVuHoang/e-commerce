@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import AccountDialog from "../AccountDialog/index";
 import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
+import { fetchUser } from "../../Store/Reducers/userReducer/userAction";
 
 export default function index() {
     const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch({ type: "UPDATE_TOKEN"});
+        dispatch(fetchUser());
     }, []);
 
     const [showDialog, setShowDialog] = useState(false);
