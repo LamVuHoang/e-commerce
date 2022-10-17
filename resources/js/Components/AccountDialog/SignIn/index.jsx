@@ -33,7 +33,7 @@ function index(props) {
                 setTimeout(() => {
                     props.setShow(false);
                     props.setTab(0);
-                }, 700);
+                }, 1000);
             })
             .catch((error) => {
                 let message = error.response.data.message;
@@ -101,7 +101,7 @@ function index(props) {
                 <input
                     type="submit"
                     value="Sign In"
-                    className="my-button my-button--primary mb-1 mt-2 disabled:opacity-50"
+                    className="my-button my-button--primary mb-1 mt-2 disabled:opacity-50 cursor-pointer"
                 />
             </form>
             <div className="block border-t-2 border-gray-300 my-3 w-1/2 mx-auto"></div>

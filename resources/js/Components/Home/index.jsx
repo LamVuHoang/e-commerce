@@ -7,10 +7,7 @@ export default function index() {
                 <Banner/>
             </div>
             <div className="my-container">
-                <p className="text-2xl font-bold">On-Sale</p>
-                
-            </div>
-            <div className="my-container">
+                <p className="text-2xl font-bold my-2">On-Sale</p>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. A doloremque dolores excepturi rem, impedit reiciendis! Nemo nam, esse deleniti fugit tenetur placeat ex consectetur, quae nulla tempora possimus quis quos.
                 Repellat odit, corporis harum, consequatur explicabo reprehenderit, dignissimos rerum officia delectus nisi eligendi quae quaerat saepe placeat necessitatibus rem dolorum commodi est et nemo temporibus at laborum quasi libero! Accusamus!
                 Unde illum possimus nobis vero voluptate magnam natus sequi laudantium nostrum error placeat corporis ratione eius quidem nam ipsam laboriosam distinctio voluptas perspiciatis deserunt sit sunt, harum incidunt eos. Ipsum.

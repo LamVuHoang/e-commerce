@@ -17,26 +17,33 @@ function index(props) {
 
     const onSubmit = (data) => {
         const url = "http://localhost:8000/api/authentication";
-        const payload = {
-            contact: data.username,
-            password: data.password,
-            password_confirmation: data.confirm,
-        };
-        axios
-            .post(url, payload)
-            .then((response) => {
-                console.log(response.data);
-                dispatch(fetchUser());
-                props.setTab(4);
-            })
-            .catch((error) => {
-                let message = error.response.data.message;
-                console.log(message);
-                if (typeof message === "object") {
-                    message = message.contact[0] || message.password[0];
-                }
-                setInvalid(message);
-            });
+        if (data.password == data.confirm) {
+            const payload = {
+                contact: data.username,
+                password: data.password,
+                password_confirmation: data.confirm,
+            };
+            axios
+                .post(url, payload)
+                .then((response) => {
+                    console.log(response.data);
+                    dispatch(fetchUser());
+                    props.setTab(4);
+                })
+                .catch((error) => {
+                    let message = error.response.data.message;
+                    console.log("msg", message);
+                    if (typeof message === "object") {
+                        message =
+                            message.password[0] ||
+                            message.password_confirmation[0];
+                    }
+                    console.log("ivl", message);
+                    setInvalid(message);
+                });
+        } else {
+            setInvalid("Passwords do not matched!");
+        }
     };
 
     return (
@@ -52,7 +59,7 @@ function index(props) {
                         required: "You must specify an username",
                     })}
                     className="w-full block my-input"
-                    placeholder="Username, Email or Phone"
+                    placeholder="Username"
                 />
                 {errors.username && (
                     <p role="alert" className="mt-1 text-red-800 px-3 text-xs">
@@ -78,7 +85,7 @@ function index(props) {
                         required: "You must confirm your password",
                     })}
                     className="w-full block my-input"
-                    placeholder="Password"
+                    placeholder="Confirm Password"
                 />
                 {errors.confirm && (
                     <p role="alert" className="mt-1 text-red-800 px-3 text-xs">
@@ -109,7 +116,7 @@ function index(props) {
                 <input
                     type="submit"
                     value="Sign Up"
-                    className="my-button my-button--primary mb-1 mt-2 disabled:opacity-50"
+                    className="my-button my-button--primary mb-1 mt-2 disabled:opacity-50 cursor-pointer"
                 />
             </form>
             <div className="block border-t-2 border-gray-300 my-3 w-1/2 mx-auto"></div>

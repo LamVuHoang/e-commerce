@@ -44,7 +44,7 @@ function index() {
 
     return (
         <>
-            <div className="w-full mb-3 flex relative">
+            <div className="w-full mb-5 md:mb-3 flex relative">
                 {bannerList.map((item, index) => {
                     return (
                         <a

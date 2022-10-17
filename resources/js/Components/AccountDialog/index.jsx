@@ -71,8 +71,8 @@ function index(props) {
                                 />
                             </svg>
 
-                            <p className="text-gray-500 text-center mt-2">
-                                Please wait...
+                            <p className="text-xl font-bold text-center py-3">
+                                Loading...
                             </p>
                         </div>
                     ) : (
