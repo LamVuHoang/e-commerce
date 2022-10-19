@@ -19,14 +19,14 @@ function index(props) {
         const url = "http://localhost:8000/api/authentication";
         if (data.password == data.confirm) {
             const payload = {
-                contact: data.username,
+                username: data.username,
                 password: data.password,
                 password_confirmation: data.confirm,
             };
             axios
                 .post(url, payload)
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     dispatch(fetchUser());
                     props.setTab(4);
                 })
@@ -34,12 +34,14 @@ function index(props) {
                     let message = error.response.data.message;
                     console.log("msg", message);
                     if (typeof message === "object") {
-                        message =
-                            message.password[0] ||
-                            message.password_confirmation[0];
+                        if (message.username) {
+                            setInvalid(message.username[0]);
+                        } else if (message.password) {
+                            setInvalid(message.password[0]);
+                        } else if (message.password_confirmation) {
+                            setInvalid(message.password_confirmation[0]);
+                        }
                     }
-                    console.log("ivl", message);
-                    setInvalid(message);
                 });
         } else {
             setInvalid("Passwords do not matched!");

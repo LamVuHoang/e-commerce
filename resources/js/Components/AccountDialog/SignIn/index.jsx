@@ -38,9 +38,14 @@ function index(props) {
             .catch((error) => {
                 let message = error.response.data.message;
                 if (typeof message === "object") {
-                    message = message.contact[0] || message.password[0];
+                    if (message.contact) {
+                        setInvalid(message.contact[0]);
+                    } else if (message.password) {
+                        setInvalid(message.password[0]);
+                    }
+                } else {
+                    setInvalid(message);
                 }
-                setInvalid(message);
             });
     };
 
