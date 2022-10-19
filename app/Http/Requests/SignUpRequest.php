@@ -27,7 +27,7 @@ class SignUpRequest extends FormRequest
     public function rules()
     {
         return [
-            'contact' => ['required'],
+            'username' => ['required', 'unique:users,username'],
             'password' => ['required', 'confirmed', 'min:5', 'max:20'],
             'password_confirmation' => ['required', 'min:5', 'max:20']
         ];
@@ -41,7 +41,7 @@ class SignUpRequest extends FormRequest
     public function attributes()
     {
         return [
-            'contact' => 'Contact',
+            'username' => 'Username',
             'confirmation_password' => 'Password confirmation'
         ];
     }
