@@ -20,7 +20,10 @@ class AuthenticationRepository extends BaseRepository
             ->orWhere('phone', $data['contact'])
             ->orWhere('username', $data['contact'])->first();
 
-        if ($user && Hash::check($data['password'], $user['password'])) {
+        if (
+            $user && Hash::check($data['password'], $user['password'])
+            && $user->type !== 'Blocked'
+        ) {
             $token = $user->createToken('authToken')->plainTextToken;
 
             return [
@@ -44,7 +47,7 @@ class AuthenticationRepository extends BaseRepository
         $user = new User();
 
         $user->username = $data['username'];
-        $user->password = bcrypt($data['password']);
+        $user->password = $data['password'];
         $user->save();
 
         return [

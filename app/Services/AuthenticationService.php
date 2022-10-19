@@ -18,8 +18,9 @@ class AuthenticationService extends BaseService
         $data = $request->safe()->only(['contact', 'password']);
         $result = $this->_authenticationRepository->logIn($data);
 
-        if ($result["status"] === 200) return response()->json([
-            "data" => $result["data"]
+        if ($result["status"] == 200) return response()->json([
+            "data" => $result["data"],
+            "message" => $result["message"]
         ], 200);
 
         return response()->json([
@@ -37,7 +38,7 @@ class AuthenticationService extends BaseService
 
         $result = $this->_authenticationRepository->signUp($data);
 
-        if ($result["status"] === 200) return response()->json([
+        if ($result["status"] == 200) return response()->json([
             "message" => $result["message"]
         ], 200);
 
@@ -50,7 +51,7 @@ class AuthenticationService extends BaseService
     {
         $result = $this->_authenticationRepository->logOut($request);
 
-        if ($result["status"] === 200) return response()->json([
+        if ($result["status"] == 200) return response()->json([
             "message" => $result["message"]
         ], 200);
 
@@ -63,7 +64,7 @@ class AuthenticationService extends BaseService
     {
         $result = $this->_authenticationRepository->userInformation($request);
 
-        if ($result["status"] === 200) return response()->json([
+        if ($result["status"] == 200) return response()->json([
             "message" => $result["message"]
         ], 200);
 

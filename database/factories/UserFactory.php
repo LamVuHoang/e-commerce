@@ -22,7 +22,7 @@ class UserFactory extends Factory
         $userType = ['Blocked', 'User', 'Seller', 'Admin'];
 
         return [
-            'password' => bcrypt(12345),
+            'password' => 12345,
             'type' => $userType[random_int(0, 3)],
             'remember_token' => Str::random(10),
             'first_name' => $firstName,

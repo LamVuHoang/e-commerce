@@ -37,6 +37,13 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected function password(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => bcrypt(strval($value)),
+        );
+    }
+
     // public function seller()
     // {
     //     return $this->belongsTo(Seller::class, 'user_id', 'user_id');
