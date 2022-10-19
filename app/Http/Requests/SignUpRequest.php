@@ -27,7 +27,7 @@ class SignUpRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => ['required', 'unique:users,username'],
+            'username' => ['required', 'unique:users,username', 'min:3', 'max:20'],
             'password' => ['required', 'confirmed', 'min:5', 'max:20'],
             'password_confirmation' => ['required', 'min:5', 'max:20']
         ];
@@ -55,9 +55,9 @@ class SignUpRequest extends FormRequest
     {
         return [
             'required' => ':attribute is required',
-            // 'unique' => 'This :attribute already Signed up',
-            'max' => ':attribute not exceed :input characters',
-            'min' => ':attribute not under :input characters',
+            'unique' => 'This :attribute is already taken',
+            'max' => ':attribute not exceed :max characters',
+            'min' => ':attribute not under :min characters',
         ];
     }
 
