@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('type', ['Blocked', 'User', 'Seller', 'Admin'])->default('User');
             $table->string('first_name', 20)->nullable();
             $table->string('last_name', 50)->nullable();
-            $table->string('username', 20)->unique()->nullable();
+            $table->string('username', 20)->unique();
             $table->date('date_of_birth')->nullable();
             $table->string('phone', 20)->unique()->nullable();
             $table->string('mail', 50)->unique()->nullable();
