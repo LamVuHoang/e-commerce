@@ -20,11 +20,11 @@ class BannerFactory extends Factory
     {
         $rand = rand(1, 100);
         return [
-            'desktop_size' => 'https://picsum.photos/id/'.$rand.'/1920/350',
-            'mobile_size' => 'https://picsum.photos/id/'.$rand.'/500/250',
+            'desktop_image' => 'https://picsum.photos/id/'.$rand.'/1600/400',
+            'mobile_image' => 'https://picsum.photos/id/'.$rand.'/1600/900',
             'alt' => $this->faker->text(100),
-            'link' => 'http://localhost:8000/',
-            'state' => $this->faker->randomElement([true, false])         
+            'link' => '/',
+            'state' => $this->faker->randomElement([true, false]),
         ];
     }
 }

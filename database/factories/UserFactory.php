@@ -34,6 +34,7 @@ class UserFactory extends Factory
             'ward_id' => random_int(1, 1000),
             'address_detail' => fake()->text(500),
             'account_verified_at' => now(),
+            'avatar' => 'https://picsum.photos/id/'.rand(1, 100).'/500/500',
         ];
     }
 }

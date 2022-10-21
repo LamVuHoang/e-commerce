@@ -56,16 +56,26 @@ function index() {
                                 {width >= 1024 ? (
                                     <img
                                         key={index}
-                                        src={item.desktop_size}
+                                        src={item.desktop_image}
                                         alt={item.alt}
                                         className="w-full object-cover rounded-2xl"
+                                        onError={({ currentTarget }) => {
+                                            currentTarget.onerror = null; // prevents looping
+                                            currentTarget.src =
+                                                "https://via.placeholder.com/1600x400?text=No+Image";
+                                        }}
                                     />
                                 ) : (
                                     <img
                                         key={index}
-                                        src={item.mobile_size}
+                                        src={item.mobile_image}
                                         alt={item.alt}
                                         className="w-full object-cover rounded-2xl"
+                                        onError={({ currentTarget }) => {
+                                            currentTarget.onerror = null; // prevents looping
+                                            currentTarget.src =
+                                                "https://via.placeholder.com/1600x900?text=No+Image";
+                                        }}
                                     />
                                 )}
                             </a>

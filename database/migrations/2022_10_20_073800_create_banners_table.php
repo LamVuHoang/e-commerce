@@ -15,11 +15,16 @@ return new class extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
-            $table->string('desktop_size', 500);
-            $table->string('mobile_size', 500);
+            $table->string('desktop_image');
+            $table->string('mobile_image');
             $table->string('alt', 500)->nullable();
-            $table->string('link', 500)->nullable();
+            $table->string('link')->nullable();
             $table->boolean('state', [true, false])->default(true);
+            $table->bigInteger('created_by', false, true)->nullable()->default(null);
+
+            // Keys
+            $table->foreign('created_by')
+                ->references('user_id')->on('users')->onUpdate('cascade');
 
             $table->timestamps();
         });
