@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('alt', 500)->nullable();
             $table->string('link')->nullable();
             $table->boolean('state', [true, false])->default(true);
-            $table->bigInteger('created_by', false, true)->nullable()->default(null);
+            $table->integer('created_by', false, true)->nullable()->default(null);
 
             // Keys
             $table->foreign('created_by')
