@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'first_name' => $firstName,
             'last_name' => $lastName,
-            'username' => $firstName . $lastName,
+            'username' => strtolower($firstName . $lastName),
             'date_of_birth' => fake()->date('Y-m-d'),
             'phone' => fake()->unique()->phoneNumber(),
             'mail' => fake()->unique()->safeEmail(),

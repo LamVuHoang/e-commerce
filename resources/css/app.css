@@ -51,6 +51,10 @@ html {
    @apply hover:bg-gray-100 bg-gray-200 text-gray-700;
 }
 
+.my-button.my-button--smaller {
+   @apply py-2;
+}
+
 .my-shadow{
    box-shadow: 0 0 15px 0.5px rgba(0, 0, 0, 0.2);
 }
