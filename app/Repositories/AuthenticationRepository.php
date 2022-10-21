@@ -50,8 +50,11 @@ class AuthenticationRepository extends BaseRepository
         $user->password = $data['password'];
         $user->save();
 
+        $token = $user->createToken('authToken')->plainTextToken;;
+
         return [
             'message' => 'Sign Up Successfully',
+            'data' => $token,
             'status' => 200
         ];
     }
