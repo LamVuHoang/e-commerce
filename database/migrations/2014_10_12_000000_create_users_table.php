@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigInteger('user_id', true, true);
+            $table->integer('user_id', true, true);
             $table->string('password');
             $table->enum('type', ['Blocked', 'User', 'Seller', 'Admin'])->default('User');
             $table->string('first_name', 20)->nullable();
