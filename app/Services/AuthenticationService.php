@@ -26,7 +26,7 @@ class AuthenticationService extends BaseService
     {
         $data = $request->safe()->only(['contact', 'password']);
         $user = $this->_authenticationRepository->logIn($data);
-        // return $this->successResponse($user->password);
+        
         if (
             $user && Hash::check($data["password"], strval($user->password))
             && $user->type !== 'Blocked'

@@ -10,4 +10,11 @@ class BannerRepository extends BaseRepository
     {
         $this->query = Banner::query();
     }
+
+    public function getAll()
+    {
+        return $this->query
+            ->where('state', true)
+            ->get();
+    }
 }
