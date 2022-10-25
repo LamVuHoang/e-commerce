@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use Illuminate\Http\Request;
-use App\Http\Resources\BannerResource;
+use App\Services\BannerService;
 
 class BannerController extends Controller
 {
+    private BannerService $_bannerService;
+
+    public function __construct(BannerService $bannerService)
+    {
+        $this->_bannerService = $bannerService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +21,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $activeBanner = Banner::where('state', true);
-        return BannerResource::collection($activeBanner->get());
+        return $this->_bannerService->getAll();
     }
 
     /**
