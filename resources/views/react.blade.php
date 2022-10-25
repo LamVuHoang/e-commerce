@@ -16,7 +16,7 @@
     <!-- For React file  -->
     @vite('resources/js/app.jsx')
     <!-- For Tailwind CSS -->
-    @vite('resources/css/app.css')
+    @vite('resources/scss/app.scss')
 </head>
 
 <body class="antialiased">
