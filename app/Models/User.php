@@ -43,9 +43,4 @@ class User extends Authenticatable
             set: fn ($value) => bcrypt(strval($value)),
         );
     }
-
-    // public function seller()
-    // {
-    //     return $this->belongsTo(Seller::class, 'user_id', 'user_id');
-    // }
 }

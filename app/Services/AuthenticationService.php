@@ -2,12 +2,21 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
 use App\Repositories\AuthenticationRepository;
+use App\Http\Traits\ApiReponse;
 use Illuminate\Http\JsonResponse;
+
 
 class AuthenticationService extends BaseService
 {
+    use ApiReponse;
+
     private AuthenticationRepository $_authenticationRepository;
+
+
     public function __construct(AuthenticationRepository $authenticationRepository)
     {
         $this->_authenticationRepository = $authenticationRepository;
@@ -16,16 +25,21 @@ class AuthenticationService extends BaseService
     public function logIn($request): JsonResponse
     {
         $data = $request->safe()->only(['contact', 'password']);
-        $result = $this->_authenticationRepository->logIn($data);
+        $user = $this->_authenticationRepository->logIn($data);
+        // return $this->successResponse($user->password);
+        if (
+            $user && Hash::check($data["password"], strval($user->password))
+            && $user->type !== 'Blocked'
+        ) {
+            $token = $user->createToken('authToken')->plainTextToken;
 
-        if ($result["status"] == 200) return response()->json([
-            "data" => $result["data"],
-            "message" => $result["message"]
-        ], 200);
+            return $this->successResponse([
+                'token' => $token,
+                'type' => 'Bearer'
+            ], 'Log In Successfully');
+        }
 
-        return response()->json([
-            "message" => $result["message"]
-        ], $result["status"]);
+        return $this->failureResponse("Credentials is invalid");
     }
 
     public function signUp($request)
@@ -36,40 +50,38 @@ class AuthenticationService extends BaseService
             'password_confirmation',
         ]);
 
-        $result = $this->_authenticationRepository->signUp($data);
+        $user = $this->_authenticationRepository->signUp($data);
 
-        if ($result["status"] == 200) return response()->json([
-            "message" => $result["message"]
-        ], 200);
+        if ($user) {
+            $token = $user->createToken('authToken')->plainTextToken;;
 
-        return response()->json([
-            "message" => "Sign Up Unsuccessfully"
-        ], 400);
+            return $this->successResponse([
+                'token' => $token,
+                'type' => 'Bearer'
+            ], 'Sign Up Successfully');
+        }
+
+        return $this->failureResponse("Sign Up Unsuccessfully", 400);
     }
 
     public function logOut($request): JsonResponse
     {
         $result = $this->_authenticationRepository->logOut($request);
 
-        if ($result["status"] == 200) return response()->json([
-            "message" => $result["message"]
-        ], 200);
+        if ($result) {
+            return $this->successResponse([], 'Log out Successfully');
+        }
 
-        return response()->json([
-            "message" => "Logout Unsucessfully"
-        ], 400);
+        return $this->failureResponse("Logout Unsucessfully", 400);
     }
 
     public function userInformation($request): JsonResponse
     {
-        $result = $this->_authenticationRepository->userInformation($request);
+        $user = auth('sanctum')->user();
+        if ($user) {
+            return $this->successResponse(UserResource::make($user));
+        }
 
-        if ($result["status"] == 200) return response()->json([
-            "message" => $result["message"]
-        ], 200);
-
-        return response()->json([
-            "message" => "Error finding User"
-        ], 400);
+        return $this->failureResponse("Error finding User", 400);
     }
 }
