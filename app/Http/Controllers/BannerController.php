@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Http\Resources\BannerResource;
+use App\Repositories\BannerRepository;
 
 class BannerController extends Controller
 {
+    private BannerRepository $_bannerRepository;
+    public function __construct(BannerRepository $bannerRepository)
+    {
+        $this->_bannerRepository = $bannerRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +22,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $activeBanner = Banner::where('state', true);
-        return BannerResource::collection($activeBanner->get());
+        return $this->_bannerRepository->getBanners();
     }
 
     /**
