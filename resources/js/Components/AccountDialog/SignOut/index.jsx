@@ -33,13 +33,13 @@ function index(props) {
             </p>
             <div className="flex mt-2">
                 <button
-                    className="my-button my-button--primary mr-1"
+                    className="my-button my-button--primary mr-1 my-button--smaller"
                     onClick={confirmSignOut}
                 >
                     Yes
                 </button>
                 <button
-                    className="my-button my-button--secondary ml-1"
+                    className="my-button my-button--secondary ml-1 my-button--smaller"
                     onClick={cancelSignOut}
                 >
                     No

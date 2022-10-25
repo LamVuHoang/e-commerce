@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('seller', function (Blueprint $table) {
-            $table->bigInteger('id', true, true);
-            $table->bigInteger('user_id', false, true);
+            $table->integer('id', true, true);
+            $table->integer('user_id', false, true);
             $table->string('shop_name', 200);
             $table->string('phone', 20);
             $table->string('mail', 50);

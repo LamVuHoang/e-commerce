@@ -3,7 +3,6 @@ const noAvatar =
 
 export function fetchUser() {
     return async (dispatch) => {
-        console.log('fetchUser');
         let token = localStorage.getItem("token");
         const url = "http://localhost:8000/api/user-information";
         const config = {

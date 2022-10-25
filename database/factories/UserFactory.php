@@ -27,13 +27,14 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'first_name' => $firstName,
             'last_name' => $lastName,
-            'username' => $firstName . $lastName,
+            'username' => strtolower($firstName . $lastName),
             'date_of_birth' => fake()->date('Y-m-d'),
             'phone' => fake()->unique()->phoneNumber(),
             'mail' => fake()->unique()->safeEmail(),
             'ward_id' => random_int(1, 1000),
             'address_detail' => fake()->text(500),
             'account_verified_at' => now(),
+            'avatar' => 'https://picsum.photos/id/'.rand(1, 100).'/500/500',
         ];
     }
 }

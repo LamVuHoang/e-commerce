@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigInteger('user_id', true, true);
+            $table->integer('user_id', true, true);
             $table->string('password');
             $table->enum('type', ['Blocked', 'User', 'Seller', 'Admin'])->default('User');
             $table->string('first_name', 20)->nullable();
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('mail', 50)->unique()->nullable();
             $table->integer('ward_id', false, true)->nullable();
             $table->string('address_detail', 500)->nullable();
+            $table->string('avatar')->nullable();
 
             //Time stamp
             $table->timestamp('account_verified_at')->nullable();
