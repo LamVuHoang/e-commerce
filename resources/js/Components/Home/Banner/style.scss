@@ -1,14 +1,24 @@
-.slider-item--before{
-    position: absolute;
-    transform: translateX(-100vw);
-}
-.slider-item--after{
-    position: absolute;
-    transform: translateX(100vw);
-}
-.slider-item--current{
-    position: relative;
-}
-.slider-item{
-    transition: all 0.5s ease;
+.SliderWrapper {
+    .swiper-button-prev, .swiper-button-next {
+        color: white;
+    }
+
+    .swiper-button-prev:hover, .swiper-button-next:hover {
+        color: blue;
+    }
+
+    .swiper-pagination-bullet {
+        background: white;
+        width: 1rem;
+        height: 1rem;
+        border-radius: .5rem;
+        opacity: 1;
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: blue;
+        width: 5rem;
+        height: 1rem;
+        border-radius: .5rem;
+    }
 }

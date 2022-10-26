@@ -35,7 +35,7 @@ function index() {
     return (
         <>
             {/*  Carousel wrapper  */}
-            <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
+            <div className="relative h-56 overflow-hidden rounded-lg md:h-96 SliderWrapper">
                 <Swiper
                     // install Swiper modules
                     modules={[Navigation, Pagination, Autoplay, A11y]}
