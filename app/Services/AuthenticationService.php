@@ -26,7 +26,7 @@ class AuthenticationService extends BaseService
     {
         $data = $request->safe()->only(['contact', 'password']);
         $user = $this->_authenticationRepository->logIn($data);
-        
+
         if (
             $user && Hash::check($data["password"], strval($user->password))
             && $user->type !== 'Blocked'
@@ -36,7 +36,7 @@ class AuthenticationService extends BaseService
             return $this->successResponse([
                 'token' => $token,
                 'type' => 'Bearer'
-            ], 'Log In Successfully');
+            ], 'Log In Successfully', 201);
         }
 
         return $this->failureResponse("Credentials is invalid");
@@ -58,7 +58,7 @@ class AuthenticationService extends BaseService
             return $this->successResponse([
                 'token' => $token,
                 'type' => 'Bearer'
-            ], 'Sign Up Successfully');
+            ], 'Sign Up Successfully', 201);
         }
 
         return $this->failureResponse("Sign Up Unsuccessfully", 400);
@@ -72,7 +72,7 @@ class AuthenticationService extends BaseService
             return $this->successResponse([], 'Log out Successfully');
         }
 
-        return $this->failureResponse("Logout Unsucessfully", 400);
+        return $this->failureResponse("Logout Unsucessfully", 401);
     }
 
     public function userInformation($request): JsonResponse
@@ -82,6 +82,6 @@ class AuthenticationService extends BaseService
             return $this->successResponse(UserResource::make($user));
         }
 
-        return $this->failureResponse("Error finding User", 400);
+        return $this->failureResponse("Error finding User", 401);
     }
 }
