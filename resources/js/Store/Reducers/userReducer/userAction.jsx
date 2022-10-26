@@ -13,23 +13,23 @@ export function fetchUser() {
         axios
             .get(url, config)
             .then((response) => {
-                // console.log("res message", response.data.message);
+                // console.log("res message", response.data.data);
                 dispatch({
                     type: "UPDATE_USER",
                     payload: {
-                        userName: response.data.message.username,
+                        userName: response.data.data.username,
                         fullName:
-                            response.data.message.first_name +
+                            response.data.data.first_name +
                             " " +
-                            response.data.message.last_name,
-                        avatar: response.data.message.avatar || noAvatar,
-                        role: response.data.message.role,
+                            response.data.data.last_name,
+                        avatar: response.data.data.avatar || noAvatar,
+                        role: response.data.data.role,
                     },
                 });
-                // console.log("data", data);
+                // console.log("data", response.message.data);
             })
             .catch((error) => {
-                let message = error.response.data.message;
+                let message = error.response.data.data;
                 localStorage.removeItem("token");
                 dispatch({ type: "REMOVE_TOKEN" });
             });
