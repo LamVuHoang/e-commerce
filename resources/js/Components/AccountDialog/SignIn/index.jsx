@@ -15,7 +15,7 @@ function index(props) {
     const [invalid, setInvalid] = useState("");
 
     const onSubmit = (data) => {
-        const url = "http://localhost:8000/api/authentication";
+        const url = "http://localhost:8000/api/login";
         const payload = {
             params: {
                 contact: data.username,
@@ -23,7 +23,7 @@ function index(props) {
             },
         };
         axios
-            .get(url, payload)
+            .post(url, payload)
             .then((response) => {
                 // console.log(response.data);
                 localStorage.setItem("token", response.data.data.token || "");

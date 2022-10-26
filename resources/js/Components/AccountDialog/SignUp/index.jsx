@@ -16,7 +16,7 @@ function index(props) {
     const [invalid, setInvalid] = useState("");
 
     const onSubmit = (data) => {
-        const url = "http://localhost:8000/api/authentication";
+        const url = "http://localhost:8000/api/signup";
         if (data.password == data.confirm) {
             const payload = {
                 username: data.username,
