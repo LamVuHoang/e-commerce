@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./style.scss";
 // import Swiper core and required modules
@@ -9,29 +8,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllBanner } from "../../../Store/Actions/banner.action";
 
 function index() {
-    const [bannerList, setBannerList] = useState(null);
-
+    const dispatch = useDispatch();
     useEffect(() => {
-        const url = "http://localhost:8000/api/banner";
-        axios
-            .get(url)
-            .then((res) => {
-                if (
-                    typeof res.data.data == "object" &&
-                    res.data.data.length > 0
-                ) {
-                    setBannerList(res.data.data);
-                } else {
-                    setBannerList(null);
-                }
-            })
-            .catch((err) => {
-                setBannerList(null);
-            });
+        dispatch(getAllBanner());
     }, []);
-
+    const bannerList = useSelector((state) => state.bannerReducer.bannerList.data);
     return (
         <>
             {/*  Carousel wrapper  */}
