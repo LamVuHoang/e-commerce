@@ -6,7 +6,7 @@ function index(props) {
     const dispatch = useDispatch();
     const confirmSignOut = () => {
         let token = localStorage.getItem("token");
-        console.log(token);
+        // console.log(token);
         const url = "api/logout";
         const config = {
             headers: {

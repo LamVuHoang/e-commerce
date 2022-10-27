@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchUser } from "../../../Store/Reducers/userReducer/userAction";
+// import { fetchUser } from "../../../Store/Reducers/userReducer/userAction";
 import { useForm } from "react-hook-form";
 
 function index(props) {

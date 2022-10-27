@@ -3,15 +3,15 @@ import AccountDialog from "../AccountDialog/index";
 import { Link } from "react-router-dom";
 import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUser } from "../../Store/Reducers/userReducer/userAction";
+// import { fetchUser } from "../../Store/Reducers/userReducer/userAction";
 
 export default function index() {
-    const user = useSelector((state) => state.user);
-    const dispatch = useDispatch();
+    const user = useSelector((state) => state.userReducer.userInfo);
+    // const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(fetchUser());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(fetchUser());
+    // }, []);
 
     const [showDialog, setShowDialog] = useState(false);
     const [dialogTab, setDialogTab] = useState(0);

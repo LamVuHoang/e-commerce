@@ -22,6 +22,9 @@ Route::resource('banner', BannerController::class)->only([
     'index'
 ]);
 
+Route::get('user-test', [AuthenticationController::class, 'test']);
+
+
 // AUTHENTICATION REQUIRED
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [AdminAuthenticationController::class, 'destroy']);

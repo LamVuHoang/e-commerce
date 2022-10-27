@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchUser } from "../../../Store/Reducers/userReducer/userAction";
+// import { fetchUser } from "../../../Store/Reducers/userReducer/userAction";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
@@ -32,7 +32,7 @@ function index(props) {
                 })
                 .catch((error) => {
                     let message = error.response.data.message;
-                    console.log("msg", message);
+                    // console.log("msg", message);
                     if (typeof message === "object") {
                         if (message.username) {
                             setInvalid(message.username[0]);

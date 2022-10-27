@@ -35,4 +35,12 @@ class AuthenticationController extends Controller
     {
         return $this->_authenticationService->signUp($request);
     }
+
+    public function test()
+    {
+        return response()->json([
+            "code" => 200,
+            "data" => "Data Retreived Successfully"
+        ]);
+    }
 }
