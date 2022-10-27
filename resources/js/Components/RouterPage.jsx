@@ -13,7 +13,7 @@ export default function RouterPage() {
                     <Route path="/" element={<Home />} />
                     <Route path="/test" element={<Test />} />
                 </Routes>
-                {/* <Footer /> */}
+                <Footer />
             </BrowserRouter>
         </>
     );
