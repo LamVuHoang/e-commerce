@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 // import { fetchUser } from "../../../Store/Reducers/userReducer/userAction";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { userConstants } from "../../../Store/Constants";
 
 function index(props) {
     const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function index(props) {
                 .then((response) => {
                     // console.log(response.data);
                     dispatch(fetchUser());
-                    props.setTab(4);
+                    props.setTab(userConstants.SIGNUP_SUCCESSFULLY_TAB);
                 })
                 .catch((error) => {
                     let message = error.response.data.message;
@@ -124,7 +125,7 @@ function index(props) {
             <div className="block border-t-2 border-gray-300 my-3 w-1/2 mx-auto"></div>
             <button
                 className="my-button my-button--secondary mb-2 mt-1"
-                onClick={() => props.setTab(0)}
+                onClick={() => props.setTab(userConstants.LOGIN_TAB)}
             >
                 Sign In Now
             </button>

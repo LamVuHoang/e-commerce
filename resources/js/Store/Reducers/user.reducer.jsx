@@ -2,6 +2,7 @@ import { userConstants } from "../Constants";
 
 const initState = {
     userInfo: [],
+    newToken: []
 };
 
 const userReducer = (state = initState, action) => {
@@ -11,6 +12,11 @@ const userReducer = (state = initState, action) => {
                 ...state,
                 userInfo: action.payload.data,
             };
+        case userConstants.LOGIN_USER:
+            return {
+                ...state,
+                newToken: action.payload.data,
+            }
         default:
             return state;
     }

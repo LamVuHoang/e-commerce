@@ -3,18 +3,24 @@ import AccountDialog from "../AccountDialog/index";
 import { Link } from "react-router-dom";
 import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
-// import { fetchUser } from "../../Store/Reducers/userReducer/userAction";
+import { getUserInfo } from "../../Store/Actions/user.action";
+import { userConstants } from "../../Store/Constants";
 
 export default function index() {
-    const user = useSelector((state) => state.userReducer.userInfo);
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const [userInfo, setUserInfo] = useState(null);
 
-    // useEffect(() => {
-    //     dispatch(fetchUser());
-    // }, []);
+    const user = useSelector((state) => state.userReducer.userInfo);
+
+    useEffect(() => {
+        if (window.localStorage.getItem("token")) {
+            dispatch(getUserInfo());
+            setUserInfo(user.data);
+        }
+    }, [dispatch]);
 
     const [showDialog, setShowDialog] = useState(false);
-    const [dialogTab, setDialogTab] = useState(0);
+    const [dialogTab, setDialogTab] = useState(userConstants.LOGIN_TAB);
     const [cart, setCart] = useState([
         { price: 20, quantity: 1 },
         { price: 30, quantity: 1 },
@@ -94,128 +100,128 @@ export default function index() {
                 </form>
                 {/* user */}
                 <div className="flex items-center justify-center w-fit">
-                    {user != "unloaded" &&
-                        (user !== null ? (
-                            <div className="flex items-center relative user-button p-2 rounded-full hover:bg-gray-200 duration-200 ease-in grow-0 shrink-0">
-                                <img
-                                    src={user.avatar}
-                                    alt="user-img"
-                                    className="h-6 w-6 rounded-full object-cover"
+                    {userInfo ? (
+                        <div className="flex items-center relative user-button p-2 rounded-full hover:bg-gray-200 duration-200 ease-in grow-0 shrink-0">
+                            <img
+                                src={userInfo.avatar}
+                                alt="user-img"
+                                className="h-6 w-6 rounded-full object-cover"
+                            />
+                            <span className="mx-2 font-bold text-sm">
+                                {userInfo.first_name}
+                            </span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-3 h-3 ml-1 stroke-2"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M19.5 8.25l-7.5 7.5-7.5-7.5"
                                 />
-                                <span className="mx-2 font-bold text-sm">
-                                    {user.fullName.split(" ")[0]}
-                                </span>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-3 h-3 ml-1 stroke-2"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                                    />
-                                </svg>
-                                <div className="h-12 w-full absolute top-0 left-0 block cursor-pointer"></div>
-                                <div className="hidden absolute top-12 right-0 user-button-dropdown bg-white my-shadow w-60 text-left text-sm rounded-lg">
-                                    <Link to={"/test"}>
-                                        <div className="w-auto m-2 p-2 rounded-xl hover:bg-gray-200 cursor-pointer">
-                                            <div className="flex items-center">
-                                                <img
-                                                    src={user.avatar}
-                                                    alt="user-img"
-                                                    className="h-16 w-16 rounded-full object-cover"
-                                                />
-                                                <div className="ml-2">
-                                                    <div className="text-md font-bold one-line-text w-32">
-                                                        <span>
-                                                            {user.fullName}
-                                                        </span>
-                                                    </div>
-                                                    {user.userName && (
-                                                        <div className="text-xs font-medium one-line-text w-32">
-                                                            @{user.userName}
-                                                        </div>
-                                                    )}
+                            </svg>
+                            <div className="h-12 w-full absolute top-0 left-0 block cursor-pointer"></div>
+                            <div className="hidden absolute top-12 right-0 user-button-dropdown bg-white my-shadow w-60 text-left text-sm rounded-lg">
+                                <Link to={"/test"}>
+                                    <div className="w-auto m-2 p-2 rounded-xl hover:bg-gray-200 cursor-pointer">
+                                        <div className="flex items-center">
+                                            <img
+                                                src={user.avatar}
+                                                alt="user-img"
+                                                className="h-16 w-16 rounded-full object-cover"
+                                            />
+                                            <div className="ml-2">
+                                                <div className="text-md font-bold one-line-text w-32">
+                                                    <span>
+                                                        {user.first_name}{" "}
+                                                        {user.last_name}
+                                                    </span>
                                                 </div>
+                                                {user.username && (
+                                                    <div className="text-xs font-medium one-line-text w-32">
+                                                        @{user.username}
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
-                                    </Link>
-                                    {user.role === "admin" && (
-                                        <>
-                                            <div className="break-content"></div>
-                                            <div
-                                                href=""
-                                                className="user-button-dropdown-item"
-                                            >
-                                                Admin Dashboard
-                                            </div>
-                                        </>
-                                    )}
-                                    {user.role === "seller" && (
-                                        <>
-                                            <div className="break-content"></div>
-                                            <div
-                                                href=""
-                                                className="user-button-dropdown-item"
-                                            >
-                                                Your shop
-                                            </div>
-                                        </>
-                                    )}
-                                    <div className="break-content"></div>
-                                    <div className="user-button-dropdown-item">
-                                        Order History
                                     </div>
-                                    <div className="user-button-dropdown-item">
-                                        Notification
-                                    </div>
-                                    <div className="user-button-dropdown-item">
-                                        Product reviews
-                                    </div>
-                                    <div className="break-content"></div>
-                                    <div
-                                        className="user-button-dropdown-item"
-                                        onClick={signOut}
-                                    >
-                                        Sign out
-                                    </div>
-                                    <div className="w-full h-2 block"></div>
+                                </Link>
+                                {user.role === "Admin" && (
+                                    <>
+                                        <div className="break-content"></div>
+                                        <div
+                                            href=""
+                                            className="user-button-dropdown-item"
+                                        >
+                                            Admin Dashboard
+                                        </div>
+                                    </>
+                                )}
+                                {user.role === "Seller" && (
+                                    <>
+                                        <div className="break-content"></div>
+                                        <div
+                                            href=""
+                                            className="user-button-dropdown-item"
+                                        >
+                                            Your shop
+                                        </div>
+                                    </>
+                                )}
+                                <div className="break-content"></div>
+                                <div className="user-button-dropdown-item">
+                                    Order History
                                 </div>
-                            </div>
-                        ) : (
-                            <button
-                                className="flex items-center relative user-button py-1 px-2 rounded-full hover:bg-gray-200 duration-200 ease-in"
-                                onClick={() => setShowDialog(true)}
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-5 h-5"
+                                <div className="user-button-dropdown-item">
+                                    Notification
+                                </div>
+                                <div className="user-button-dropdown-item">
+                                    Product reviews
+                                </div>
+                                <div className="break-content"></div>
+                                <div
+                                    className="user-button-dropdown-item"
+                                    onClick={signOut}
                                 >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
-                                    />
-                                </svg>
-
-                                <div className="flex flex-col pl-2">
-                                    <span className="text-left font-bold text-sm -mb-1">
-                                        Sign in
-                                    </span>
-                                    <span className="text-left text-xs">
-                                        or Sign up
-                                    </span>
+                                    Sign out
                                 </div>
-                            </button>
-                        ))}
+                                <div className="w-full h-2 block"></div>
+                            </div>
+                        </div>
+                    ) : (
+                        <button
+                            className="flex items-center relative user-button py-1 px-2 rounded-full hover:bg-gray-200 duration-200 ease-in"
+                            onClick={() => setShowDialog(true)}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-5 h-5"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                                />
+                            </svg>
+
+                            <div className="flex flex-col pl-2">
+                                <span className="text-left font-bold text-sm -mb-1">
+                                    Sign in
+                                </span>
+                                <span className="text-left text-xs">
+                                    or Sign up
+                                </span>
+                            </div>
+                        </button>
+                    )}
                     <button className="ml-1 flex items-center rounded-full hover:bg-gray-200 duration-200 ease-in">
                         <div className="relative p-2">
                             <svg

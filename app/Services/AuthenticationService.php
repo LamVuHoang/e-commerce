@@ -39,7 +39,7 @@ class AuthenticationService extends BaseService
             ], 'Log In Successfully', 201);
         }
 
-        return $this->failureResponse("Credentials is invalid");
+        return $this->failureResponse("Credentials is invalid", 200);
     }
 
     public function signUp($request)

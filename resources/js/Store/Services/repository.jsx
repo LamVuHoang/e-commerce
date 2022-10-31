@@ -46,6 +46,7 @@ class Repository {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${this.token}`,
+                    // "content-type": "text/json",
                 },
             })
             .then((res) => {

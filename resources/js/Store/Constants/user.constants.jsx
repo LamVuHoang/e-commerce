@@ -1,4 +1,12 @@
 export const userConstants = {
+    // Data
     GET_USER_INFO: "GET_USER_INFO",
-    UPDATE_USER: "UPDATE_USER",
+    LOGIN_USER: "LOGIN_USER",
+    
+    // Tab
+    LOGIN_TAB: "LOGIN_TAB",
+    SIGNUP_TAB: "SIGNUP_TAB",
+    SIGNOUT_TAB: "SIGNOUT_TAB",
+    WAITING_TAB: "WAITING_TAB",
+    SIGNUP_SUCCESSFULLY_TAB: "SIGNUP_SUCCESSFULLY_TAB",
 };

@@ -1,52 +1,84 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-// import { fetchUser } from "../../../Store/Reducers/userReducer/userAction";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-
+import { getUserInfo, logInUser } from "../../../Store/Actions/user.action";
+import { exceptionConstants, userConstants } from "../../../Store/Constants";
 function index(props) {
     const dispatch = useDispatch();
-
+    const [invalid, setInvalid] = useState("");
     const {
         register,
         formState: { errors },
         handleSubmit,
     } = useForm();
 
-    const [invalid, setInvalid] = useState("");
+    const newlogInResult = useSelector((state) => state.userReducer.newToken);
+    useEffect(() => {
+        if (newlogInResult.status === exceptionConstants.SUCCESS) {
+            // If INVALID CREDENTIALS
+            let message = newlogInResult.message;
+            if (typeof message === "object") {
+                if (message.contact) {
+                    setInvalid(message.contact[0]);
+                } else if (message.password) {
+                    setInvalid(message.password[0]);
+                }
+            } else {
+                setInvalid(message);
+            }
+        } else if (newlogInResult.status === exceptionConstants.CREATED) {
+            // LOGIN SUCCESSFULLY
+            window.localStorage.setItem("token", newlogInResult.data.token);
+
+            props.setTab(userConstants.WAITING_TAB);
+            setTimeout(() => {
+                props.setShow(false);
+                props.setTab(userConstants.LOGIN_TAB);
+            }, 1000);
+            // dispatch(getUserInfo());
+        }
+    }, [newlogInResult]);
 
     const onSubmit = (data) => {
-        const url = "http://localhost:8000/api/login";
-        const payload = {
-            params: {
-                contact: data.username,
-                password: data.password,
-            },
+        const params = {
+            contact: data.username,
+            password: data.password,
         };
-        axios
-            .post(url, payload)
-            .then((response) => {
-                // console.log(response.data);
-                localStorage.setItem("token", response.data.data.token || "");
-                dispatch(fetchUser());
 
-                props.setTab(3);
-                setTimeout(() => {
-                    props.setShow(false);
-                    props.setTab(0);
-                }, 1000);
-            })
-            .catch((error) => {
-                let message = error.response.data.message;
-                if (typeof message === "object") {
-                    if (message.contact) {
-                        setInvalid(message.contact[0]);
-                    } else if (message.password) {
-                        setInvalid(message.password[0]);
-                    }
-                } else {
-                    setInvalid(message);
-                }
-            });
+        dispatch(logInUser(params));
+
+        // const url = "http://localhost:8000/api/login";
+        // const payload = {
+        //     params: {
+        //         contact: data.username,
+        //         password: data.password,
+        //     },
+        // };
+        // axios
+        //     .post(url, payload)
+        //     .then((response) => {
+        //         // console.log(response.data);
+        //         localStorage.setItem("token", response.data.data.token || "");
+        //         dispatch(fetchUser());
+
+        //         props.setTab(3);
+        //         setTimeout(() => {
+        //             props.setShow(false);
+        //             props.setTab(0);
+        //         }, 1000);
+        //     })
+        //     .catch((error) => {
+        //         let message = error.response.data.message;
+        //         if (typeof message === "object") {
+        //             if (message.contact) {
+        //                 setInvalid(message.contact[0]);
+        //             } else if (message.password) {
+        //                 setInvalid(message.password[0]);
+        //             }
+        //         } else {
+        //             setInvalid(message);
+        //         }
+        //     });
     };
 
     return (
@@ -113,7 +145,7 @@ function index(props) {
 
             <button
                 className="my-button my-button--secondary mb-2 mt-1"
-                onClick={() => props.setTab(1)}
+                onClick={() => props.setTab(userConstants.SIGNUP_TAB)}
             >
                 Sign Up Now
             </button>

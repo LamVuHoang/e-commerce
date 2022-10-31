@@ -17,3 +17,18 @@ export const getUserInfo = () => {
         return response;
     };
 };
+
+export const logInUser = (data) => {
+    return async (dispatch) => {
+        const response = await userService.logInUser(data)
+        if(response.code === exceptionConstants.SUCCESS ||
+            response.code === exceptionConstants.CREATED) {
+            dispatch({
+                type: userConstants.LOGIN_USER,
+                payload: {
+                    data: response.data
+                }
+            })
+        }
+    }
+}

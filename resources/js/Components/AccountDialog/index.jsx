@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import SignIn from "./SignIn/index";
 import SignUp from "./SignUp/index";
 import SignOut from "./SignOut/index";
+import { userConstants } from "../../Store/Constants";
 
 function index(props) {
     const [show, setShow] = useState(false);
-    const [tab, setTab] = useState(props.tab || 0); // 0: SignIn, 1: SignUp, 2: SignOut, 3: Waiting, 4: SignUp success
+    const [tab, setTab] = useState(props.tab || userConstants.LOGIN_TAB); // 0: SignIn, 1: SignUp, 2: SignOut, 3: Waiting, 4: SignUp success
     useEffect(() => {
         setShow(props.show);
         setTab(props.tab);
     }, [props]);
     const closeDialog = () => {
         props.setShow(false);
-        props.setTab(0);
+        props.setTab(userConstants.LOGIN_TAB);
     };
     return (
         <>
@@ -45,16 +46,16 @@ function index(props) {
                             />
                         </svg>
                     )}
-                    {tab == 0 ? (
+                    {tab == userConstants.LOGIN_TAB ? (
                         <SignIn setShow={props.setShow} setTab={props.setTab} />
-                    ) : tab == 1 ? (
+                    ) : tab == userConstants.SIGNUP_TAB ? (
                         <SignUp setShow={props.setShow} setTab={props.setTab} />
-                    ) : tab == 2 ? (
+                    ) : tab == userConstants.SIGNOUT_TAB ? (
                         <SignOut
                             setShow={props.setShow}
                             setTab={props.setTab}
                         />
-                    ) : tab == 3 ? (
+                    ) : tab == userConstants.WAITING_TAB ? (
                         <div className="w-full h-full flex flex-col items-center justify-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +97,9 @@ function index(props) {
                             </p>
                             <button
                                 className="my-button my-button--primary mb-2 mt-3"
-                                onClick={() => props.setTab(0)}
+                                onClick={() =>
+                                    props.setTab(userConstants.LOGIN_TAB)
+                                }
                             >
                                 Sign In Now
                             </button>
