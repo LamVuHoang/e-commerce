@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import AccountDialog from "../AccountDialog/index";
 import { Link } from "react-router-dom";
 import "./style.css";
@@ -8,16 +8,18 @@ import { userConstants } from "../../Store/Constants";
 
 export default function index() {
     const dispatch = useDispatch();
-    const [userInfo, setUserInfo] = useState(null);
-
-    const user = useSelector((state) => state.userReducer.userInfo);
-
+    
+    let userInfo = null;
+    if (window.localStorage.getItem("token")) {
+        userInfo = useSelector(
+            (state) => state.userReducer.userInfo.data
+        );
+    }
     useEffect(() => {
         if (window.localStorage.getItem("token")) {
             dispatch(getUserInfo());
-            setUserInfo(user.data);
         }
-    }, [dispatch]);
+    }, []);
 
     const [showDialog, setShowDialog] = useState(false);
     const [dialogTab, setDialogTab] = useState(userConstants.LOGIN_TAB);
@@ -27,15 +29,13 @@ export default function index() {
     ]);
 
     const priceCal = () => {
-        let total = 0;
-        cart.forEach((item) => {
-            total += item.price * item.quantity;
-        });
-        return total;
+        return cart.reduce((prev, item) => {
+            return prev + item.price * item.quantity;
+        }, 0);
     };
 
     const signOut = () => {
-        setDialogTab(2);
+        setDialogTab(userConstants.SIGNOUT_TAB);
         setShowDialog(true);
     };
 
@@ -130,27 +130,27 @@ export default function index() {
                                     <div className="w-auto m-2 p-2 rounded-xl hover:bg-gray-200 cursor-pointer">
                                         <div className="flex items-center">
                                             <img
-                                                src={user.avatar}
+                                                src={userInfo.avatar}
                                                 alt="user-img"
                                                 className="h-16 w-16 rounded-full object-cover"
                                             />
                                             <div className="ml-2">
                                                 <div className="text-md font-bold one-line-text w-32">
                                                     <span>
-                                                        {user.first_name}{" "}
-                                                        {user.last_name}
+                                                        {userInfo.first_name}{" "}
+                                                        {userInfo.last_name}
                                                     </span>
                                                 </div>
-                                                {user.username && (
+                                                {userInfo.username && (
                                                     <div className="text-xs font-medium one-line-text w-32">
-                                                        @{user.username}
+                                                        @{userInfo.username}
                                                     </div>
                                                 )}
                                             </div>
                                         </div>
                                     </div>
                                 </Link>
-                                {user.role === "Admin" && (
+                                {userInfo.role === "Admin" && (
                                     <>
                                         <div className="break-content"></div>
                                         <div
@@ -161,7 +161,7 @@ export default function index() {
                                         </div>
                                     </>
                                 )}
-                                {user.role === "Seller" && (
+                                {userInfo.role === "Seller" && (
                                     <>
                                         <div className="break-content"></div>
                                         <div
@@ -239,7 +239,7 @@ export default function index() {
                                 />
                             </svg>
                         </div>
-                        {cart.length > 0 ? (
+                        {cart && cart.length > 0 ? (
                             <div className="flex flex-col relative md:pr-2">
                                 <span className="text-left font-bold text-sm -mb-1">
                                     ${priceCal()}

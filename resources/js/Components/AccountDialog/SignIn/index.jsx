@@ -35,8 +35,13 @@ function index(props) {
                 props.setShow(false);
                 props.setTab(userConstants.LOGIN_TAB);
             }, 1000);
-            // dispatch(getUserInfo());
+            if (window.localStorage.getItem("token")) {
+                dispatch(getUserInfo());
+            }
         }
+
+        // return () => {
+        // };
     }, [newlogInResult]);
 
     const onSubmit = (data) => {
@@ -46,39 +51,6 @@ function index(props) {
         };
 
         dispatch(logInUser(params));
-
-        // const url = "http://localhost:8000/api/login";
-        // const payload = {
-        //     params: {
-        //         contact: data.username,
-        //         password: data.password,
-        //     },
-        // };
-        // axios
-        //     .post(url, payload)
-        //     .then((response) => {
-        //         // console.log(response.data);
-        //         localStorage.setItem("token", response.data.data.token || "");
-        //         dispatch(fetchUser());
-
-        //         props.setTab(3);
-        //         setTimeout(() => {
-        //             props.setShow(false);
-        //             props.setTab(0);
-        //         }, 1000);
-        //     })
-        //     .catch((error) => {
-        //         let message = error.response.data.message;
-        //         if (typeof message === "object") {
-        //             if (message.contact) {
-        //                 setInvalid(message.contact[0]);
-        //             } else if (message.password) {
-        //                 setInvalid(message.password[0]);
-        //             }
-        //         } else {
-        //             setInvalid(message);
-        //         }
-        //     });
     };
 
     return (

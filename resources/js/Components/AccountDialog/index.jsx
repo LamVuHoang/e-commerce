@@ -63,7 +63,7 @@ function index(props) {
                                 viewBox="0 0 24 24"
                                 stroke-width="1.5"
                                 stroke="currentColor"
-                                class="w-10 h-10 animate-spin text-gray-500"
+                                className="w-10 h-10 animate-spin text-gray-500"
                             >
                                 <path
                                     stroke-linecap="round"
@@ -84,7 +84,7 @@ function index(props) {
                                 viewBox="0 0 24 24"
                                 stroke-width="1.5"
                                 stroke="currentColor"
-                                class="w-10 h-10 text-green-500"
+                                className="w-10 h-10 text-green-500"
                             >
                                 <path
                                     stroke-linecap="round"

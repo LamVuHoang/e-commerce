@@ -5,7 +5,9 @@ import { getUserInfo } from "../../Store/Actions/user.action";
 export default function index() {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getUserInfo());
+        if (window.localStorage.getItem("token")) {
+            dispatch(getUserInfo());
+        }
     }, []);
     const data = useSelector((state) => state.userReducer);
 
