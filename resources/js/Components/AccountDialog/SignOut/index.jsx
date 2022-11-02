@@ -22,6 +22,10 @@ function index(props) {
             props.setShow(false);
             props.setTab(userConstants.LOGIN_TAB);
         }, 300);
+
+        return () => {
+            dispatch(getUserInfo());
+        };
     };
     const cancelSignOut = () => {
         props.setShow(false);

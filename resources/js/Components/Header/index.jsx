@@ -8,17 +8,12 @@ import { userConstants } from "../../Store/Constants";
 
 export default function index() {
     const dispatch = useDispatch();
-    
-    let userInfo = null;
-    if (window.localStorage.getItem("token")) {
-        userInfo = useSelector(
-            (state) => state.userReducer.userInfo.data
-        );
-    }
+
+    let userInfo = useSelector((state) => state.userReducer.userInfo.data);
+    // if (!userInfo) return;
+
     useEffect(() => {
-        if (window.localStorage.getItem("token")) {
-            dispatch(getUserInfo());
-        }
+        dispatch(getUserInfo());
     }, []);
 
     const [showDialog, setShowDialog] = useState(false);

@@ -35,9 +35,7 @@ function index(props) {
                 props.setShow(false);
                 props.setTab(userConstants.LOGIN_TAB);
             }, 1000);
-            if (window.localStorage.getItem("token")) {
-                dispatch(getUserInfo());
-            }
+            dispatch(getUserInfo());
         }
 
         // return () => {
