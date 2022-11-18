@@ -7,10 +7,11 @@ const initState = {
 
 const tabReducer = (state = initState, action) => {
     switch (action.type) {
-        case tabConstants.LOGIN_TAB:
+
+        case tabConstants.CHANGE_TAB_NAME:
             return {
                 ...state,
-                tabName: action.type
+                tabName: action.payload
             }
             break;
 
@@ -20,6 +21,7 @@ const tabReducer = (state = initState, action) => {
                 ...state,
                 tabStatus: !state.tabStatus
             }
+            break
         default:
             return state;
             break;

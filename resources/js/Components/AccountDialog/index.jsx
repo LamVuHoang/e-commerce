@@ -9,40 +9,45 @@ import { changeTabStatus } from "../../Store/Actions/tab.action";
 
 function index(props) {
     const [show, setShow] = useState(false);
-    const [tab, setTab] = useState(props.tab || tabConstants.LOGIN_TAB);
+    
+    // const [tab, setTab] = useState(props.tab || tabConstants.LOGIN_TAB);
     // 0: SignIn, 1: SignUp, 2: SignOut, 3: Waiting, 4: SignUp success
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setShow(props.show);
-        setTab(props.tab);
+        // setTab(props.tab);
     }, [props]);
 
     const closeDialog = () => {
-        dispatch(changeTabStatus())
+        dispatch(changeTabStatus());
+        dispatch({
+            type: tabConstants.CHANGE_TAB_NAME,
+            payload: tabConstants.LOGIN_TAB,
+        });
     };
 
-    const tabStatus = useSelector((state) => state.tabReducer.tabStatus);
+    const tab = useSelector((state) => state.tabReducer);
 
     return (
         <>
             <Modal
                 className={`top-0 left-0 right-0 bottom-0 modal-filter fixed items-center flex flex-col my-dialog ${
-                    tabStatus ? "my-dialog--show" : "my-dialog--hide"
+                    tab?.tabStatus ? "my-dialog--show" : "my-dialog--hide"
                 }`}
             >
                 <div
                     className={`h-fit bg-white mt-32 p-4 rounded-2xl my-shadow relative ${
-                        tab != tabConstants.SIGNOUT_TAB &&
-                        tab != tabConstants.WAITING_TAB
+                        tab.tabName != tabConstants.SIGNOUT_TAB &&
+                        tab.tabName != tabConstants.WAITING_TAB
                             ? "lg:w-1/3 md:w-1/2 sm:w-2/3 w-5/6"
                             : "xl:w-1/5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-5/6"
                     }`}
                 >
                     {tab != tabConstants.SIGNOUT_TAB &&
-                        tab != tabConstants.WAITING_TAB &&
-                        tab != tabConstants.SIGNUP_SUCCESSFULLY_TAB && (
+                        tab.tabName != tabConstants.WAITING_TAB &&
+                        tab.tabName != tabConstants.SIGNUP_SUCCESSFULLY_TAB && (
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -59,16 +64,16 @@ function index(props) {
                                 />
                             </svg>
                         )}
-                    {tab == tabConstants.LOGIN_TAB ? (
+                    {tab.tabName == tabConstants.LOGIN_TAB ? (
                         <SignIn setShow={props.setShow} setTab={props.setTab} />
-                    ) : tab == tabConstants.SIGNUP_TAB ? (
+                    ) : tab.tabName == tabConstants.SIGNUP_TAB ? (
                         <SignUp setShow={props.setShow} setTab={props.setTab} />
-                    ) : tab == tabConstants.SIGNOUT_TAB ? (
+                    ) : tab.tabName == tabConstants.SIGNOUT_TAB ? (
                         <SignOut
                             setShow={props.setShow}
                             setTab={props.setTab}
                         />
-                    ) : tab == tabConstants.WAITING_TAB ? (
+                    ) : tab.tabName == tabConstants.WAITING_TAB ? (
                         <div className="w-full h-full flex flex-col items-center justify-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -110,9 +115,9 @@ function index(props) {
                             </p>
                             <button
                                 className="my-button my-button--primary mb-2 mt-3"
-                                onClick={() =>
-                                    props.setTab(tabConstants.LOGIN_TAB)
-                                }
+                                onClick={() => {
+                                    // props.setTab(tabConstants.LOGIN_TAB)
+                                }}
                             >
                                 Sign In Now
                             </button>

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 // import { fetchUser } from "../../../Store/Reducers/authenticationReducer/userAction";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { authenticationConstants } from "../../../Store/Constants";
+import { authenticationConstants, tabConstants } from "../../../Store/Constants";
 
 function index(props) {
     const dispatch = useDispatch();
@@ -49,6 +49,12 @@ function index(props) {
         }
     };
 
+    const handleClickLogInTab = () => {
+        dispatch({
+            type: tabConstants.CHANGE_TAB_NAME,
+            payload: tabConstants.LOGIN_TAB,
+        });
+    };
     return (
         <>
             <p className="text-xl font-bold text-center py-3">Sign Up</p>
@@ -125,7 +131,7 @@ function index(props) {
             <div className="block border-t-2 border-gray-300 my-3 w-1/2 mx-auto"></div>
             <button
                 className="my-button my-button--secondary mb-2 mt-1"
-                onClick={() => props.setTab(tabConstants.LOGIN_TAB)}
+                onClick={handleClickLogInTab}
             >
                 Sign In Now
             </button>

@@ -7,3 +7,12 @@ export const changeTabStatus = () => {
         })
     }
 };
+
+export const changeTabName = (tabName) => {
+    return async (dispatch) => {
+        dispatch({
+            type: tabConstants.CHANGE_TAB_NAME,
+            payload: tabName
+        })
+    }
+};

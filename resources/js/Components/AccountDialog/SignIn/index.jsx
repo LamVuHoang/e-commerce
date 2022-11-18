@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { getUserInfo, logInUser } from "../../../Store/Actions/authentication.action";
-import { exceptionConstants, authenticationConstants } from "../../../Store/Constants";
+import {
+    getUserInfo,
+    logInUser,
+} from "../../../Store/Actions/authentication.action";
+import {
+    exceptionConstants,
+    authenticationConstants,
+    tabConstants,
+} from "../../../Store/Constants";
 function index(props) {
     const dispatch = useDispatch();
     const [invalid, setInvalid] = useState("");
@@ -12,7 +19,9 @@ function index(props) {
         handleSubmit,
     } = useForm();
 
-    const newlogInResult = useSelector((state) => state.authenticationReducer.newToken);
+    const newlogInResult = useSelector(
+        (state) => state.authenticationReducer.newToken
+    );
     useEffect(() => {
         if (newlogInResult.status === exceptionConstants.SUCCESS) {
             // If INVALID CREDENTIALS
@@ -51,6 +60,12 @@ function index(props) {
         dispatch(logInUser(params));
     };
 
+    const handleClickSignUpTab = () => {
+        dispatch({
+            type: tabConstants.CHANGE_TAB_NAME,
+            payload: tabConstants.SIGNUP_TAB,
+        });
+    };
     return (
         <>
             <p className="text-xl font-bold text-center py-3">Sign In</p>
@@ -115,7 +130,7 @@ function index(props) {
 
             <button
                 className="my-button my-button--secondary mb-2 mt-1"
-                onClick={() => props.setTab(tabConstants.SIGNUP_TAB)}
+                onClick={handleClickSignUpTab}
             >
                 Sign Up Now
             </button>
