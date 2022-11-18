@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { userConstants } from "../../../Store/Constants";
+import { authenticationConstants } from "../../../Store/Constants";
 
 function index(props) {
     const dispatch = useDispatch();
@@ -15,12 +15,12 @@ function index(props) {
             },
         };
         axios.post(url, {}, config);
-        props.setTab(userConstants.WAITING_TAB);
+        props.setTab(tabConstants.WAITING_TAB);
         localStorage.removeItem("token");
         dispatch({ type: "REMOVE_TOKEN" });
         setTimeout(() => {
             props.setShow(false);
-            props.setTab(userConstants.LOGIN_TAB);
+            props.setTab(tabConstants.LOGIN_TAB);
         }, 300);
 
         return () => {
@@ -29,7 +29,7 @@ function index(props) {
     };
     const cancelSignOut = () => {
         props.setShow(false);
-        props.setTab(userConstants.LOGIN_TAB);
+        props.setTab(tabConstants.LOGIN_TAB);
     };
     return (
         <>

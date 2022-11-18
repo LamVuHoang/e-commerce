@@ -1,6 +1,6 @@
 import Repository from "./repository";
 
-class UserService {
+class AuthenticationService {
     async getUserInfo() {
         const endpoint = "/user-information";
         const response = await Repository.get(endpoint);
@@ -13,4 +13,4 @@ class UserService {
     }
 }
 
-export default new UserService();
+export default new AuthenticationService();

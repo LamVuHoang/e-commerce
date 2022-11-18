@@ -1,9 +1,9 @@
-export const userConstants = {
-    // Data
-    GET_USER_INFO: "GET_USER_INFO",
-    LOGIN_USER: "LOGIN_USER",
-    
-    // Tab
+export const tabConstants = {
+
+    // Status
+    CHANGE_TAB_STATUS: "TAB_STATUS",
+
+    // Type
     LOGIN_TAB: "LOGIN_TAB",
     SIGNUP_TAB: "SIGNUP_TAB",
     SIGNOUT_TAB: "SIGNOUT_TAB",

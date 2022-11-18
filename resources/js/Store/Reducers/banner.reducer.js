@@ -11,8 +11,10 @@ const bannerReducer = (state = initState, action) => {
                 ...state,
                 bannerList: action.payload.data,
             };
+            break;
         default:
             return state;
+            break;
     }
 };
 

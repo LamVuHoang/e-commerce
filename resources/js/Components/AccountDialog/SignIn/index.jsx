@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { getUserInfo, logInUser } from "../../../Store/Actions/user.action";
-import { exceptionConstants, userConstants } from "../../../Store/Constants";
+import { getUserInfo, logInUser } from "../../../Store/Actions/authentication.action";
+import { exceptionConstants, authenticationConstants } from "../../../Store/Constants";
 function index(props) {
     const dispatch = useDispatch();
     const [invalid, setInvalid] = useState("");
@@ -12,7 +12,7 @@ function index(props) {
         handleSubmit,
     } = useForm();
 
-    const newlogInResult = useSelector((state) => state.userReducer.newToken);
+    const newlogInResult = useSelector((state) => state.authenticationReducer.newToken);
     useEffect(() => {
         if (newlogInResult.status === exceptionConstants.SUCCESS) {
             // If INVALID CREDENTIALS
@@ -30,10 +30,10 @@ function index(props) {
             // LOGIN SUCCESSFULLY
             window.localStorage.setItem("token", newlogInResult.data.token);
 
-            props.setTab(userConstants.WAITING_TAB);
+            props.setTab(tabConstants.WAITING_TAB);
             setTimeout(() => {
                 props.setShow(false);
-                props.setTab(userConstants.LOGIN_TAB);
+                props.setTab(tabConstants.LOGIN_TAB);
             }, 1000);
             dispatch(getUserInfo());
         }
@@ -115,7 +115,7 @@ function index(props) {
 
             <button
                 className="my-button my-button--secondary mb-2 mt-1"
-                onClick={() => props.setTab(userConstants.SIGNUP_TAB)}
+                onClick={() => props.setTab(tabConstants.SIGNUP_TAB)}
             >
                 Sign Up Now
             </button>
