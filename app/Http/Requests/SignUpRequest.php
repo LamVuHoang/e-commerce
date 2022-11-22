@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Traits\ApiReponse;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -9,6 +10,7 @@ use Illuminate\Validation\ValidationException;
 
 class SignUpRequest extends FormRequest
 {
+    use ApiReponse;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -64,8 +66,6 @@ class SignUpRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         $errors = (new ValidationException($validator))->errors();
-        throw new HttpResponseException(response()->json([
-            'message' => $errors,
-        ], 400));
+        throw new HttpResponseException($this->failureResponse($errors, 400));
     }
 }
