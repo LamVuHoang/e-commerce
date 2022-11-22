@@ -30,7 +30,7 @@ function index() {
             dispatch(changeTabName(tabConstants.WAITING_TAB));
 
             dispatch(changeLoginStatus(true));
-            window.localStorage.setItem("token", newlogInResult.data.token);
+            window.localStorage.setItem("token", newlogInResult.data.data.token);
 
             dispatch(changeTabStatus(false));
             dispatch(changeTabName(tabConstants.LOGIN_TAB));

@@ -16,6 +16,11 @@ class AuthenticationService {
         const response = await Repository.post(endpoint, data);
         return response;
     }
+    async logOutUser() {
+        const endpoint = "/logout";
+        const response = await Repository.post(endpoint);
+        return response;
+    }
 }
 
 export default new AuthenticationService();

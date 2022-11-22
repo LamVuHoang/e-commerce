@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../Store/Actions/authentication.action";
 import { changeTabName, changeTabStatus } from "../../Store/Actions/tab.action";
-import { tabConstants } from "../../Store/Constants";
+import { authenticationConstants, tabConstants } from "../../Store/Constants";
 
 export default function UserProfile() {
     const dispatch = useDispatch();
-    const noAvatar =
-        "https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/v937-aew-111_3.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=8ce2cd03f94f2baddcb332cfb50f78b9";
+    
     const userInfo = useSelector(
         (state) => state.authenticationReducer.userInfo.data
     );
@@ -32,7 +31,7 @@ export default function UserProfile() {
                 <div>
                     <div className="flex items-center relative user-button p-2 rounded-full hover:bg-gray-200 duration-200 ease-in grow-0 shrink-0">
                         <img
-                            src={userInfo.avatar}
+                            src={userInfo.avatar || authenticationConstants.NO_AVATAR}
                             alt="user-img"
                             className="h-6 w-6 rounded-full object-cover"
                         />
@@ -59,7 +58,7 @@ export default function UserProfile() {
                                 <div className="w-auto m-2 p-2 rounded-xl hover:bg-gray-200 cursor-pointer">
                                     <div className="flex items-center">
                                         <img
-                                            src={userInfo.avatar || noAvatar}
+                                            src={userInfo.avatar || authenticationConstants.NO_AVATAR}
                                             alt="user-img"
                                             className="h-16 w-16 rounded-full object-cover"
                                         />

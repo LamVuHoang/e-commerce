@@ -5,6 +5,7 @@ const initState = {
     userInfo: [],
     logInResult: [],
     signUpResult: [],
+    logOutResult: [],
 };
 
 const authenticationReducer = (state = initState, action) => {
@@ -33,7 +34,12 @@ const authenticationReducer = (state = initState, action) => {
                 logInStatus: action.payload,
             };
             break;
-
+        case authenticationConstants.LOGOUT_USER:
+            return {
+                ...state,
+                logOutResult: action.payload,
+            };
+            break;
         default:
             return state;
             break;

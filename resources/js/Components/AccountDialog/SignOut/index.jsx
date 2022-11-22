@@ -1,7 +1,10 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { tabConstants } from "../../../Store/Constants";
-import { changeLoginStatus } from "../../../Store/Actions/authentication.action";
+import {
+    changeLoginStatus,
+    logOutUser,
+} from "../../../Store/Actions/authentication.action";
 import {
     changeTabName,
     changeTabStatus,
@@ -9,7 +12,15 @@ import {
 
 function index() {
     const dispatch = useDispatch();
+
+    const logOutResult = useSelector(
+        (state) => state.authenticationReducer.logOutResult
+    );
+
+    console.log("logOutResult: ", logOutResult);
+
     const confirmSignOut = () => {
+        dispatch(logOutUser());
         window.localStorage.removeItem("token");
         dispatch(changeLoginStatus(false));
 

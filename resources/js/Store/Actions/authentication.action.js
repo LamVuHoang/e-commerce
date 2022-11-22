@@ -44,6 +44,20 @@ export const signUpUser = (data) => {
     };
 };
 
+export const logOutUser = () => {
+    return async (dispatch) => {
+        const response = await authenticationService.logOutUser();
+        dispatch({
+            type: authenticationConstants.LOGOUT_USER,
+            payload: {
+                data: response.data,
+                message: response.message,
+                code: response.code,
+            },
+        });
+    };
+};
+
 export const changeLoginStatus = (value) => {
     return async (dispatch) => {
         dispatch({
