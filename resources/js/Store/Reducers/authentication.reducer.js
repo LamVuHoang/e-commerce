@@ -1,9 +1,10 @@
 import { authenticationConstants } from "../Constants";
 
 const initState = {
-    logInStatus: false,
+    logInStatus: window.localStorage.getItem("token") ? true : false,
     userInfo: [],
-    newToken: [],
+    logInResult: [],
+    signUpResult: [],
 };
 
 const authenticationReducer = (state = initState, action) => {
@@ -17,20 +18,22 @@ const authenticationReducer = (state = initState, action) => {
         case authenticationConstants.LOGIN_USER:
             return {
                 ...state,
-                newToken: action.payload.data,
+                logInResult: action.payload,
             };
             break;
-        case authenticationConstants.LOGIN_ACTION:
+        case authenticationConstants.SIGNUP_USER:
             return {
                 ...state,
-                logInStatus: true,
+                signUpResult: action.payload,
             };
             break;
-        case authenticationConstants.LOGOUT_ACTION:
+        case authenticationConstants.CHANGE_LOGIN_STATUS:
             return {
                 ...state,
-                logInStatus: false,
+                logInStatus: action.payload,
             };
+            break;
+
         default:
             return state;
             break;

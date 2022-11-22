@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-// import { fetchUser } from "../../../Store/Reducers/authenticationReducer/userAction";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import axios from "axios";
-import { authenticationConstants, tabConstants } from "../../../Store/Constants";
+import { exceptionConstants, tabConstants } from "../../../Store/Constants";
+import {
+    changeLoginStatus,
+    signUpUser,
+} from "../../../Store/Actions/authentication.action";
+import { useEffect } from "react";
+import {
+    changeTabName,
+    changeTabStatus,
+} from "../../../Store/Actions/tab.action";
 
-function index(props) {
+function index() {
     const dispatch = useDispatch();
 
     const {
@@ -14,53 +21,42 @@ function index(props) {
         handleSubmit,
     } = useForm();
 
-    const [invalid, setInvalid] = useState("");
+    const [invalid, setInvalid] = useState([]);
+
+    const newSignUpResult = useSelector(
+        (state) => state.authenticationReducer.signUpResult
+    );
+
+    useEffect(() => {
+        if (newSignUpResult.code === exceptionConstants.CREATED) {
+            window.localStorage.setItem("token", newSignUpResult.data.data.token);
+            dispatch(changeLoginStatus(true));
+            dispatch(changeTabStatus(false));
+            dispatch(changeTabName(tabConstants.LOGIN_TAB));
+        }
+
+        setInvalid(newSignUpResult.message);
+    }, [newSignUpResult]);
 
     const onSubmit = (data) => {
-        const url = "http://localhost:8000/api/signup";
-        if (data.password == data.confirm) {
-            const payload = {
-                username: data.username,
-                password: data.password,
-                password_confirmation: data.confirm,
-            };
-            axios
-                .post(url, payload)
-                .then((response) => {
-                    // console.log(response.data);
-                    dispatch(fetchUser());
-                    props.setTab(authenticationConstants.SIGNUP_SUCCESSFULLY_TAB);
-                })
-                .catch((error) => {
-                    let message = error.response.data.message;
-                    // console.log("msg", message);
-                    if (typeof message === "object") {
-                        if (message.username) {
-                            setInvalid(message.username[0]);
-                        } else if (message.password) {
-                            setInvalid(message.password[0]);
-                        } else if (message.password_confirmation) {
-                            setInvalid(message.password_confirmation[0]);
-                        }
-                    }
-                });
-        } else {
-            setInvalid("Passwords do not matched!");
-        }
+        const payload = {
+            username: data.username,
+            password: data.password,
+            password_confirmation: data.confirm,
+        };
+
+        dispatch(signUpUser(payload));
     };
 
     const handleClickLogInTab = () => {
-        dispatch({
-            type: tabConstants.CHANGE_TAB_NAME,
-            payload: tabConstants.LOGIN_TAB,
-        });
+        dispatch(changeTabName(tabConstants.LOGIN_TAB));
     };
     return (
         <>
             <p className="text-xl font-bold text-center py-3">Sign Up</p>
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                onChange={() => setInvalid(false)}
+                onChange={() => setInvalid([])}
             >
                 <input
                     type="text"
@@ -73,6 +69,11 @@ function index(props) {
                 {errors.username && (
                     <p role="alert" className="mt-1 text-red-800 px-3 text-xs">
                         {errors.username.message}
+                    </p>
+                )}
+                {invalid?.username && (
+                    <p role="alert" className="mt-1 text-red-800 px-3 text-xs">
+                        {invalid?.username}
                     </p>
                 )}
                 <input
@@ -101,7 +102,12 @@ function index(props) {
                         {errors.confirm.message}
                     </p>
                 )}
-                {invalid && (
+                {invalid?.password_confirmation && (
+                    <p role="alert" className="mt-1 text-red-800 px-3 text-xs">
+                        {invalid?.password_confirmation}
+                    </p>
+                )}
+                {invalid?.password && (
                     <span className="text-md text-center block text-red-800 font-bold mt-2 h-6">
                         <>
                             <svg
@@ -118,7 +124,7 @@ function index(props) {
                                     d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
                                 />
                             </svg>
-                            {invalid}
+                            {invalid?.password}
                         </>
                     </span>
                 )}

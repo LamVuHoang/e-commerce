@@ -13,7 +13,6 @@ export default function index() {
         <>
             Test
             <br />
-            {console.log(data)}
         </>
     );
 }

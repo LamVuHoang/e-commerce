@@ -2,53 +2,45 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import {
-    getUserInfo,
+    changeLoginStatus,
     logInUser,
 } from "../../../Store/Actions/authentication.action";
 import {
-    exceptionConstants,
-    authenticationConstants,
-    tabConstants,
-} from "../../../Store/Constants";
-function index(props) {
+    changeTabStatus,
+    changeTabName,
+} from "../../../Store/Actions/tab.action";
+import { exceptionConstants, tabConstants } from "../../../Store/Constants";
+function index() {
     const dispatch = useDispatch();
     const [invalid, setInvalid] = useState("");
     const {
         register,
         formState: { errors },
         handleSubmit,
+        resetField,
     } = useForm();
 
     const newlogInResult = useSelector(
-        (state) => state.authenticationReducer.newToken
+        (state) => state.authenticationReducer.logInResult
     );
+
     useEffect(() => {
-        if (newlogInResult.status === exceptionConstants.SUCCESS) {
-            // If INVALID CREDENTIALS
-            let message = newlogInResult.message;
-            if (typeof message === "object") {
-                if (message.contact) {
-                    setInvalid(message.contact[0]);
-                } else if (message.password) {
-                    setInvalid(message.password[0]);
-                }
-            } else {
-                setInvalid(message);
-            }
-        } else if (newlogInResult.status === exceptionConstants.CREATED) {
+        if (newlogInResult.code === exceptionConstants.CREATED) {
             // LOGIN SUCCESSFULLY
+            dispatch(changeTabName(tabConstants.WAITING_TAB));
+
+            dispatch(changeLoginStatus(true));
             window.localStorage.setItem("token", newlogInResult.data.token);
 
-            props.setTab(tabConstants.WAITING_TAB);
-            setTimeout(() => {
-                props.setShow(false);
-                props.setTab(tabConstants.LOGIN_TAB);
-            }, 1000);
-            dispatch(getUserInfo());
+            dispatch(changeTabStatus(false));
+            dispatch(changeTabName(tabConstants.LOGIN_TAB));
         }
 
-        // return () => {
-        // };
+        newlogInResult.data && setInvalid(newlogInResult.data.message);
+        
+        return () => {
+            resetField();
+        };
     }, [newlogInResult]);
 
     const onSubmit = (data) => {
@@ -61,17 +53,14 @@ function index(props) {
     };
 
     const handleClickSignUpTab = () => {
-        dispatch({
-            type: tabConstants.CHANGE_TAB_NAME,
-            payload: tabConstants.SIGNUP_TAB,
-        });
+        dispatch(changeTabName(tabConstants.SIGNUP_TAB));
     };
     return (
         <>
             <p className="text-xl font-bold text-center py-3">Sign In</p>
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                onChange={() => setInvalid(false)}
+                onChange={() => setInvalid([])}
             >
                 <input
                     type="text"
@@ -99,7 +88,8 @@ function index(props) {
                         {errors.password.message}
                     </p>
                 )}
-                {invalid && (
+
+                {invalid && invalid.length > 0 && (
                     <span className="text-md text-center block text-red-800 font-bold mt-2 h-6">
                         <>
                             <svg

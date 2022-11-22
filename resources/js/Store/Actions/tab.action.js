@@ -1,9 +1,10 @@
 import { tabConstants } from "../Constants";
 
-export const changeTabStatus = () => {
+export const changeTabStatus = (value) => {
     return async (dispatch) => {
         dispatch({
             type: tabConstants.CHANGE_TAB_STATUS,
+            payload: value
         })
     }
 };

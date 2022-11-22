@@ -5,10 +5,9 @@ export default function EnterCredential() {
     const dispatch = useDispatch();
     
     const tab = useSelector((state) => state.tabReducer);
-    console.log("tab", tab);
 
     const handleOpenDialog = () => {
-        dispatch(changeTabStatus());
+        dispatch(changeTabStatus(true));
     };
 
     return (

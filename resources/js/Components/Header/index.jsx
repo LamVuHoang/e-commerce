@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState } from "react";
 import AccountDialog from "../AccountDialog/index";
 import { Link } from "react-router-dom";
 import "./style.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { tabConstants } from "../../Store/Constants";
 import EnterCredential from "./EnterCredential";
 import UserProfile from "./UserProfile";
 
 export default function index() {
-    const dispatch = useDispatch();
-
     const [showDialog, setShowDialog] = useState(false);
     const [dialogTab, setDialogTab] = useState(tabConstants.LOGIN_TAB);
     const [cart, setCart] = useState([
@@ -23,15 +21,9 @@ export default function index() {
         }, 0);
     };
 
-    if (window.localStorage.getItem("token")) {
-        dispatch(logInAction());
-        window.alert(window.localStorage.getItem("token"));
-    }
     const logInStatus = useSelector(
         (state) => state.authenticationReducer.logInStatus
     );
-    console.log("logInStatus", logInStatus);
-
     return (
         <>
             <a
@@ -94,7 +86,6 @@ export default function index() {
                 {/* user */}
                 <div className="flex items-center justify-center w-fit">
                     {logInStatus ? <UserProfile /> : <EnterCredential />}
-
                     <button className="ml-1 flex items-center rounded-full hover:bg-gray-200 duration-200 ease-in">
                         <div className="relative p-2">
                             <svg

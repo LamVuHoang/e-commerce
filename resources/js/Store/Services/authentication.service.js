@@ -8,7 +8,12 @@ class AuthenticationService {
     }
     async logInUser(data) {
         const endpoint = "/login";
-        const response = await Repository.post(endpoint, data)
+        const response = await Repository.post(endpoint, data);
+        return response;
+    }
+    async signUpUser(data) {
+        const endpoint = "/signup";
+        const response = await Repository.post(endpoint, data);
         return response;
     }
 }

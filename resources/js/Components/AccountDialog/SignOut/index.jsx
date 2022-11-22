@@ -1,35 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import axios from "axios";
-import { authenticationConstants } from "../../../Store/Constants";
+import { tabConstants } from "../../../Store/Constants";
+import { changeLoginStatus } from "../../../Store/Actions/authentication.action";
+import {
+    changeTabName,
+    changeTabStatus,
+} from "../../../Store/Actions/tab.action";
 
-function index(props) {
+function index() {
     const dispatch = useDispatch();
     const confirmSignOut = () => {
-        let token = localStorage.getItem("token");
-        // console.log(token);
-        const url = "api/logout";
-        const config = {
-            headers: {
-                Authorization: "Bearer " + token,
-            },
-        };
-        axios.post(url, {}, config);
-        props.setTab(tabConstants.WAITING_TAB);
-        localStorage.removeItem("token");
-        dispatch({ type: "REMOVE_TOKEN" });
-        setTimeout(() => {
-            props.setShow(false);
-            props.setTab(tabConstants.LOGIN_TAB);
-        }, 300);
+        window.localStorage.removeItem("token");
+        dispatch(changeLoginStatus(false));
 
-        return () => {
-            dispatch(getUserInfo());
+        dispatch(changeTabStatus(tabConstants.WAITING_TAB));
+        const logoutTimeout = setTimeout(() => {
+            dispatch(changeTabName(tabConstants.LOGIN_TAB));
+            dispatch(changeTabStatus(false));
+        }, 1000);
+
+        async () => {
+            logoutTimeout();
+            clearTimeout(logoutTimeout);
         };
     };
+
     const cancelSignOut = () => {
-        props.setShow(false);
-        props.setTab(tabConstants.LOGIN_TAB);
+        dispatch(changeTabStatus(false));
+        dispatch(changeTabName(tabConstants.LOGIN_TAB));
     };
     return (
         <>

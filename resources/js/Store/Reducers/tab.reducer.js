@@ -19,7 +19,7 @@ const tabReducer = (state = initState, action) => {
         case tabConstants.CHANGE_TAB_STATUS:
             return {
                 ...state,
-                tabStatus: !state.tabStatus
+                tabStatus: action.payload
             }
             break
         default:
