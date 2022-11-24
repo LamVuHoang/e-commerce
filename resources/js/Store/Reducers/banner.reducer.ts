@@ -1,10 +1,11 @@
 import { bannerConstants } from "../Constants";
+import Action from "../Type/action.type";
 
 const initState = {
     bannerList: [],
 };
 
-const bannerReducer = (state = initState, action) => {
+const bannerReducer = (state = initState, action: Action) => {
     switch (action.type) {
         case bannerConstants.GET_ALL_BANNER:
             return {

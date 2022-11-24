@@ -1,4 +1,5 @@
 import { authenticationConstants } from "../Constants";
+import Action from "../Type/action.type";
 
 const initState = {
     logInStatus: window.localStorage.getItem("token") ? true : false,
@@ -8,7 +9,7 @@ const initState = {
     logOutResult: [],
 };
 
-const authenticationReducer = (state = initState, action) => {
+const authenticationReducer = (state = initState, action: Action) => {
     switch (action.type) {
         case authenticationConstants.GET_USER_INFO:
             return {

@@ -6,12 +6,16 @@ class AuthenticationService {
         const response = await Repository.get(endpoint);
         return response;
     }
-    async logInUser(data) {
+    async logInUser(data: { username: string; password: string }) {
         const endpoint = "/login";
         const response = await Repository.post(endpoint, data);
         return response;
     }
-    async signUpUser(data) {
+    async signUpUser(data: {
+        username: string;
+        password: string;
+        password_confirmation: string;
+    }) {
         const endpoint = "/signup";
         const response = await Repository.post(endpoint, data);
         return response;

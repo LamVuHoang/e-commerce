@@ -1,8 +1,9 @@
+import React from "react";
 import { bannerConstants, exceptionConstants } from "../Constants";
 import bannerService from "../Services/banner.service";
 
 export const getAllBanner = () => {
-    return async (dispatch) => {
+    return async (dispatch:Function) => {
         const response = await bannerService.getAllBanner();
         if (response.code === exceptionConstants.SUCCESS) {
             dispatch({

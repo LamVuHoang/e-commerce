@@ -1,18 +1,21 @@
 import axios from "./base.service";
 
-const getToken = () => {
+function getToken(): string {
     try {
-        return localStorage.getItem("token");
+        return window.localStorage.getItem("token") || "";
     } catch (error) {
         return "";
     }
-};
+}
+
 class Repository {
+    token: string;
+
     constructor() {
         this.token = "";
     }
 
-    async get(endpoint, data) {
+    async get(endpoint: string, data?: {}) {
         this.token = getToken();
         const response = await axios
             .get(`${endpoint}`, {
@@ -39,7 +42,7 @@ class Repository {
         return response;
     }
 
-    async post(endpoint, data) {
+    async post(endpoint: string, data?: {}) {
         this.token = getToken();
         const response = await axios
             .post(`${endpoint}`, data, {
@@ -66,7 +69,7 @@ class Repository {
         return response;
     }
 
-    async put(endpoint, data) {
+    async put(endpoint: string, data: {}) {
         this.token = getToken();
         const response = await axios
             .put(`${endpoint}`, data, {
@@ -92,7 +95,7 @@ class Repository {
         return response;
     }
 
-    async patch(endpoint, data) {
+    async patch(endpoint: string, data: {}) {
         this.token = getToken();
         const response = await axios
             .patch(`${endpoint}`, data, {
@@ -118,7 +121,7 @@ class Repository {
         return response;
     }
 
-    async delete(endpoint, data) {
+    async delete(endpoint: string, data: {}) {
         this.token = getToken();
         const response = await axios
             .delete(`${endpoint}`, {

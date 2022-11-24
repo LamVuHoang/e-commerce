@@ -2,7 +2,7 @@ import { authenticationConstants, exceptionConstants } from "../Constants";
 import authenticationService from "../Services/authentication.service";
 
 export const getUserInfo = () => {
-    return async (dispatch) => {
+    return async (dispatch: Function) => {
         const response = await authenticationService.getUserInfo();
         if (response.code === exceptionConstants.SUCCESS) {
             dispatch({
@@ -16,8 +16,8 @@ export const getUserInfo = () => {
     };
 };
 
-export const logInUser = (data) => {
-    return async (dispatch) => {
+export const logInUser = (data: { username: string; password: string }) => {
+    return async (dispatch: Function) => {
         const response = await authenticationService.logInUser(data);
         dispatch({
             type: authenticationConstants.LOGIN_USER,
@@ -30,8 +30,12 @@ export const logInUser = (data) => {
     };
 };
 
-export const signUpUser = (data) => {
-    return async (dispatch) => {
+export const signUpUser = (data: {
+    username: string;
+    password: string;
+    password_confirmation: string;
+}) => {
+    return async (dispatch: Function) => {
         const response = await authenticationService.signUpUser(data);
         dispatch({
             type: authenticationConstants.SIGNUP_USER,
@@ -45,7 +49,7 @@ export const signUpUser = (data) => {
 };
 
 export const logOutUser = () => {
-    return async (dispatch) => {
+    return async (dispatch: Function) => {
         const response = await authenticationService.logOutUser();
         dispatch({
             type: authenticationConstants.LOGOUT_USER,
@@ -58,8 +62,8 @@ export const logOutUser = () => {
     };
 };
 
-export const changeLoginStatus = (value) => {
-    return async (dispatch) => {
+export const changeLoginStatus = (value: boolean) => {
+    return async (dispatch: Function) => {
         dispatch({
             type: authenticationConstants.CHANGE_LOGIN_STATUS,
             payload: value,
