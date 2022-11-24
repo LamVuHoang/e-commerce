@@ -1,6 +1,7 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
-export default function index() {
+const Index: React.FC = () => {
     return (
         <>
             <div className="w-full block bg-white border-t border-gray-200 py-5 md:pb-12 px-5 mt-6 md:px-12 lg:px-20 xl:px-40 2xl:px-60 flex justify-between items-start my-shadow">
@@ -40,4 +41,6 @@ export default function index() {
             </div>
         </>
     );
-}
+};
+
+export default Index;

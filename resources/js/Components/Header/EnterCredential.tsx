@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { tabConstants } from "../../Store/Constants";
+// import { tabConstants } from "../../Store/Constants";
 import { changeTabStatus } from "../../Store/Actions/tab.action";
-export default function EnterCredential() {
+const EnterCredential: React.FC = () => {
     const dispatch = useDispatch();
-    
-    const tab = useSelector((state) => state.tabReducer);
+
+    // const tab = useSelector((state) => state.tabReducer);
 
     const handleOpenDialog = () => {
         dispatch(changeTabStatus(true));
@@ -40,4 +40,6 @@ export default function EnterCredential() {
             </button>
         </>
     );
-}
+};
+
+export default EnterCredential;
