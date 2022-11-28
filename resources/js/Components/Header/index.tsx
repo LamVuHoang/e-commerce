@@ -7,7 +7,7 @@ import { tabConstants } from "../../Store/Constants";
 import EnterCredential from "./EnterCredential";
 import UserProfile from "./UserProfile";
 
-export default function index() {
+const Index: React.FC = () => {
     const [showDialog, setShowDialog] = useState(false);
     const [dialogTab, setDialogTab] = useState(tabConstants.LOGIN_TAB);
     const [cart, setCart] = useState([
@@ -126,4 +126,6 @@ export default function index() {
             </div>
         </>
     );
-}
+};
+
+export default Index;

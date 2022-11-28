@@ -11,12 +11,14 @@ import "swiper/css/scrollbar";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBanner } from "../../../Store/Actions/banner.action";
 
-function index() {
+const Index: React.FC = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getAllBanner());
     }, []);
-    const bannerList = useSelector((state) => state.bannerReducer.bannerList.data);
+    const bannerList = useSelector(
+        (state) => state.bannerReducer.bannerList.data
+    );
     return (
         <>
             {/*  Carousel wrapper  */}
@@ -54,6 +56,6 @@ function index() {
             </div>
         </>
     );
-}
+};
 
-export default index;
+export default Index;

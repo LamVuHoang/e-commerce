@@ -7,7 +7,7 @@ import { tabConstants } from "../../Store/Constants";
 import { useDispatch, useSelector } from "react-redux";
 import { changeTabName, changeTabStatus } from "../../Store/Actions/tab.action";
 
-function index() {
+const Index:React.FC = () => {
     const dispatch = useDispatch();
 
     const closeDialog = () => {
@@ -113,6 +113,6 @@ function index() {
             </Modal>
         </>
     );
-}
+};
 
-export default index;
+export default Index;

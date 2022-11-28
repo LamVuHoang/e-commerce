@@ -10,7 +10,7 @@ import {
     changeTabStatus,
 } from "../../../Store/Actions/tab.action";
 
-function index() {
+const Index:React.FC = () => {
     const dispatch = useDispatch();
 
     const logOutResult = useSelector(
@@ -61,6 +61,6 @@ function index() {
             </div>
         </>
     );
-}
+};
 
-export default index;
+export default Index;

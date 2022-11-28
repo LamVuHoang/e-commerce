@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserInfo } from "../../Store/Actions/authentication.action";
 
-export default function index() {
+const Index: React.FC = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getUserInfo());
@@ -15,4 +15,6 @@ export default function index() {
             <br />
         </>
     );
-}
+};
+
+export default Index;

@@ -14,7 +14,7 @@
 
     @viteReactRefresh
     <!-- For React file  -->
-    @vite('resources/js/app.jsx')
+    @vite('resources/js/app.tsx')
     <!-- For Tailwind CSS -->
     @vite('resources/scss/app.scss')
 </head>

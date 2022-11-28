@@ -1,63 +1,62 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { exceptionConstants, tabConstants } from "../../../Store/Constants";
 import {
     changeLoginStatus,
-    logInUser,
+    signUpUser,
 } from "../../../Store/Actions/authentication.action";
+import { useEffect } from "react";
 import {
-    changeTabStatus,
     changeTabName,
+    changeTabStatus,
 } from "../../../Store/Actions/tab.action";
-import { exceptionConstants, tabConstants } from "../../../Store/Constants";
-function index() {
+
+const Index:React.FC = () => {
     const dispatch = useDispatch();
-    const [invalid, setInvalid] = useState("");
+
     const {
         register,
         formState: { errors },
         handleSubmit,
-        resetField,
     } = useForm();
 
-    const newlogInResult = useSelector(
-        (state) => state.authenticationReducer.logInResult
+    const [invalid, setInvalid] = useState([]);
+
+    const newSignUpResult = useSelector(
+        (state) => state.authenticationReducer.signUpResult
     );
 
     useEffect(() => {
-        if (newlogInResult.code === exceptionConstants.CREATED) {
-            // LOGIN SUCCESSFULLY
-            dispatch(changeTabName(tabConstants.WAITING_TAB));
-
+        if (newSignUpResult.code === exceptionConstants.CREATED) {
+            window.localStorage.setItem(
+                "token",
+                newSignUpResult.data.data.token
+            );
             dispatch(changeLoginStatus(true));
-            window.localStorage.setItem("token", newlogInResult.data.data.token);
-
             dispatch(changeTabStatus(false));
             dispatch(changeTabName(tabConstants.LOGIN_TAB));
         }
 
-        newlogInResult.data && setInvalid(newlogInResult.data.message);
-        
-        return () => {
-            resetField();
-        };
-    }, [newlogInResult]);
+        setInvalid(newSignUpResult.message);
+    }, [newSignUpResult]);
 
     const onSubmit = (data) => {
-        const params = {
-            contact: data.username,
+        const payload = {
+            username: data.username,
             password: data.password,
+            password_confirmation: data.confirm,
         };
 
-        dispatch(logInUser(params));
+        dispatch(signUpUser(payload));
     };
 
-    const handleClickSignUpTab = () => {
-        dispatch(changeTabName(tabConstants.SIGNUP_TAB));
+    const handleClickLogInTab = () => {
+        dispatch(changeTabName(tabConstants.LOGIN_TAB));
     };
     return (
         <>
-            <p className="text-xl font-bold text-center py-3">Sign In</p>
+            <p className="text-xl font-bold text-center py-3">Sign Up</p>
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 onChange={() => setInvalid([])}
@@ -65,20 +64,25 @@ function index() {
                 <input
                     type="text"
                     {...register("username", {
-                        required: "Username is required",
+                        required: "You must specify an username",
                     })}
                     className="w-full block my-input"
-                    placeholder="Username, Email or Phone"
+                    placeholder="Username"
                 />
                 {errors.username && (
                     <p role="alert" className="mt-1 text-red-800 px-3 text-xs">
                         {errors.username.message}
                     </p>
                 )}
+                {invalid?.username && (
+                    <p role="alert" className="mt-1 text-red-800 px-3 text-xs">
+                        {invalid?.username}
+                    </p>
+                )}
                 <input
                     type="password"
                     {...register("password", {
-                        required: "Password is required",
+                        required: "You must specify a password",
                     })}
                     className="w-full block my-input"
                     placeholder="Password"
@@ -88,8 +92,25 @@ function index() {
                         {errors.password.message}
                     </p>
                 )}
-
-                {invalid && invalid.length > 0 && (
+                <input
+                    type="password"
+                    {...register("confirm", {
+                        required: "You must confirm your password",
+                    })}
+                    className="w-full block my-input"
+                    placeholder="Confirm Password"
+                />
+                {errors.confirm && (
+                    <p role="alert" className="mt-1 text-red-800 px-3 text-xs">
+                        {errors.confirm.message}
+                    </p>
+                )}
+                {invalid?.password_confirmation && (
+                    <p role="alert" className="mt-1 text-red-800 px-3 text-xs">
+                        {invalid?.password_confirmation}
+                    </p>
+                )}
+                {invalid?.password && (
                     <span className="text-md text-center block text-red-800 font-bold mt-2 h-6">
                         <>
                             <svg
@@ -106,26 +127,25 @@ function index() {
                                     d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
                                 />
                             </svg>
-                            {invalid}
+                            {invalid?.password}
                         </>
                     </span>
                 )}
                 <input
                     type="submit"
-                    value="Sign In"
+                    value="Sign Up"
                     className="my-button my-button--primary mb-1 mt-2 disabled:opacity-50 cursor-pointer"
                 />
             </form>
             <div className="block border-t-2 border-gray-300 my-3 w-1/2 mx-auto"></div>
-
             <button
                 className="my-button my-button--secondary mb-2 mt-1"
-                onClick={handleClickSignUpTab}
+                onClick={handleClickLogInTab}
             >
-                Sign Up Now
+                Sign In Now
             </button>
         </>
     );
-}
+};
 
-export default index;
+export default Index;

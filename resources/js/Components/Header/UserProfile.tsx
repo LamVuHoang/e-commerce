@@ -5,9 +5,9 @@ import { getUserInfo } from "../../Store/Actions/authentication.action";
 import { changeTabName, changeTabStatus } from "../../Store/Actions/tab.action";
 import { authenticationConstants, tabConstants } from "../../Store/Constants";
 
-export default function UserProfile() {
+const UserProfile: React.FC = () => {
     const dispatch = useDispatch();
-    
+
     const userInfo = useSelector(
         (state) => state.authenticationReducer.userInfo.data
     );
@@ -31,7 +31,10 @@ export default function UserProfile() {
                 <div>
                     <div className="flex items-center relative user-button p-2 rounded-full hover:bg-gray-200 duration-200 ease-in grow-0 shrink-0">
                         <img
-                            src={userInfo.avatar || authenticationConstants.NO_AVATAR}
+                            src={
+                                userInfo.avatar ||
+                                authenticationConstants.NO_AVATAR
+                            }
                             alt="user-img"
                             className="h-6 w-6 rounded-full object-cover"
                         />
@@ -58,7 +61,10 @@ export default function UserProfile() {
                                 <div className="w-auto m-2 p-2 rounded-xl hover:bg-gray-200 cursor-pointer">
                                     <div className="flex items-center">
                                         <img
-                                            src={userInfo.avatar || authenticationConstants.NO_AVATAR}
+                                            src={
+                                                userInfo.avatar ||
+                                                authenticationConstants.NO_AVATAR
+                                            }
                                             alt="user-img"
                                             className="h-16 w-16 rounded-full object-cover"
                                         />
@@ -124,4 +130,5 @@ export default function UserProfile() {
             )}
         </>
     );
-}
+};
+export default UserProfile;
