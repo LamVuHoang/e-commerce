@@ -14,9 +14,9 @@ class AuthenticationRepository extends BaseRepository
 
     public function logIn($data)
     {
-        return $this->query->where('mail', $data['contact'])
-            ->orWhere('phone', $data['contact'])
-            ->orWhere('username', $data['contact'])->first();
+        return $this->query->where('mail', $data['username'])
+            ->orWhere('phone', $data['username'])
+            ->orWhere('username', $data['username'])->first();
     }
 
     public function signUp($data)

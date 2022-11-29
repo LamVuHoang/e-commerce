@@ -24,7 +24,7 @@ class AuthenticationService extends BaseService
 
     public function logIn($request): JsonResponse
     {
-        $data = $request->safe()->only(['contact', 'password']);
+        $data = $request->safe()->only(['username', 'password']);
         $user = $this->_authenticationRepository->logIn($data);
 
         if (

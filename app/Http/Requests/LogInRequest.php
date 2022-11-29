@@ -29,7 +29,7 @@ class LogInRequest extends FormRequest
     public function rules()
     {
         return [
-            'contact' => ['required'],
+            'username' => ['required'],
             'password' => ['required']
         ];
     }
@@ -42,7 +42,7 @@ class LogInRequest extends FormRequest
     public function attributes()
     {
         return [
-            'contact' => 'Contact',
+            'username' => 'Username',
             'password' => 'Password'
         ];
     }
