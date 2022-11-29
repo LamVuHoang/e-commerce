@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SignIn from "./SignIn/index";
 import SignUp from "./SignUp/index";
 import SignOut from "./SignOut/index";
 import Modal from "../../UI/Modal/index";
 import { tabConstants } from "../../Store/Constants";
 import { useDispatch, useSelector } from "react-redux";
-import { changeTabName, changeTabStatus } from "../../Store/Actions/tab.action";
+import {
+    resetDefaultTab,
+} from "../../Store/Reducers/tab.reducer";
 
-const Index:React.FC = () => {
+const Index: React.FC = () => {
     const dispatch = useDispatch();
 
     const closeDialog = () => {
-        dispatch(changeTabStatus(false));
-        dispatch(changeTabName(tabConstants.LOGIN_TAB));
+        dispatch(resetDefaultTab());
     };
 
     const tab = useSelector((state) => state.tabReducer);

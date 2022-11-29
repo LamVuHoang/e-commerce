@@ -2,8 +2,8 @@ import axios from "./base.service";
 
 function getToken(): string {
     try {
-        return window.localStorage.getItem("token") || "";
-    } catch (error) {
+        return window.localStorage.getItem("token")!;
+    } catch {
         return "";
     }
 }

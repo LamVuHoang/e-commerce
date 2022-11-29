@@ -1,72 +1,38 @@
-import { authenticationConstants, exceptionConstants } from "../Constants";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import authenticationService from "../Services/authentication.service";
 
-export const getUserInfo = () => {
-    return async (dispatch: Function) => {
+export const getUserInfo = createAsyncThunk(
+    "getUserInfo",
+    async () => {
         const response = await authenticationService.getUserInfo();
-        if (response.code === exceptionConstants.SUCCESS) {
-            dispatch({
-                type: authenticationConstants.GET_USER_INFO,
-                payload: {
-                    data: response.data,
-                },
-            });
-        }
-        return response;
-    };
-};
+        return response.data;
+    }
+);
 
-export const logInUser = (data: { username: string; password: string }) => {
-    return async (dispatch: Function) => {
+export const logInUser = createAsyncThunk(
+    "logInUser",
+    async (data: { username: string; password: string }) => {
         const response = await authenticationService.logInUser(data);
-        dispatch({
-            type: authenticationConstants.LOGIN_USER,
-            payload: {
-                data: response.data,
-                message: response.message,
-                code: response.code,
-            },
-        });
-    };
-};
+        return response.data;
+    }
+);
 
-export const signUpUser = (data: {
-    username: string;
-    password: string;
-    password_confirmation: string;
-}) => {
-    return async (dispatch: Function) => {
+export const signUpUser = createAsyncThunk(
+    "signUpUser",
+    async (data: {
+        username: string;
+        password: string;
+        password_confirmation: string;
+    }) => {
         const response = await authenticationService.signUpUser(data);
-        dispatch({
-            type: authenticationConstants.SIGNUP_USER,
-            payload: {
-                data: response.data,
-                message: response.message,
-                code: response.code,
-            },
-        });
-    };
-};
+        return response.data;
+    }
+);
 
-export const logOutUser = () => {
-    return async (dispatch: Function) => {
+export const logOutUser = createAsyncThunk(
+    "logOutUser",
+    async () => {
         const response = await authenticationService.logOutUser();
-        dispatch({
-            type: authenticationConstants.LOGOUT_USER,
-            payload: {
-                data: response.data,
-                message: response.message,
-                code: response.code,
-            },
-        });
-    };
-};
-
-export const changeLoginStatus = (value: boolean) => {
-    return async (dispatch: Function) => {
-        dispatch({
-            type: authenticationConstants.CHANGE_LOGIN_STATUS,
-            payload: value,
-        });
-    };
-};
+        return response.data;
+    }
+);

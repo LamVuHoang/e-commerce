@@ -1,18 +1,10 @@
-import React from "react";
-import { bannerConstants, exceptionConstants } from "../Constants";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import bannerService from "../Services/banner.service";
 
-export const getAllBanner = () => {
-    return async (dispatch:Function) => {
+export const getAllBanner = createAsyncThunk(
+    "banner/getAllBanner",
+    async () => {
         const response = await bannerService.getAllBanner();
-        if (response.code === exceptionConstants.SUCCESS) {
-            dispatch({
-                type: bannerConstants.GET_ALL_BANNER,
-                payload: {
-                    data: response.data,
-                },
-            });
-        }
-        return response;
-    };
-};
+        return response.data;
+    }
+);

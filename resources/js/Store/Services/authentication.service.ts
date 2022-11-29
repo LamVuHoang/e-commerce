@@ -6,7 +6,7 @@ class AuthenticationService {
         const response = await Repository.get(endpoint);
         return response;
     }
-    async logInUser(data: { username: string; password: string }) {
+    async logInUser(data: Login) {
         const endpoint = "/login";
         const response = await Repository.post(endpoint, data);
         return response;

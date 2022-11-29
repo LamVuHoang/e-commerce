@@ -1,16 +1,20 @@
 import { useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo } from "../../Store/Actions/authentication.action";
-import { changeTabName, changeTabStatus } from "../../Store/Actions/tab.action";
+import { getUserInfo } from "../../Store/Actions";
 import { authenticationConstants, tabConstants } from "../../Store/Constants";
-
+import {
+    changeTabName,
+    changeTabStatus,
+} from "../../Store/Reducers/tab.reducer";
 const UserProfile: React.FC = () => {
     const dispatch = useDispatch();
 
     const userInfo = useSelector(
         (state) => state.authenticationReducer.userInfo.data
     );
+
+    console.log("userInfo", userInfo);
 
     const retrieveUserInfo = useCallback(async () => {
         dispatch(getUserInfo());

@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import {
-    changeLoginStatus,
-    logInUser,
-} from "../../../Store/Actions/authentication.action";
-import {
-    changeTabStatus,
     changeTabName,
-} from "../../../Store/Actions/tab.action";
+    resetDefaultTab,
+} from "../../../Store/Reducers/tab.reducer";
 import { exceptionConstants, tabConstants } from "../../../Store/Constants";
+import { logInUser } from "../../../Store/Actions";
 const Index: React.FC = () => {
     const dispatch = useDispatch();
     const [invalid, setInvalid] = useState("");
@@ -28,27 +25,26 @@ const Index: React.FC = () => {
         if (newlogInResult.code === exceptionConstants.CREATED) {
             // LOGIN SUCCESSFULLY
             dispatch(changeTabName(tabConstants.WAITING_TAB));
-
             dispatch(changeLoginStatus(true));
-            window.localStorage.setItem(
-                "token",
-                newlogInResult.data.data.token
-            );
 
-            dispatch(changeTabStatus(false));
-            dispatch(changeTabName(tabConstants.LOGIN_TAB));
+            window.localStorage.setItem("token", newlogInResult.data.token);
+
+            dispatch(resetDefaultTab());
+        } else {
+            newlogInResult.code === exceptionConstants.SUCCESS &&
+                setInvalid(newlogInResult.message);
         }
 
-        newlogInResult.data && setInvalid(newlogInResult.data.message);
-
-        return () => {
-            resetField();
-        };
+        // return () => {
+        //     resetField();
+        // };
     }, [newlogInResult]);
 
+    console.log("invalid", invalid);
+
     const onSubmit = (data) => {
-        const params = {
-            contact: data.username,
+        const params: Login = {
+            username: data.username,
             password: data.password,
         };
 
@@ -56,6 +52,7 @@ const Index: React.FC = () => {
     };
 
     const handleClickSignUpTab = () => {
+        setInvalid("");
         dispatch(changeTabName(tabConstants.SIGNUP_TAB));
     };
     return (
@@ -63,7 +60,7 @@ const Index: React.FC = () => {
             <p className="text-xl font-bold text-center py-3">Sign In</p>
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                onChange={() => setInvalid([])}
+                onChange={() => setInvalid("")}
             >
                 <input
                     type="text"

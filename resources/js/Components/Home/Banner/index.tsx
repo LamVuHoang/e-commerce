@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBanner } from "../../../Store/Actions/banner.action";
+import { getAllBanner } from "../../../Store/Actions";
 
 const Index: React.FC = () => {
     const dispatch = useDispatch();
@@ -19,6 +19,7 @@ const Index: React.FC = () => {
     const bannerList = useSelector(
         (state) => state.bannerReducer.bannerList.data
     );
+
     return (
         <>
             {/*  Carousel wrapper  */}

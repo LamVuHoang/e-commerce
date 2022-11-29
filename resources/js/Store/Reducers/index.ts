@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import Action from "../Type/action.type";
+import Action from "../../Type/action.type";
 import authenticationReducer from "./authentication.reducer";
 import bannerReducer from "./banner.reducer";
 import tabReducer from "./tab.reducer";

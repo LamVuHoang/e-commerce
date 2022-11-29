@@ -1,16 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { tabConstants } from "../../../Store/Constants";
+import { changeLoginStatus } from "../../../Store/Reducers/authentication.reducer";
 import {
-    changeLoginStatus,
-    logOutUser,
-} from "../../../Store/Actions/authentication.action";
-import {
-    changeTabName,
     changeTabStatus,
-} from "../../../Store/Actions/tab.action";
+    resetDefaultTab,
+} from "../../../Store/Reducers/tab.reducer";
+import { logOutUser } from "../../../Store/Actions";
 
-const Index:React.FC = () => {
+const Index: React.FC = () => {
     const dispatch = useDispatch();
 
     const logOutResult = useSelector(
@@ -26,8 +24,7 @@ const Index:React.FC = () => {
 
         dispatch(changeTabStatus(tabConstants.WAITING_TAB));
         const logoutTimeout = setTimeout(() => {
-            dispatch(changeTabName(tabConstants.LOGIN_TAB));
-            dispatch(changeTabStatus(false));
+            dispatch(resetDefaultTab());
         }, 1000);
 
         async () => {
@@ -37,8 +34,7 @@ const Index:React.FC = () => {
     };
 
     const cancelSignOut = () => {
-        dispatch(changeTabStatus(false));
-        dispatch(changeTabName(tabConstants.LOGIN_TAB));
+        dispatch(resetDefaultTab());
     };
     return (
         <>

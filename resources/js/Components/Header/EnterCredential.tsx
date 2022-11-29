@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 // import { tabConstants } from "../../Store/Constants";
-import { changeTabStatus } from "../../Store/Actions/tab.action";
+import { changeTabStatus } from "../../Store/Reducers/tab.reducer";
 const EnterCredential: React.FC = () => {
     const dispatch = useDispatch();
 

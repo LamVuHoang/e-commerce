@@ -1,22 +1,30 @@
-import { bannerConstants } from "../Constants";
-import Action from "../Type/action.type";
+import { createSlice } from "@reduxjs/toolkit";
+import { getAllBanner } from "../Actions";
 
-const initState = {
+interface BannerState {
+    bannerList: [] | Response;
+}
+
+const initialState = {
     bannerList: [],
-};
+} as BannerState;
 
-const bannerReducer = (state = initState, action: Action) => {
-    switch (action.type) {
-        case bannerConstants.GET_ALL_BANNER:
-            return {
-                ...state,
-                bannerList: action.payload.data,
-            };
-            break;
-        default:
-            return state;
-            break;
-    }
-};
+const bannerSlice = createSlice({
+    name: "banner",
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(getAllBanner.pending, (state, action) => {
+                // state.bannerList = action.payload;
+            })
+            .addCase(getAllBanner.rejected, (state, action) => {
+                // state.bannerList = action.payload;
+            })
+            .addCase(getAllBanner.fulfilled, (state, action) => {
+                state.bannerList = action.payload;
+            });
+    },
+});
 
-export default bannerReducer;
+export default bannerSlice.reducer;

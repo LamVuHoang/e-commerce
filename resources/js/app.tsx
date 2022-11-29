@@ -1,17 +1,12 @@
 import "./bootstrap";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { legacy_createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
 import { Provider } from "react-redux";
-import rootReducer from "./Store/Reducers";
+import store from "./Store/store";
 import RouterPage from "./Components/RouterPage";
 
-const middleWare = applyMiddleware(thunk);
-
-const store = legacy_createStore(rootReducer, middleWare);
-
-const root = ReactDOM.createRoot(document.getElementById("app"));
+const getAppElement = document.getElementById("app")!;
+const root = ReactDOM.createRoot(getAppElement);
 root.render(
     <React.StrictMode>
         <Provider store={store}>

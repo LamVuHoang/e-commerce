@@ -2,17 +2,14 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { exceptionConstants, tabConstants } from "../../../Store/Constants";
-import {
-    changeLoginStatus,
-    signUpUser,
-} from "../../../Store/Actions/authentication.action";
+import { changeLoginStatus } from "../../../Store/Reducers/authentication.reducer";
 import { useEffect } from "react";
 import {
     changeTabName,
-    changeTabStatus,
-} from "../../../Store/Actions/tab.action";
-
-const Index:React.FC = () => {
+    resetDefaultTab,
+} from "../../../Store/Reducers/tab.reducer";
+import { signUpUser } from "../../../Store/Actions";
+const Index: React.FC = () => {
     const dispatch = useDispatch();
 
     const {
@@ -28,17 +25,18 @@ const Index:React.FC = () => {
     );
 
     useEffect(() => {
-        if (newSignUpResult.code === exceptionConstants.CREATED) {
-            window.localStorage.setItem(
-                "token",
-                newSignUpResult.data.data.token
-            );
-            dispatch(changeLoginStatus(true));
-            dispatch(changeTabStatus(false));
-            dispatch(changeTabName(tabConstants.LOGIN_TAB));
-        }
-
-        setInvalid(newSignUpResult.message);
+        console.log("newSignUpResult", newSignUpResult)
+        // if (newSignUpResult.code === exceptionConstants.CREATED) {
+        //     window.localStorage.setItem(
+        //         "token",
+        //         newSignUpResult.data.token
+        //     );
+        //     dispatch(changeLoginStatus(true));
+        //     dispatch(resetDefaultTab());
+        // } else {
+        //     // newSignUpResult.code === exceptionConstants.SUCCESS &&
+        //     // setInvalid(newSignUpResult.message);
+        // }
     }, [newSignUpResult]);
 
     const onSubmit = (data) => {
@@ -52,6 +50,7 @@ const Index:React.FC = () => {
     };
 
     const handleClickLogInTab = () => {
+        setInvalid([]);
         dispatch(changeTabName(tabConstants.LOGIN_TAB));
     };
     return (

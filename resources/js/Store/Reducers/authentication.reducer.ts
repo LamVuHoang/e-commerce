@@ -1,50 +1,66 @@
-import { authenticationConstants } from "../Constants";
-import Action from "../Type/action.type";
+import { createSlice } from "@reduxjs/toolkit";
+import { getUserInfo, logInUser, logOutUser, signUpUser } from "../Actions";
+import AppResponse from "../../Type/appResponse.type";
 
-const initState = {
+type authenticationState = {
+    logInStatus: boolean;
+    userInfo: AppResponse;
+    logInResult: AppResponse;
+    signUpResult: AppResponse;
+    logOutResult: AppResponse;
+};
+
+const initialState = {
     logInStatus: window.localStorage.getItem("token") ? true : false,
     userInfo: [],
     logInResult: [],
     signUpResult: [],
     logOutResult: [],
-};
+} as authenticationState;
 
-const authenticationReducer = (state = initState, action: Action) => {
-    switch (action.type) {
-        case authenticationConstants.GET_USER_INFO:
-            return {
-                ...state,
-                userInfo: action.payload.data,
-            };
-            break;
-        case authenticationConstants.LOGIN_USER:
-            return {
-                ...state,
-                logInResult: action.payload,
-            };
-            break;
-        case authenticationConstants.SIGNUP_USER:
-            return {
-                ...state,
-                signUpResult: action.payload,
-            };
-            break;
-        case authenticationConstants.CHANGE_LOGIN_STATUS:
-            return {
-                ...state,
-                logInStatus: action.payload,
-            };
-            break;
-        case authenticationConstants.LOGOUT_USER:
-            return {
-                ...state,
-                logOutResult: action.payload,
-            };
-            break;
-        default:
-            return state;
-            break;
-    }
-};
+const authenticationSlice = createSlice({
+    name: "authentication",
+    initialState,
+    reducers: {
+        changeLoginStatus(state, action) {
+            state.logInStatus = action.payload;
+        },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(getUserInfo.pending, (state, action) => {
+                state.userInfo = { message: "Loading" };
+            })
+            .addCase(getUserInfo.rejected, (state, action) => {
+                state.userInfo = { message: "abc" };
+            })
+            .addCase(getUserInfo.fulfilled, (state, action) => {
+                state.userInfo = action.payload;
+            })
 
-export default authenticationReducer;
+            .addCase(logInUser.pending, (state, action) => {})
+            .addCase(logInUser.rejected, (state, action) => {})
+            .addCase(logInUser.fulfilled, (state, action) => {
+                state.logInResult = action.payload;
+            })
+
+            .addCase(signUpUser.pending, (state) => {
+                state.signUpResult = { message: "Loading" };
+            })
+            .addCase(signUpUser.rejected, (state, action) => {
+                state.signUpResult = action.payload;
+            })
+            .addCase(signUpUser.fulfilled, (state, action) => {
+                state.signUpResult = action.payload;
+            })
+
+            .addCase(logOutUser.pending, (state, action) => {})
+            .addCase(logOutUser.rejected, (state, action) => {})
+            .addCase(logOutUser.fulfilled, (state, action) => {
+                state.logOutResult = action.payload;
+            });
+    },
+});
+
+export const { changeLoginStatus } = authenticationSlice.actions;
+export default authenticationSlice.reducer;

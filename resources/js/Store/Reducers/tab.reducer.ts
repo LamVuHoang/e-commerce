@@ -1,30 +1,33 @@
+import { createSlice } from "@reduxjs/toolkit";
 import { tabConstants } from "../Constants";
-import Action from "../Type/action.type";
+interface TabState {
+    tabName: string;
+    tabStatus: boolean;
+}
+
 const initState = {
     tabName: tabConstants.LOGIN_TAB,
     tabStatus: false,
-};
+} as TabState;
 
-const tabReducer = (state = initState, action: Action) => {
-    switch (action.type) {
-        case tabConstants.CHANGE_TAB_NAME:
-            return {
-                ...state,
-                tabName: action.payload,
-            };
-            break;
+const tabSlice = createSlice({
+    name: "tab",
+    initialState: initState,
+    reducers: {
+        changeTabName(state, action) {
+            state.tabName = action.payload;
+        },
+        changeTabStatus(state, action) {
+            state.tabStatus = action.payload;
+        },
+        resetDefaultTab(state) {
+            state.tabName = tabConstants.LOGIN_TAB;
+            state.tabStatus = false;
+        },
+    },
+});
 
-        // Tab Status
-        case tabConstants.CHANGE_TAB_STATUS:
-            return {
-                ...state,
-                tabStatus: action.payload,
-            };
-            break;
-        default:
-            return state;
-            break;
-    }
-};
-
-export default tabReducer;
+export const { changeTabName, changeTabStatus, resetDefaultTab } =
+    tabSlice.actions;
+    
+export default tabSlice.reducer;
