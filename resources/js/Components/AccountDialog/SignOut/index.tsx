@@ -1,36 +1,32 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import useAppSelector from "../../../Hooks/useAppSelector";
+import useAppDispatch from "../../../Hooks/useAppDispatch";
 import { tabConstants } from "../../../Store/Constants";
 import { changeLoginStatus } from "../../../Store/Reducers/authentication.reducer";
 import {
+    changeTabName,
     changeTabStatus,
     resetDefaultTab,
 } from "../../../Store/Reducers/tab.reducer";
 import { logOutUser } from "../../../Store/Actions";
 
 const Index: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const logOutResult = useSelector(
+    const logOutResult = useAppSelector(
         (state) => state.authenticationReducer.logOutResult
     );
-
-    console.log("logOutResult: ", logOutResult);
 
     const confirmSignOut = () => {
         dispatch(logOutUser());
         window.localStorage.removeItem("token");
         dispatch(changeLoginStatus(false));
 
-        dispatch(changeTabStatus(tabConstants.WAITING_TAB));
         const logoutTimeout = setTimeout(() => {
-            dispatch(resetDefaultTab());
+            dispatch(changeTabName(tabConstants.WAITING_TAB));
         }, 1000);
-
-        async () => {
-            logoutTimeout();
-            clearTimeout(logoutTimeout);
-        };
+        clearTimeout(logoutTimeout);
+        dispatch(resetDefaultTab());
     };
 
     const cancelSignOut = () => {

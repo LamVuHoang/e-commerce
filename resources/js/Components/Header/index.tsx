@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import AccountDialog from "../AccountDialog/index";
 import { Link } from "react-router-dom";
 import "./style.css";
-import { useSelector } from "react-redux";
+import useAppSelector from "../../Hooks/useAppSelector";
 import { tabConstants } from "../../Store/Constants";
 import EnterCredential from "./EnterCredential";
 import UserProfile from "./UserProfile";
 
 const Index: React.FC = () => {
-    const [showDialog, setShowDialog] = useState(false);
-    const [dialogTab, setDialogTab] = useState(tabConstants.LOGIN_TAB);
     const [cart, setCart] = useState([
         { price: 20, quantity: 1 },
         { price: 30, quantity: 1 },
@@ -21,7 +19,7 @@ const Index: React.FC = () => {
         }, 0);
     };
 
-    const logInStatus = useSelector(
+    const logInStatus = useAppSelector(
         (state) => state.authenticationReducer.logInStatus
     );
     return (
@@ -117,12 +115,7 @@ const Index: React.FC = () => {
                         )}
                     </button>
                 </div>
-                <AccountDialog
-                    show={showDialog}
-                    tab={dialogTab}
-                    setTab={setDialogTab}
-                    setShow={setShowDialog}
-                />
+                <AccountDialog />
             </div>
         </>
     );

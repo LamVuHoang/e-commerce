@@ -1,10 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-// import { tabConstants } from "../../Store/Constants";
+import useAppDispatch from "../../Hooks/useAppDispatch";
 import { changeTabStatus } from "../../Store/Reducers/tab.reducer";
 const EnterCredential: React.FC = () => {
-    const dispatch = useDispatch();
-
-    // const tab = useSelector((state) => state.tabReducer);
+    const dispatch = useAppDispatch();
 
     const handleOpenDialog = () => {
         dispatch(changeTabStatus(true));

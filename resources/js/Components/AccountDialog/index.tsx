@@ -4,19 +4,20 @@ import SignUp from "./SignUp/index";
 import SignOut from "./SignOut/index";
 import Modal from "../../UI/Modal/index";
 import { tabConstants } from "../../Store/Constants";
-import { useDispatch, useSelector } from "react-redux";
+import useAppDispatch from "../../Hooks/useAppDispatch";
+import useAppSelector from "../../Hooks/useAppSelector";
 import {
     resetDefaultTab,
 } from "../../Store/Reducers/tab.reducer";
 
 const Index: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const closeDialog = () => {
         dispatch(resetDefaultTab());
     };
 
-    const tab = useSelector((state) => state.tabReducer);
+    const tab = useAppSelector((state) => state.tabReducer);
 
     return (
         <>
@@ -79,36 +80,6 @@ const Index: React.FC = () => {
                                 </p>
                             </div>
                         )}
-
-                        {/* {(
-                        <div className="w-full h-full flex flex-col items-center justify-center">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                className="w-10 h-10 text-green-500"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M5 13l4 4L19 7"
-                                />
-                            </svg>
-                            <p className="text-xl font-bold text-center py-3">
-                                Sign up successfully!
-                            </p>
-                            <button
-                                className="my-button my-button--primary mb-2 mt-3"
-                                onClick={() => {
-                                    // props.setTab(tabConstants.LOGIN_TAB)
-                                }}
-                            >
-                                Sign In Now
-                            </button>
-                        </div>
-                    )} */}
                     </div>
                 )}
             </Modal>

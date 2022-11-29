@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import useAppSelector from "../../Hooks/useAppSelector";
+import useAppDispatch from "../../Hooks/useAppDispatch";
 import { getUserInfo } from "../../Store/Actions";
 import { authenticationConstants, tabConstants } from "../../Store/Constants";
 import {
@@ -8,13 +9,11 @@ import {
     changeTabStatus,
 } from "../../Store/Reducers/tab.reducer";
 const UserProfile: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const userInfo = useSelector(
+    const userInfo = useAppSelector(
         (state) => state.authenticationReducer.userInfo.data
     );
-
-    console.log("userInfo", userInfo);
 
     const retrieveUserInfo = useCallback(async () => {
         dispatch(getUserInfo());
@@ -92,7 +91,6 @@ const UserProfile: React.FC = () => {
                                 <>
                                     <div className="break-content"></div>
                                     <div
-                                        href=""
                                         className="user-button-dropdown-item"
                                     >
                                         Admin Dashboard
@@ -103,7 +101,6 @@ const UserProfile: React.FC = () => {
                                 <>
                                     <div className="break-content"></div>
                                     <div
-                                        href=""
                                         className="user-button-dropdown-item"
                                     >
                                         Your shop

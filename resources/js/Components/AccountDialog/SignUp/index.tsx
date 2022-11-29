@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import useAppSelector from "../../../Hooks/useAppSelector";
+import useAppDispatch from "../../../Hooks/useAppDispatch";
 import { useForm } from "react-hook-form";
 import { exceptionConstants, tabConstants } from "../../../Store/Constants";
 import { changeLoginStatus } from "../../../Store/Reducers/authentication.reducer";
@@ -10,7 +11,7 @@ import {
 } from "../../../Store/Reducers/tab.reducer";
 import { signUpUser } from "../../../Store/Actions";
 const Index: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const {
         register,
@@ -20,23 +21,20 @@ const Index: React.FC = () => {
 
     const [invalid, setInvalid] = useState([]);
 
-    const newSignUpResult = useSelector(
+    const newSignUpResult = useAppSelector(
         (state) => state.authenticationReducer.signUpResult
     );
 
     useEffect(() => {
-        console.log("newSignUpResult", newSignUpResult)
-        // if (newSignUpResult.code === exceptionConstants.CREATED) {
-        //     window.localStorage.setItem(
-        //         "token",
-        //         newSignUpResult.data.token
-        //     );
-        //     dispatch(changeLoginStatus(true));
-        //     dispatch(resetDefaultTab());
-        // } else {
-        //     // newSignUpResult.code === exceptionConstants.SUCCESS &&
-        //     // setInvalid(newSignUpResult.message);
-        // }
+        console.log(newSignUpResult);
+        
+        if (newSignUpResult.data) {
+            window.localStorage.setItem("token", newSignUpResult.data.data.token);
+            dispatch(changeLoginStatus(true));
+            dispatch(resetDefaultTab());
+        } else {
+            setInvalid(newSignUpResult.message);
+        }
     }, [newSignUpResult]);
 
     const onSubmit = (data) => {

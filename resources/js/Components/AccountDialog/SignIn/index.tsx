@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import useAppSelector from "../../../Hooks/useAppSelector";
+import useAppDispatch from "../../../Hooks/useAppDispatch";
 import {
     changeTabName,
     resetDefaultTab,
 } from "../../../Store/Reducers/tab.reducer";
 import { exceptionConstants, tabConstants } from "../../../Store/Constants";
 import { logInUser } from "../../../Store/Actions";
+import { changeLoginStatus } from "../../../Store/Reducers/authentication.reducer";
 const Index: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [invalid, setInvalid] = useState("");
     const {
         register,
@@ -17,32 +19,28 @@ const Index: React.FC = () => {
         resetField,
     } = useForm();
 
-    const newlogInResult = useSelector(
+    const newlogInResult = useAppSelector(
         (state) => state.authenticationReducer.logInResult
     );
 
     useEffect(() => {
-        if (newlogInResult.code === exceptionConstants.CREATED) {
+        if (newlogInResult.data) {
             // LOGIN SUCCESSFULLY
             dispatch(changeTabName(tabConstants.WAITING_TAB));
             dispatch(changeLoginStatus(true));
 
-            window.localStorage.setItem("token", newlogInResult.data.token);
+            window.localStorage.setItem(
+                "token",
+                newlogInResult.data.data.token
+            );
 
             dispatch(resetDefaultTab());
         } else {
-            newlogInResult.code === exceptionConstants.SUCCESS &&
-                setInvalid(newlogInResult.message);
+            setInvalid(newlogInResult.message);
         }
-
-        // return () => {
-        //     resetField();
-        // };
     }, [newlogInResult]);
 
-    console.log("invalid", invalid);
-
-    const onSubmit = (data) => {
+    const onSubmit = (data: Login) => {
         const params: Login = {
             username: data.username,
             password: data.password,

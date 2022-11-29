@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import useAppDispatch from "../../Hooks/useAppDispatch";
 import { getUserInfo } from "../../Store/Actions";
 
 const Index: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(getUserInfo());
     }, []);

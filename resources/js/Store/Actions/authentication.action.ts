@@ -13,7 +13,7 @@ export const logInUser = createAsyncThunk(
     "logInUser",
     async (data: { username: string; password: string }) => {
         const response = await authenticationService.logInUser(data);
-        return response.data;
+        return response;
     }
 );
 
@@ -25,7 +25,7 @@ export const signUpUser = createAsyncThunk(
         password_confirmation: string;
     }) => {
         const response = await authenticationService.signUpUser(data);
-        return response.data;
+        return response;
     }
 );
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./style.scss";
 // import Swiper core and required modules
 import { Navigation, Pagination, A11y, Autoplay } from "swiper";
@@ -8,15 +8,16 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { useDispatch, useSelector } from "react-redux";
+import useAppSelector from "../../../Hooks/useAppSelector";
+import useAppDispatch from "../../../Hooks/useAppDispatch";
 import { getAllBanner } from "../../../Store/Actions";
 
 const Index: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(getAllBanner());
     }, []);
-    const bannerList = useSelector(
+    const bannerList = useAppSelector(
         (state) => state.bannerReducer.bannerList.data
     );
 
