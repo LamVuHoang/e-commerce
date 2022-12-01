@@ -9,6 +9,7 @@ import {
 import { exceptionConstants, tabConstants } from "../../../Store/Constants";
 import { logInUser } from "../../../Store/Actions";
 import { changeLoginStatus } from "../../../Store/Reducers/authentication.reducer";
+import AppReponse from "../../../Type/appResponse.type";
 const Index: React.FC = () => {
     const dispatch = useAppDispatch();
     const [invalid, setInvalid] = useState("");
@@ -19,7 +20,7 @@ const Index: React.FC = () => {
         resetField,
     } = useForm();
 
-    const newlogInResult = useAppSelector(
+    const newlogInResult: AppReponse = useAppSelector(
         (state) => state.authenticationReducer.logInResult
     );
 

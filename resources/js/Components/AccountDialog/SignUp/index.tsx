@@ -10,6 +10,7 @@ import {
     resetDefaultTab,
 } from "../../../Store/Reducers/tab.reducer";
 import { signUpUser } from "../../../Store/Actions";
+import AppReponse from "../../../Type/appResponse.type";
 const Index: React.FC = () => {
     const dispatch = useAppDispatch();
 
@@ -21,15 +22,18 @@ const Index: React.FC = () => {
 
     const [invalid, setInvalid] = useState([]);
 
-    const newSignUpResult = useAppSelector(
+    const newSignUpResult: AppReponse = useAppSelector(
         (state) => state.authenticationReducer.signUpResult
     );
 
     useEffect(() => {
         console.log(newSignUpResult);
-        
+
         if (newSignUpResult.data) {
-            window.localStorage.setItem("token", newSignUpResult.data.data.token);
+            window.localStorage.setItem(
+                "token",
+                newSignUpResult.data.data.token
+            );
             dispatch(changeLoginStatus(true));
             dispatch(resetDefaultTab());
         } else {

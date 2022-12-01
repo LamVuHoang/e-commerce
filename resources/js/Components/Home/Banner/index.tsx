@@ -41,19 +41,25 @@ const Index: React.FC = () => {
                     }}
                 >
                     {bannerList &&
-                        bannerList.map((item) => {
-                            return (
-                                <SwiperSlide key={item.id}>
-                                    <div data-carousel-item="">
-                                        <img
-                                            src={item.desktop_image}
-                                            className="w-auto"
-                                            alt={item.alt}
-                                        />
-                                    </div>
-                                </SwiperSlide>
-                            );
-                        })}
+                        bannerList.map(
+                            (item: {
+                                id: string;
+                                desktop_image: string;
+                                alt: string;
+                            }) => {
+                                return (
+                                    <SwiperSlide key={item.id}>
+                                        <div data-carousel-item="">
+                                            <img
+                                                src={item.desktop_image}
+                                                className="w-auto"
+                                                alt={item.alt}
+                                            />
+                                        </div>
+                                    </SwiperSlide>
+                                );
+                            }
+                        )}
                 </Swiper>
             </div>
         </>
