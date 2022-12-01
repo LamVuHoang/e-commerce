@@ -18,10 +18,10 @@ class BannerFactory extends Factory
      */
     public function definition()
     {
-        $rand = rand(1, 100);
+        $rand = random_int(1, 100);
         return [
-            'desktop_image' => 'https://picsum.photos/id/'.$rand.'/1600/400',
-            'mobile_image' => 'https://picsum.photos/id/'.$rand.'/1600/900',
+            'desktop_image' => 'https://picsum.photos/id/' . $rand . '/1600/400',
+            'mobile_image' => 'https://picsum.photos/id/' . $rand . '/1600/900',
             'alt' => $this->faker->text(100),
             'link' => '/',
             'state' => $this->faker->randomElement([true, false]),

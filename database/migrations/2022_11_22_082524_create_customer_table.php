@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('item_type', function (Blueprint $table) {
-            $table->integer('type_id', true, true);
-            $table->integer('item_id', false, true);
-            $table->text('describe');
-            $table->integer('stock, false, true');
-
-            // Timestamps
-            $table->timestamps();
+        Schema::create('customer', function (Blueprint $table) {
+            $table->integer('id', true, true);
+            $table->integer('user_id', false, true);
+            
+            // Keys
+            $table->foreign('user_id')
+                ->references('user_id')->on('users');
         });
     }
 
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_type');
+        Schema::dropIfExists('customer');
     }
 };

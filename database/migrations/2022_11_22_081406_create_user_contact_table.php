@@ -13,15 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('seller', function (Blueprint $table) {
+        Schema::create('user_contact', function (Blueprint $table) {
             $table->integer('id', true, true);
             $table->integer('user_id', false, true);
-            $table->string('shop_name', 200);
-            $table->string('shop_ward', 500);
-            // $table->string('phone', 20);
-            // $table->string('mail', 50);
-            // $table->integer('ward_id');
-            // $table->date('create_date');
+            $table->string('phone', 20)->unique();
+            $table->string('email', 50)->unique();
+            $table->string('first_name', 20);
+            $table->string('last_name', 50);
+            $table->enum('gender', ['Male', 'Female']);
+            $table->string('avatar');
+            $table->string('address_describe', 500);
+            $table->date('date_of_birth');
+            $table->integer('ward_id', false, true);
+
+            // Timestamps
+            $table->timestamps();
 
             // Keys
             $table->foreign('user_id')
@@ -36,6 +42,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seller');
+        Schema::dropIfExists('user_contact');
     }
 };

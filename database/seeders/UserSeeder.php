@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Seller;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\UserContact;
 use Illuminate\Database\Seeder;
-use Faker\Factory;
 
 class UserSeeder extends Seeder
 {
@@ -20,8 +18,8 @@ class UserSeeder extends Seeder
         $users = User::factory()->count(50)->create();
 
         foreach ($users as $user) {
-            if ($user->type === 'Seller') {
-                Seller::factory()->count(1)->create([
+            if ($user->verified === true) {
+                UserContact::factory()->count(1)->create([
                     'user_id' => $user->user_id
                 ]);
             }

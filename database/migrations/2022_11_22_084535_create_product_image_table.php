@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order', function (Blueprint $table) {
-            $table->integer('order_id', true, true);
-            $table->dateTime('order_date');
-            $table->integer('user_id', false, true);
-            $table->integer('total_price', false, true);
+        Schema::create('product_image', function (Blueprint $table) {
+            $table->integer('id', true, true);
+            $table->integer('product_id', false, true);
+            $table->string('image', 255);
 
-            // Timestamps
-            $table->timestamps();
+            // Keys
+            $table->foreign('product_id')
+                ->references('id')->on('product');
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order');
+        Schema::dropIfExists('product_image');
     }
 };

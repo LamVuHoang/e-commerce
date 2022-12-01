@@ -11,6 +11,7 @@ class Banner extends Model
 
     protected $table = 'banners';
     protected $primaryKey = 'id';
+    public $timestamps = false;
     protected $fillable = [
         'desktop_size',
         'mobile_size',

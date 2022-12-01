@@ -14,19 +14,21 @@ return new class extends Migration
     public function up()
     {
         Schema::create('banners', function (Blueprint $table) {
-            $table->id();
+            $table->integer('id', true, true);
+            // $table->integer('created_by', false, true);
+            // $table->date('start_time');
+            // $table->date('end_time');
+            // $table->string('title', 100);
+            // $table->text('describe');
             $table->string('desktop_image');
             $table->string('mobile_image');
-            $table->string('alt', 500)->nullable();
+            $table->string('alt', 100);
             $table->string('link')->nullable();
-            $table->boolean('state', [true, false])->default(true);
-            $table->integer('created_by', false, true)->nullable()->default(null);
+            $table->boolean('state')->default(true);
 
             // Keys
-            $table->foreign('created_by')
-                ->references('user_id')->on('users')->onUpdate('cascade');
-
-            $table->timestamps();
+            // $table->foreign('created_by')
+            //     ->references('user_id')->on('users');
         });
     }
 

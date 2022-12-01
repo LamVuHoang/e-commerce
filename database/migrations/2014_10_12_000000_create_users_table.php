@@ -15,21 +15,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->integer('user_id', true, true);
-            $table->string('password');
-            $table->enum('type', ['Blocked', 'User', 'Seller', 'Admin'])->default('User');
-            $table->string('first_name', 20)->nullable();
-            $table->string('last_name', 50)->nullable();
             $table->string('username', 20)->unique();
-            $table->date('date_of_birth')->nullable();
-            $table->string('phone', 20)->unique()->nullable();
-            $table->string('mail', 50)->unique()->nullable();
-            $table->integer('ward_id', false, true)->nullable();
-            $table->string('address_detail', 500)->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('password');
+            $table->enum('state', ['Blocked', 'Active'])->default('Active');
+            $table->boolean('verified')->default(false);
 
             //Time stamp
-            $table->timestamp('account_verified_at')->nullable();
-            $table->timestamps();
+            // $table->timestamp('account_verified_at')->nullable();
+            // $table->timestamps();
 
             $table->rememberToken();
             $table->softDeletes();

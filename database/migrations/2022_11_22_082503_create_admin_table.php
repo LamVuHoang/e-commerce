@@ -13,16 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('seller', function (Blueprint $table) {
+        Schema::create('admin', function (Blueprint $table) {
             $table->integer('id', true, true);
             $table->integer('user_id', false, true);
-            $table->string('shop_name', 200);
-            $table->string('shop_ward', 500);
-            // $table->string('phone', 20);
-            // $table->string('mail', 50);
-            // $table->integer('ward_id');
-            // $table->date('create_date');
-
+            $table->enum('admin_type', ['Content', 'Technical'])->default('Content');
+            
             // Keys
             $table->foreign('user_id')
                 ->references('user_id')->on('users');
@@ -36,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seller');
+        Schema::dropIfExists('admin');
     }
 };

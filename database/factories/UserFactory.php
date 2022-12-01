@@ -17,24 +17,13 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $lastName = fake()->lastName();
-        $firstName = fake()->firstName();
-        $userType = ['Blocked', 'User', 'Seller', 'Admin'];
-
+        $state = ['Blocked', 'Active'];
+        $verified = [true, false];
         return [
+            'username' => fake()->unique()->userName(),
             'password' => 12345,
-            'type' => $userType[random_int(0, 3)],
-            'remember_token' => Str::random(10),
-            'first_name' => $firstName,
-            'last_name' => $lastName,
-            'username' => strtolower($firstName . $lastName),
-            'date_of_birth' => fake()->date('Y-m-d'),
-            'phone' => fake()->unique()->phoneNumber(),
-            'mail' => fake()->unique()->safeEmail(),
-            'ward_id' => random_int(1, 1000),
-            'address_detail' => fake()->text(500),
-            'account_verified_at' => now(),
-            'avatar' => 'https://picsum.photos/id/'.rand(1, 100).'/500/500',
+            'state' => $state[random_int(0, 1)],
+            'verified' => $verified[random_int(0, 1)],
         ];
     }
 }
