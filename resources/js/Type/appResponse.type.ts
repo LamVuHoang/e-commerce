@@ -1,7 +1,11 @@
 type AppReponse = {
     code?: number;
-    data?: [];
-    message?: [] | string;
+    data?: {
+        code: number;
+        data: {}[];
+        message: {}[] | string;
+    };
+    message?: {}[] | string;
 };
 
-export default AppReponse
+export default AppReponse;

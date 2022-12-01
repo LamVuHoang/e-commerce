@@ -1,5 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import AppReponse from "../../Type/appResponse.type";
 import { getUserInfo, logInUser, logOutUser, signUpUser } from "../Actions";
+
+type authenticationState = {
+    logInStatus: boolean
+    userInfo: AppReponse,
+    logInResult: AppReponse,
+    signUpResult: AppReponse,
+    logOutResult: AppReponse,
+}
 
 const initialState = {
     logInStatus: window.localStorage.getItem("token") ? true : false,
@@ -7,7 +16,7 @@ const initialState = {
     logInResult: [],
     signUpResult: [],
     logOutResult: [],
-};
+} as authenticationState;
 
 const authenticationSlice = createSlice({
     name: "authentication",
