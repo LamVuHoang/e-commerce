@@ -12,11 +12,9 @@ class AuthenticationRepository extends BaseRepository
         $this->query = User::query();
     }
 
-    public function logIn($data)
+    public function signIn($data)
     {
-        return $this->query->where('mail', $data['username'])
-            ->orWhere('phone', $data['username'])
-            ->orWhere('username', $data['username'])->first();
+        return $this->query->where('username', $data['username'])->first();
     }
 
     public function signUp($data)
@@ -29,7 +27,7 @@ class AuthenticationRepository extends BaseRepository
         return $user;
     }
 
-    public function logOut($request)
+    public function signOut($request)
     {
         return $request->user()->currentAccessToken()->delete();
     }

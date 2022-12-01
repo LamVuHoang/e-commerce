@@ -20,9 +20,9 @@ class AuthenticationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(LogInRequest $request): JsonResponse
+    public function signIn(LogInRequest $request): JsonResponse
     {
-        return $this->_authenticationService->logIn($request);
+        return $this->_authenticationService->signIn($request);
     }
 
     /**
@@ -34,13 +34,5 @@ class AuthenticationController extends Controller
     public function store(SignUpRequest $request): JsonResponse
     {
         return $this->_authenticationService->signUp($request);
-    }
-
-    public function test()
-    {
-        return response()->json([
-            "code" => 200,
-            "data" => "Data Retreived Successfully"
-        ]);
     }
 }

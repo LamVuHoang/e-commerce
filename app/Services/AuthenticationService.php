@@ -22,21 +22,21 @@ class AuthenticationService extends BaseService
         $this->_authenticationRepository = $authenticationRepository;
     }
 
-    public function logIn($request): JsonResponse
+    public function signIn($request): JsonResponse
     {
         $data = $request->safe()->only(['username', 'password']);
-        $user = $this->_authenticationRepository->logIn($data);
+        $user = $this->_authenticationRepository->signIn($data);
 
         if (
             $user && Hash::check($data["password"], strval($user->password))
-            && $user->type !== 'Blocked'
+            && $user->state !== 'Blocked'
         ) {
             $token = $user->createToken('authToken')->plainTextToken;
 
             return $this->successResponse([
                 'token' => $token,
                 'type' => 'Bearer'
-            ], 'Log In Successfully', 201);
+            ], 'Signin Successfully', 201);
         }
 
         return $this->failureResponse("Credentials is invalid", 200);
@@ -58,21 +58,21 @@ class AuthenticationService extends BaseService
             return $this->successResponse([
                 'token' => $token,
                 'type' => 'Bearer'
-            ], 'Sign Up Successfully', 201);
+            ], 'Signup Successfully', 201);
         }
 
-        return $this->failureResponse("Sign Up Unsuccessfully", 400);
+        return $this->failureResponse("Signup Unsuccessfully", 400);
     }
 
-    public function logOut($request): JsonResponse
+    public function signOut($request): JsonResponse
     {
-        $result = $this->_authenticationRepository->logOut($request);
+        $result = $this->_authenticationRepository->signOut($request);
 
         if ($result) {
-            return $this->successResponse([], 'Log out Successfully');
+            return $this->successResponse([], 'Signout Successfully');
         }
 
-        return $this->failureResponse("Logout Unsucessfully", 401);
+        return $this->failureResponse([], 'Signout Unsuccessfully', 401);
     }
 
     public function userInformation($request): JsonResponse

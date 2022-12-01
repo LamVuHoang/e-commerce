@@ -16,18 +16,15 @@ use App\Http\Controllers\BannerController;
 |
 */
 
-Route::post('login', [AuthenticationController::class, 'index']);
+Route::post('signin', [AuthenticationController::class, 'signIn']);
 Route::post('signup', [AuthenticationController::class, 'store']);
 Route::resource('banner', BannerController::class)->only([
     'index'
 ]);
 
-Route::get('user-test', [AuthenticationController::class, 'test']);
-
-
 // AUTHENTICATION REQUIRED
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::post('logout', [AdminAuthenticationController::class, 'destroy']);
+    Route::post('signout', [AdminAuthenticationController::class, 'destroy']);
     Route::get('user-information', [AdminAuthenticationController::class, 'userInformation']);
     Route::resource('banner', BannerController::class)->only([
         'store', 'update', 'destroy'
