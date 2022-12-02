@@ -6,10 +6,10 @@ import {
     changeTabName,
     resetDefaultTab,
 } from "../../../Store/Reducers/tab.reducer";
-import { exceptionConstants, tabConstants } from "../../../Store/Constants";
+import { tabConstants } from "../../../Store/Constants";
 import { logInUser } from "../../../Store/Actions";
 import { changeLoginStatus } from "../../../Store/Reducers/authentication.reducer";
-import AppReponse from "../../../Type/appResponse.type";
+import AppReponse from "../../../Type/AppResponse.type";
 const Index: React.FC = () => {
     const dispatch = useAppDispatch();
     const [invalid, setInvalid] = useState("");
@@ -25,6 +25,8 @@ const Index: React.FC = () => {
     );
 
     useEffect(() => {
+        console.log("newlogInResult", newlogInResult);
+
         if (newlogInResult.data) {
             // LOGIN SUCCESSFULLY
             dispatch(changeTabName(tabConstants.WAITING_TAB));

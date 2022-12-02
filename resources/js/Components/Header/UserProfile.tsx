@@ -8,11 +8,12 @@ import {
     changeTabName,
     changeTabStatus,
 } from "../../Store/Reducers/tab.reducer";
+import UserResource from "../../Type/UserResource.type";
 const UserProfile: React.FC = () => {
     const dispatch = useAppDispatch();
 
-    const userInfo = useAppSelector(
-        (state) => state.authenticationReducer.userInfo.data
+    const userInfo: UserResource = useAppSelector(
+        (state) => state.authenticationReducer.userInfo
     );
 
     const retrieveUserInfo = useCallback(async () => {
@@ -30,19 +31,20 @@ const UserProfile: React.FC = () => {
 
     return (
         <>
-            {userInfo && (
+            {userInfo && userInfo.data && (
                 <div>
                     <div className="flex items-center relative user-button p-2 rounded-full hover:bg-gray-200 duration-200 ease-in grow-0 shrink-0">
                         <img
                             src={
-                                userInfo.avatar ||
+                                userInfo.data.user_contact?.avatar ||
                                 authenticationConstants.NO_AVATAR
                             }
                             alt="user-img"
                             className="h-6 w-6 rounded-full object-cover"
                         />
                         <span className="mx-2 font-bold text-sm">
-                            {userInfo.first_name}
+                            {userInfo.data.user_contact?.first_name ??
+                                authenticationConstants.NO_FIRST_NAME}
                         </span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +67,7 @@ const UserProfile: React.FC = () => {
                                     <div className="flex items-center">
                                         <img
                                             src={
-                                                userInfo.avatar ||
+                                                userInfo.data.user_contact?.avatar ||
                                                 authenticationConstants.NO_AVATAR
                                             }
                                             alt="user-img"
@@ -74,20 +76,24 @@ const UserProfile: React.FC = () => {
                                         <div className="ml-2">
                                             <div className="text-md font-bold one-line-text w-32">
                                                 <span>
-                                                    {userInfo.first_name}{" "}
-                                                    {userInfo.last_name}
+                                                    {userInfo.data.user_contact
+                                                        ?.first_name ??
+                                                        authenticationConstants.NO_FIRST_NAME}{" "}
+                                                    {userInfo.data.user_contact
+                                                        ?.last_name ??
+                                                        authenticationConstants.NO_LAST_NAME}
                                                 </span>
                                             </div>
-                                            {userInfo.username && (
+                                            {userInfo.data.username && (
                                                 <div className="text-xs font-medium one-line-text w-32">
-                                                    @{userInfo.username}
+                                                    @{userInfo.data.username}
                                                 </div>
                                             )}
                                         </div>
                                     </div>
                                 </div>
                             </Link>
-                            {userInfo.role === "Admin" && (
+                            {/* {userInfo.role === "Admin" && (
                                 <>
                                     <div className="break-content"></div>
                                     <div
@@ -106,7 +112,7 @@ const UserProfile: React.FC = () => {
                                         Your shop
                                     </div>
                                 </>
-                            )}
+                            )} */}
                             <div className="break-content"></div>
                             <div className="user-button-dropdown-item">
                                 Order History

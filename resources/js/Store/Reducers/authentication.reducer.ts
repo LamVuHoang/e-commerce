@@ -1,14 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import AppReponse from "../../Type/appResponse.type";
+import AppReponse from "../../Type/AppResponse.type";
+import UserResource from "../../Type/UserResource.type";
 import { getUserInfo, logInUser, logOutUser, signUpUser } from "../Actions";
 
 type authenticationState = {
-    logInStatus: boolean
-    userInfo: AppReponse,
-    logInResult: AppReponse,
-    signUpResult: AppReponse,
-    logOutResult: AppReponse,
-}
+    logInStatus: boolean;
+    userInfo: UserResource;
+    logInResult: AppReponse;
+    signUpResult: AppReponse;
+    logOutResult: AppReponse;
+};
 
 const initialState = {
     logInStatus: window.localStorage.getItem("token") ? true : false,
@@ -38,35 +39,37 @@ const authenticationSlice = createSlice({
                 state.userInfo = action.payload;
             })
 
-
             .addCase(logInUser.pending, (state) => {
                 state.logInResult = { message: "Loading" };
             })
             .addCase(logInUser.rejected, (state) => {
-                state.logInResult = { message: "Could not process the request" };
+                state.logInResult = {
+                    message: "Could not process the request",
+                };
             })
             .addCase(logInUser.fulfilled, (state, action) => {
                 state.logInResult = action.payload;
             })
 
-
             .addCase(signUpUser.pending, (state) => {
                 state.signUpResult = { message: "Loading" };
             })
             .addCase(signUpUser.rejected, (state) => {
-                state.signUpResult = { message: "Could not process the request" };
+                state.signUpResult = {
+                    message: "Could not process the request",
+                };
             })
             .addCase(signUpUser.fulfilled, (state, action) => {
                 state.signUpResult = action.payload;
             })
 
-
-
             .addCase(logOutUser.pending, (state) => {
                 state.logOutResult = { message: "Loading" };
             })
             .addCase(logOutUser.rejected, (state) => {
-                state.logOutResult = { message: "Could not process the request" };
+                state.logOutResult = {
+                    message: "Could not process the request",
+                };
             })
             .addCase(logOutUser.fulfilled, (state, action) => {
                 state.logOutResult = action.payload;

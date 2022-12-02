@@ -10,7 +10,7 @@ import {
     resetDefaultTab,
 } from "../../../Store/Reducers/tab.reducer";
 import { signUpUser } from "../../../Store/Actions";
-import AppReponse from "../../../Type/appResponse.type";
+import AppReponse from "../../../Type/AppResponse.type";
 const Index: React.FC = () => {
     const dispatch = useAppDispatch();
 

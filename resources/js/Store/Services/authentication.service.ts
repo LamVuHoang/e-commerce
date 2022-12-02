@@ -7,7 +7,7 @@ class AuthenticationService {
         return response;
     }
     async logInUser(data: Login) {
-        const endpoint = "/login";
+        const endpoint = "/signin";
         const response = await Repository.post(endpoint, data);
         return response;
     }
@@ -21,7 +21,7 @@ class AuthenticationService {
         return response;
     }
     async logOutUser() {
-        const endpoint = "/logout";
+        const endpoint = "/signout";
         const response = await Repository.post(endpoint);
         return response;
     }
