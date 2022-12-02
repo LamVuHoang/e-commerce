@@ -27,10 +27,7 @@ class AuthenticationService extends BaseService
         $data = $request->safe()->only(['username', 'password']);
         $user = $this->_authenticationRepository->signIn($data);
 
-        if (
-            $user && Hash::check($data["password"], strval($user->password))
-            && $user->state !== 'Blocked'
-        ) {
+        if (Hash::check($data["password"], strval($user->password))) {
             $token = $user->createToken('authToken')->plainTextToken;
 
             return $this->successResponse([

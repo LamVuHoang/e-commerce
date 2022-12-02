@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SignInRequest;
 use App\Services\AuthenticationService;
-use App\Http\Requests\LogInRequest;
+
 use App\Http\Requests\SignUpRequest;
 use Illuminate\Http\JsonResponse;
 
@@ -20,7 +21,7 @@ class AuthenticationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function signIn(LogInRequest $request): JsonResponse
+    public function signIn(SignInRequest $request): JsonResponse
     {
         return $this->_authenticationService->signIn($request);
     }

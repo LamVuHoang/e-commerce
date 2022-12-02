@@ -3,12 +3,15 @@
 namespace App\Http\Requests;
 
 use App\Http\Traits\ApiReponse;
+use App\Rules\UserNotBlocked;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rule;
 
-class LogInRequest extends FormRequest
+class SignInRequest extends FormRequest
 {
     use ApiReponse;
     /**
@@ -29,7 +32,13 @@ class LogInRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => ['required'],
+            'username' => [
+                'required',
+                Rule::exists('users')->where(function ($query) {
+                    return $query->where('username', $this->input('username'));
+                }),
+                new UserNotBlocked
+            ],
             'password' => ['required']
         ];
     }
@@ -55,13 +64,14 @@ class LogInRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => ':attribute is required'
+            'required' => ':attribute is required',
+            'exists' => 'This :attribute do not exists or has been Blocked'
         ];
     }
 
     protected function failedValidation(Validator $validator)
     {
         $errors = (new ValidationException($validator))->errors();
-        throw new HttpResponseException($this->failureResponse($errors . 400));
+        throw new HttpResponseException($this->failureResponse($errors, 400));
     }
 }
