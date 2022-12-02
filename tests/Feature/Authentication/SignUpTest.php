@@ -42,6 +42,20 @@ class SignUpTest extends TestCase
      *
      * @return void
      */
+    public function test_signup_successfully()
+    {
+        $response = $this->signUp("anonymous", "aBc123", "aBc123");
+        $response->assertJsonStructure([
+            "data" => [
+                "token",
+                "type"
+            ],
+            "message",
+            "code"
+        ])->assertJsonFragment([
+            "message" => "Signup Successfully"
+        ])->assertStatus(201);
+    }
 
     public function test_signup_with_existing_username()
     {

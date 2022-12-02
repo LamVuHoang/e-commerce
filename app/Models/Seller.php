@@ -10,9 +10,4 @@ class Seller extends Model
     use HasFactory;
     protected $table = 'seller';
     public $timestamps = false;
-
-    // public function user()
-    // {
-    //     return $this->hasOne(User::class, 'user_id', 'user_id');
-    // }
 }

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $table = 'users';
     protected $primaryKey = 'user_id';
     public $timestamps = false;
     /**
@@ -43,5 +44,10 @@ class User extends Authenticatable
         return Attribute::make(
             set: fn ($value) => bcrypt(strval($value)),
         );
+    }
+
+    public function userContact()
+    {
+        return $this->hasOne(UserContact::class, 'user_id', 'user_id');
     }
 }

@@ -4,7 +4,6 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Auth;
 use App\Repositories\AuthenticationRepository;
 use App\Http\Traits\ApiReponse;
 use Illuminate\Http\JsonResponse;

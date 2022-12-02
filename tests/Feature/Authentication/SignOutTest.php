@@ -32,6 +32,7 @@ class SignOutTest extends TestCase
             'password' => "12345"
         ]);
         $user->assertStatus(201);
+        // dd($user);
         $token = $user->baseResponse->original["data"]["token"];
 
 
