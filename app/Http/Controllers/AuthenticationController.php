@@ -32,7 +32,7 @@ class AuthenticationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SignUpRequest $request): JsonResponse
+    public function signUp(SignUpRequest $request): JsonResponse
     {
         return $this->_authenticationService->signUp($request);
     }

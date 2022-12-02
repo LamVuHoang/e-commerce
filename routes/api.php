@@ -17,7 +17,7 @@ use App\Http\Controllers\BannerController;
 */
 
 Route::post('signin', [AuthenticationController::class, 'signIn']);
-Route::post('signup', [AuthenticationController::class, 'store']);
+Route::post('signup', [AuthenticationController::class, 'signUp']);
 Route::resource('banner', BannerController::class)->only([
     'index'
 ]);

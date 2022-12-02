@@ -16,9 +16,15 @@ class UserNotBlocked implements Rule
      */
     public function passes($attribute, $value)
     {
-        return User::where('username', $value)
-            ->where('state', '!=', 'Blocked')
-            ->exists();
+        $usernameExists = User::where('username', $value)->exists();
+
+        if ($usernameExists) {
+            return User::where('username', $value)
+                ->where('state', '!=', 'Blocked')
+                ->exists();
+        }
+        
+        return true;
     }
 
     /**
@@ -28,6 +34,6 @@ class UserNotBlocked implements Rule
      */
     public function message()
     {
-        return 'This Username has been blocked.';
+        return 'This Username has been blocked';
     }
 }

@@ -44,7 +44,8 @@ class SignUpRequest extends FormRequest
     {
         return [
             'username' => 'Username',
-            'confirmation_password' => 'Password confirmation'
+            'password' => 'Password',
+            'password_confirmation' => 'Password confirmation'
         ];
     }
 
@@ -60,6 +61,7 @@ class SignUpRequest extends FormRequest
             'unique' => 'This :attribute is already taken',
             'max' => ':attribute not exceed :max characters',
             'min' => ':attribute not under :min characters',
+            'confirmed' => 'Password and password confirmation must be matched'
         ];
     }
 

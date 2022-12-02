@@ -60,16 +60,30 @@ class SignInTest extends TestCase
     public function test_signin_with_blocked_account()
     {
         $response = $this->signIn("alex", "12345");
-        $response->assertJson([
-            "message" => "Credentials is invalid"
+        $response->assertJsonFragment([
+            "username" => [
+                "This Username has been blocked"
+            ]
         ]);
     }
 
     public function test_signin_with_invalid_credentials()
     {
         $response = $this->signIn("anonymous", "134597");
-        $response->assertJson([
-            "message" => "Credentials is invalid"
+        $response->assertJsonFragment([
+            "username" => [
+                "This Username do not exists"
+            ]
+        ]);
+    }
+
+    public function test_signin_with_empty_field()
+    {
+        $response = $this->signIn("anonymous");
+        $response->assertJsonFragment([
+            "password" => [
+                "Password is required"
+            ]
         ]);
     }
 }
