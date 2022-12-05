@@ -54,7 +54,7 @@ class SignInTest extends TestCase
             "code"
         ])
             ->assertJson(["message" => "Signin Successfully"])
-            ->assertStatus(201);
+            ->assertSuccessful();
     }
 
     public function test_signin_with_blocked_account()

@@ -20,7 +20,6 @@ class UserContactResource extends JsonResource
             'first_name' => $this->first_name ?? 'First Name',
             'last_name' => $this->last_name ?? 'Last Name',
             'avatar' => $this->avatar,
-            ''
         ];
     }
 }
