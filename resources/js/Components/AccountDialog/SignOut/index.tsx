@@ -1,9 +1,7 @@
 import React from "react";
 import useAppDispatch from "../../../Hooks/useAppDispatch";
 import { changeSigninStatus } from "../../../Store/Reducers/authentication.reducer";
-import {
-    resetDefaultTab,
-} from "../../../Store/Reducers/tab.reducer";
+import { resetDefaultTab } from "../../../Store/Reducers/tab.reducer";
 import { signOutUser } from "../../../Store/Actions";
 
 const Index: React.FC = () => {

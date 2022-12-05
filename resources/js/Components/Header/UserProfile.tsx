@@ -31,19 +31,19 @@ const UserProfile: React.FC = () => {
 
     return (
         <>
-            {userInfo && (
+            {userInfo && userInfo.data && (
                 <div>
                     <div className="flex items-center relative user-button p-2 rounded-full hover:bg-gray-200 duration-200 ease-in grow-0 shrink-0">
                         <img
                             src={
-                                userInfo.user_contact?.avatar ||
+                                userInfo.data.user_contact?.avatar ||
                                 authenticationConstants.NO_AVATAR
                             }
                             alt="user-img"
                             className="h-6 w-6 rounded-full object-cover"
                         />
                         <span className="mx-2 font-bold text-sm">
-                            {userInfo.user_contact?.first_name ??
+                            {userInfo.data.user_contact?.first_name ??
                                 authenticationConstants.NO_FIRST_NAME}
                         </span>
                         <svg
@@ -67,7 +67,8 @@ const UserProfile: React.FC = () => {
                                     <div className="flex items-center">
                                         <img
                                             src={
-                                                userInfo.user_contact?.avatar ||
+                                                userInfo.data.user_contact
+                                                    ?.avatar ||
                                                 authenticationConstants.NO_AVATAR
                                             }
                                             alt="user-img"
@@ -76,17 +77,17 @@ const UserProfile: React.FC = () => {
                                         <div className="ml-2">
                                             <div className="text-md font-bold one-line-text w-32">
                                                 <span>
-                                                    {userInfo.user_contact
+                                                    {userInfo.data.user_contact
                                                         ?.first_name ??
                                                         authenticationConstants.NO_FIRST_NAME}{" "}
-                                                    {userInfo.user_contact
+                                                    {userInfo.data.user_contact
                                                         ?.last_name ??
                                                         authenticationConstants.NO_LAST_NAME}
                                                 </span>
                                             </div>
-                                            {userInfo.username && (
+                                            {userInfo.data.username && (
                                                 <div className="text-xs font-medium one-line-text w-32">
-                                                    @{userInfo.username}
+                                                    @{userInfo.data.username}
                                                 </div>
                                             )}
                                         </div>

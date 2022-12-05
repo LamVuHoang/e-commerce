@@ -33,8 +33,6 @@ const Index: React.FC = () => {
     );
 
     useEffect(() => {
-        console.log("newsignInResult", newsignInResult);
-
         if (newsignInResult.data) {
             // SIGNIN SUCCESSFULLY
             dispatch(changeTabName(tabConstants.WAITING_TAB));

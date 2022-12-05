@@ -8,7 +8,7 @@ class AuthenticationService {
         return response;
     }
     async signInUser(data: Signin) {
-        const endpoint = "/signin";
+        const endpoint = "/signin";        
         const response = await Repository.post(endpoint, data);
         return response;
     }

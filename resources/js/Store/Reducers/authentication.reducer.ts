@@ -7,6 +7,7 @@ type authenticationState = {
     signInStatus: boolean;
     signInFetching: boolean;
     signUpFetching: boolean;
+    userInfoFetching: boolean;
 
     userInfo: UserResource;
     signInResult: AppReponse;
@@ -16,15 +17,16 @@ type authenticationState = {
 
 const initialState = {
     signInStatus: window.localStorage.getItem("token") ? true : false,
-    userInfo: [],
+    userInfo: {},
+    userInfoFetching: false,
 
-    signInResult: [],
+    signInResult: {},
     signInFetching: false,
 
-    signUpResult: [],
+    signUpResult: {},
     signUpFetching: false,
 
-    signOutResult: [],
+    signOutResult: {},
 } as authenticationState;
 
 const authenticationSlice = createSlice({
@@ -39,12 +41,14 @@ const authenticationSlice = createSlice({
         builder
             // Get User Info
             .addCase(getUserInfo.pending, (state) => {
-                state.userInfo = { message: "Loading" };
+                state.userInfoFetching = true;
             })
             .addCase(getUserInfo.rejected, (state) => {
+                state.userInfoFetching = false;
                 state.userInfo = { message: "Could not process the request" };
             })
             .addCase(getUserInfo.fulfilled, (state, action) => {
+                state.userInfoFetching = false;
                 state.userInfo = action.payload;
             })
 
@@ -88,6 +92,7 @@ const authenticationSlice = createSlice({
                 };
             })
             .addCase(signOutUser.fulfilled, (state, action) => {
+                state.signInResult = {};
                 state.signOutResult = action.payload;
             });
     },

@@ -5,7 +5,7 @@ import authenticationService from "../Services/authentication.service";
 
 export const getUserInfo = createAsyncThunk("getUserInfo", async () => {
     const response = await authenticationService.getUserInfo();
-    return response.data;
+    return response;
 });
 
 export const signInUser = createAsyncThunk(

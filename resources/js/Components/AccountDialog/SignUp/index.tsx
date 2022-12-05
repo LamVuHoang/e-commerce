@@ -38,17 +38,17 @@ const Index: React.FC = () => {
 
     useEffect(() => {
         console.log("newSignUpResult", newSignUpResult);
-        
-        // if (newSignUpResult.data) {
-        //     window.localStorage.setItem(
-        //         "token",
-        //         newSignUpResult.data.data.token
-        //     );
-        //     dispatch(changeSigninStatus(true));
-        //     dispatch(resetDefaultTab());
-        // } else {
-        //     setInvalid(newSignUpResult.message);
-        // }
+
+        if (newSignUpResult.data) {
+            window.localStorage.setItem(
+                "token",
+                newSignUpResult.data.token
+            );
+            dispatch(changeSigninStatus(true));
+            dispatch(resetDefaultTab());
+        } else {
+            setInvalid(newSignUpResult.message);
+        }
     }, [newSignUpResult]);
 
     const onSubmit = (data) => {
@@ -80,9 +80,14 @@ const Index: React.FC = () => {
                     className="w-full block my-input"
                     placeholder="Username"
                 />
-                {(errors.username || invalid?.username) && (
+                {errors.username && (
                     <p role="alert" className="mt-1 text-red-800 px-3 text-sm">
-                        {errors.username.message || invalid.username}
+                        {errors.username.message}
+                    </p>
+                )}
+                {invalid && invalid.username && (
+                    <p role="alert" className="mt-1 text-red-800 px-3 text-sm">
+                        {invalid.username}
                     </p>
                 )}
                 <input
@@ -93,9 +98,14 @@ const Index: React.FC = () => {
                     className="w-full block my-input"
                     placeholder="Password"
                 />
-                {(errors.password || invalid?.password) && (
+                {errors.password && (
                     <p role="alert" className="mt-1 text-red-800 px-3 text-sm">
-                        {errors.password.message || invalid.password}
+                        {errors.password.message}
+                    </p>
+                )}
+                {invalid && invalid.password && (
+                    <p role="alert" className="mt-1 text-red-800 px-3 text-sm">
+                        {invalid.password}
                     </p>
                 )}
                 <input
@@ -106,10 +116,14 @@ const Index: React.FC = () => {
                     className="w-full block my-input"
                     placeholder="Confirm Password"
                 />
-                {(errors.confirm || invalid?.password_confirmation) && (
+                {errors.confirm && (
                     <p role="alert" className="mt-1 text-red-800 px-3 text-sm">
-                        {errors.confirm.message ||
-                            invalid.password_confirmation}
+                        {errors.confirm.message}
+                    </p>
+                )}
+                {invalid && invalid.password_confirmation && (
+                    <p role="alert" className="mt-1 text-red-800 px-3 text-sm">
+                        {invalid.password_confirmation}
                     </p>
                 )}
                 {invalid && invalid.signin && (
