@@ -46,14 +46,8 @@ class SignUpTest extends TestCase
     {
         $response = $this->signUp("anonymous", "aBc123", "aBc123");
         $response->assertJsonStructure([
-            "data" => [
-                "token",
-                "type"
-            ],
-            "message",
-            "code"
-        ])->assertJsonFragment([
-            "message" => "Signup Successfully"
+            "token",
+            "type"
         ])->assertStatus(201);
     }
 

@@ -32,10 +32,14 @@ class AuthenticationService extends BaseService
             return $this->successResponse([
                 'token' => $token,
                 'type' => 'Bearer'
-            ], 'Signin Successfully', 201);
+            ], 201);
         }
 
-        return $this->failureResponse("Credentials is invalid", 200);
+        return $this->failureResponse([
+            "signin" => [
+                "Credentials is invalid"
+            ]
+        ], 200);
     }
 
     public function signUp($request)
@@ -54,10 +58,14 @@ class AuthenticationService extends BaseService
             return $this->successResponse([
                 'token' => $token,
                 'type' => 'Bearer'
-            ], 'Signup Successfully', 201);
+            ], 201);
         }
 
-        return $this->failureResponse("Signup Unsuccessfully", 400);
+        return $this->failureResponse([
+            "signup" => [
+                "Signup Unsuccessfully"
+            ]
+        ], 400);
     }
 
     public function signOut($request): JsonResponse
@@ -68,7 +76,11 @@ class AuthenticationService extends BaseService
             return $this->successResponse([], 'Signout Successfully');
         }
 
-        return $this->failureResponse([], 'Signout Unsuccessfully', 401);
+        return $this->failureResponse([
+            "signout" => [
+                "Signout Unsuccessfully"
+            ]
+        ], 401);
     }
 
     public function userInformation($request): JsonResponse
@@ -78,6 +90,10 @@ class AuthenticationService extends BaseService
             return $this->successResponse(UserResource::make($user));
         }
 
-        return $this->failureResponse("Error finding User", 401);
+        return $this->failureResponse([
+            "user_information" => [
+                "Unable to retreive User information"
+            ]
+        ], 401);
     }
 }

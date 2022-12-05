@@ -46,14 +46,9 @@ class SignInTest extends TestCase
     {
         $response = $this->signIn("julia", "12345");
         $response->assertJsonStructure([
-            "data" => [
-                "token",
-                "type"
-            ],
-            "message",
-            "code"
+            "token",
+            "type"
         ])
-            ->assertJson(["message" => "Signin Successfully"])
             ->assertSuccessful();
     }
 
@@ -67,12 +62,22 @@ class SignInTest extends TestCase
         ]);
     }
 
-    public function test_signin_with_invalid_credentials()
+    public function test_signin_with_not_existing_credentials()
     {
         $response = $this->signIn("anonymous", "134597");
         $response->assertJsonFragment([
             "username" => [
-                "This Username do not exists"
+                "This Username does not exists"
+            ]
+        ]);
+    }
+
+    public function test_signin_with_invalid_credentials()
+    {
+        $response = $this->signIn("julia", "13456789");
+        $response->assertJsonFragment([
+            "signin" => [
+                "Credentials is invalid"
             ]
         ]);
     }

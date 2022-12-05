@@ -65,7 +65,7 @@ class SignInRequest extends FormRequest
     {
         return [
             'required' => ':attribute is required',
-            'exists' => 'This :attribute do not exists'
+            'exists' => 'This :attribute does not exists'
         ];
     }
 
