@@ -23,10 +23,10 @@ const Index: React.FC = () => {
         <>
             <Modal
                 className={`top-0 left-0 right-0 bottom-0 modal-filter fixed items-center flex flex-col my-dialog ${
-                    tab?.tabStatus ? "my-dialog--show" : "my-dialog--hide"
+                    tab?.authenTabStatus ? "my-dialog--show" : "my-dialog--hide"
                 }`}
             >
-                {tab.tabStatus && (
+                {tab.authenTabStatus && (
                     <div
                         className={`h-fit bg-white mt-32 p-4 rounded-2xl my-shadow relative ${
                             tab.tabName != tabConstants.SIGNOUT_TAB &&
@@ -55,7 +55,7 @@ const Index: React.FC = () => {
                                     />
                                 </svg>
                             )}
-                        {tab.tabName == tabConstants.LOGIN_TAB && <SignIn />}
+                        {tab.tabName == tabConstants.SIGNIN_TAB && <SignIn />}
                         {tab.tabName == tabConstants.SIGNUP_TAB && <SignUp />}
                         {tab.tabName == tabConstants.SIGNOUT_TAB && <SignOut />}
                         {tab.tabName == tabConstants.WAITING_TAB && (
@@ -64,13 +64,13 @@ const Index: React.FC = () => {
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
-                                    stroke-width="1.5"
+                                    strokeWidth="1.5"
                                     stroke="currentColor"
                                     className="w-10 h-10 animate-spin text-gray-500"
                                 >
                                     <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
                                         d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
                                     />
                                 </svg>

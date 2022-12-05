@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { tabConstants } from "../Constants";
 interface TabState {
     tabName: string;
-    tabStatus: boolean;
+    authenTabStatus: boolean;
 }
 
 const initState = {
-    tabName: tabConstants.LOGIN_TAB,
-    tabStatus: false,
+    tabName: tabConstants.SIGNIN_TAB,
+    authenTabStatus: false,
 } as TabState;
 
 const tabSlice = createSlice({
@@ -17,17 +17,17 @@ const tabSlice = createSlice({
         changeTabName(state, action) {
             state.tabName = action.payload;
         },
-        changeTabStatus(state, action) {
-            state.tabStatus = action.payload;
+        changeAuthenTabStatus(state, action) {
+            state.authenTabStatus = action.payload;
         },
         resetDefaultTab(state) {
-            state.tabName = tabConstants.LOGIN_TAB;
-            state.tabStatus = false;
+            state.tabName = tabConstants.SIGNIN_TAB;
+            state.authenTabStatus = false;
         },
     },
 });
 
-export const { changeTabName, changeTabStatus, resetDefaultTab } =
+export const { changeTabName, changeAuthenTabStatus, resetDefaultTab } =
     tabSlice.actions;
     
 export default tabSlice.reducer;

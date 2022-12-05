@@ -1,34 +1,43 @@
 import { createSlice } from "@reduxjs/toolkit";
 import AppReponse from "../../Type/AppResponse.type";
 import UserResource from "../../Type/UserResource.type";
-import { getUserInfo, logInUser, logOutUser, signUpUser } from "../Actions";
+import { getUserInfo, signInUser, signOutUser, signUpUser } from "../Actions";
 
 type authenticationState = {
-    logInStatus: boolean;
+    signInStatus: boolean;
+    signInFetching: boolean;
+    signUpFetching: boolean;
+
     userInfo: UserResource;
-    logInResult: AppReponse;
+    signInResult: AppReponse;
     signUpResult: AppReponse;
-    logOutResult: AppReponse;
+    signOutResult: AppReponse;
 };
 
 const initialState = {
-    logInStatus: window.localStorage.getItem("token") ? true : false,
+    signInStatus: window.localStorage.getItem("token") ? true : false,
     userInfo: [],
-    logInResult: [],
+
+    signInResult: [],
+    signInFetching: false,
+
     signUpResult: [],
-    logOutResult: [],
+    signUpFetching: false,
+
+    signOutResult: [],
 } as authenticationState;
 
 const authenticationSlice = createSlice({
     name: "authentication",
     initialState,
     reducers: {
-        changeLoginStatus(state, action) {
-            state.logInStatus = action.payload;
+        changeSigninStatus(state, action) {
+            state.signInStatus = action.payload;
         },
     },
     extraReducers: (builder) => {
         builder
+            // Get User Info
             .addCase(getUserInfo.pending, (state) => {
                 state.userInfo = { message: "Loading" };
             })
@@ -39,43 +48,50 @@ const authenticationSlice = createSlice({
                 state.userInfo = action.payload;
             })
 
-            .addCase(logInUser.pending, (state) => {
-                state.logInResult = { message: "Loading" };
+            // Signin User
+            .addCase(signInUser.pending, (state) => {
+                state.signInFetching = true;
             })
-            .addCase(logInUser.rejected, (state) => {
-                state.logInResult = {
+            .addCase(signInUser.rejected, (state) => {
+                state.signInFetching = false;
+                state.signInResult = {
                     message: "Could not process the request",
                 };
             })
-            .addCase(logInUser.fulfilled, (state, action) => {
-                state.logInResult = action.payload;
+            .addCase(signInUser.fulfilled, (state, action) => {
+                state.signInFetching = false;
+                state.signInResult = action.payload;
             })
 
+            // Signup User
             .addCase(signUpUser.pending, (state) => {
-                state.signUpResult = { message: "Loading" };
+                state.signUpFetching = true;
             })
             .addCase(signUpUser.rejected, (state) => {
+                state.signUpFetching = false;
                 state.signUpResult = {
                     message: "Could not process the request",
                 };
             })
             .addCase(signUpUser.fulfilled, (state, action) => {
+                state.signUpFetching = false;
                 state.signUpResult = action.payload;
             })
 
-            .addCase(logOutUser.pending, (state) => {
-                state.logOutResult = { message: "Loading" };
+            // Signout User
+            .addCase(signOutUser.pending, (state) => {
+                state.signOutResult = { message: "Loading" };
             })
-            .addCase(logOutUser.rejected, (state) => {
-                state.logOutResult = {
+            .addCase(signOutUser.rejected, (state) => {
+                state.signOutResult = {
                     message: "Could not process the request",
                 };
             })
-            .addCase(logOutUser.fulfilled, (state, action) => {
-                state.logOutResult = action.payload;
+            .addCase(signOutUser.fulfilled, (state, action) => {
+                state.signOutResult = action.payload;
             });
     },
 });
 
-export const { changeLoginStatus } = authenticationSlice.actions;
+export const { changeSigninStatus } = authenticationSlice.actions;
 export default authenticationSlice.reducer;

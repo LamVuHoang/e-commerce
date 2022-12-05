@@ -1,6 +1,6 @@
 export const tabConstants = {
     // Tab Name
-    LOGIN_TAB: "LOGIN_TAB",
+    SIGNIN_TAB: "SIGNIN_TAB",
     SIGNUP_TAB: "SIGNUP_TAB",
     SIGNOUT_TAB: "SIGNOUT_TAB",
     WAITING_TAB: "WAITING_TAB",

@@ -1,10 +1,12 @@
+import React from "react";
 import useAppDispatch from "../../Hooks/useAppDispatch";
-import { changeTabStatus } from "../../Store/Reducers/tab.reducer";
+import { changeAuthenTabStatus } from "../../Store/Reducers/tab.reducer";
 const EnterCredential: React.FC = () => {
     const dispatch = useAppDispatch();
 
-    const handleOpenDialog = () => {
-        dispatch(changeTabStatus(true));
+    const handleOpenDialog = (event: React.FormEvent) => {
+        event.preventDefault();
+        dispatch(changeAuthenTabStatus(true));
     };
 
     return (

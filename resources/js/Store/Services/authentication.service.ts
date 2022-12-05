@@ -1,3 +1,4 @@
+import Signin from "../../Type/Signin.type";
 import Repository from "./repository";
 
 class AuthenticationService {
@@ -6,7 +7,7 @@ class AuthenticationService {
         const response = await Repository.get(endpoint);
         return response;
     }
-    async logInUser(data: Login) {
+    async signInUser(data: Signin) {
         const endpoint = "/signin";
         const response = await Repository.post(endpoint, data);
         return response;
@@ -20,7 +21,7 @@ class AuthenticationService {
         const response = await Repository.post(endpoint, data);
         return response;
     }
-    async logOutUser() {
+    async signOutUser() {
         const endpoint = "/signout";
         const response = await Repository.post(endpoint);
         return response;

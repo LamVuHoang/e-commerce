@@ -1,31 +1,17 @@
 import React from "react";
-import useAppSelector from "../../../Hooks/useAppSelector";
 import useAppDispatch from "../../../Hooks/useAppDispatch";
-import { tabConstants } from "../../../Store/Constants";
-import { changeLoginStatus } from "../../../Store/Reducers/authentication.reducer";
+import { changeSigninStatus } from "../../../Store/Reducers/authentication.reducer";
 import {
-    changeTabName,
-    changeTabStatus,
     resetDefaultTab,
 } from "../../../Store/Reducers/tab.reducer";
-import { logOutUser } from "../../../Store/Actions";
+import { signOutUser } from "../../../Store/Actions";
 
 const Index: React.FC = () => {
     const dispatch = useAppDispatch();
-
-    const logOutResult = useAppSelector(
-        (state) => state.authenticationReducer.logOutResult
-    );
-
     const confirmSignOut = () => {
-        dispatch(logOutUser());
+        dispatch(signOutUser());
         window.localStorage.removeItem("token");
-        dispatch(changeLoginStatus(false));
-
-        const logoutTimeout = setTimeout(() => {
-            dispatch(changeTabName(tabConstants.WAITING_TAB));
-        }, 1000);
-        clearTimeout(logoutTimeout);
+        dispatch(changeSigninStatus(false));
         dispatch(resetDefaultTab());
     };
 

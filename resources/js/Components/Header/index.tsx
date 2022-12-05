@@ -19,8 +19,8 @@ const Index: React.FC = () => {
         }, 0);
     };
 
-    const logInStatus = useAppSelector(
-        (state) => state.authenticationReducer.logInStatus
+    const signInStatus = useAppSelector(
+        (state) => state.authenticationReducer.signInStatus
     );
     return (
         <>
@@ -83,7 +83,7 @@ const Index: React.FC = () => {
                 </form>
                 {/* user */}
                 <div className="flex items-center justify-center w-fit">
-                    {logInStatus ? <UserProfile /> : <EnterCredential />}
+                    {signInStatus ? <UserProfile /> : <EnterCredential />}
                     <button className="ml-1 flex items-center rounded-full hover:bg-gray-200 duration-200 ease-in">
                         <div className="relative p-2">
                             <svg

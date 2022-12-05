@@ -18,7 +18,7 @@ const Index: React.FC = () => {
         dispatch(getAllBanner());
     }, []);
     const bannerList = useAppSelector(
-        (state) => state.bannerReducer.bannerList.data
+        (state) => state.bannerReducer.bannerList
     );
 
     return (

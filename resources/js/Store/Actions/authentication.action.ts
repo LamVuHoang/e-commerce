@@ -1,38 +1,30 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import Signin from "../../Type/Signin.type";
+import Signup from "../../Type/Signup.type";
 import authenticationService from "../Services/authentication.service";
 
-export const getUserInfo = createAsyncThunk(
-    "getUserInfo",
-    async () => {
-        const response = await authenticationService.getUserInfo();
-        return response.data;
-    }
-);
+export const getUserInfo = createAsyncThunk("getUserInfo", async () => {
+    const response = await authenticationService.getUserInfo();
+    return response.data;
+});
 
-export const logInUser = createAsyncThunk(
-    "logInUser",
-    async (data: { username: string; password: string }) => {
-        const response = await authenticationService.logInUser(data);
+export const signInUser = createAsyncThunk(
+    "signInUser",
+    async (data: Signin) => {
+        const response = await authenticationService.signInUser(data);
         return response;
     }
 );
 
 export const signUpUser = createAsyncThunk(
     "signUpUser",
-    async (data: {
-        username: string;
-        password: string;
-        password_confirmation: string;
-    }) => {
+    async (data: Signup) => {
         const response = await authenticationService.signUpUser(data);
         return response;
     }
 );
 
-export const logOutUser = createAsyncThunk(
-    "logOutUser",
-    async () => {
-        const response = await authenticationService.logOutUser();
-        return response.data;
-    }
-);
+export const signOutUser = createAsyncThunk("signOutUser", async () => {
+    const response = await authenticationService.signOutUser();
+    return response;
+});
