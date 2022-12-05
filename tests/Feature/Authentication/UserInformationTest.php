@@ -38,24 +38,20 @@ class UserInformationTest extends TestCase
         ]);
         $user->assertStatus(201);
         // dd($user);
-        $token = $user->baseResponse->original["data"]["token"];
+        $token = $user->baseResponse->original["token"];
 
         $response = $this->withHeader("Authorization", "Bearer " . $token)
             ->getJson("api/user-information");
         $response->assertJsonStructure([
-            "data" => [
-                "username",
-                "state",
-                "user_contact" => [
-                    'phone',
-                    'email',
-                    'first_name',
-                    'last_name',
-                    'avatar'
-                ]
-            ],
-            "code",
-            "message"
+            "username",
+            "state",
+            "user_contact" => [
+                'phone',
+                'email',
+                'first_name',
+                'last_name',
+                'avatar'
+            ]
         ])->assertOk();
     }
 

@@ -16,10 +16,6 @@ class BannerTest extends TestCase
     public function test_all_banner()
     {
         $response = $this->getJson("api/banner");
-        $response->assertJsonStructure([
-            "code",
-            "message",
-            "data"
-        ])->assertSuccessful();
+        $response->assertOk();
     }
 }

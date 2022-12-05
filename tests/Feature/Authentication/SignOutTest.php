@@ -33,14 +33,12 @@ class SignOutTest extends TestCase
         ]);
         $user->assertStatus(201);
         // dd($user);
-        $token = $user->baseResponse->original["data"]["token"];
+        $token = $user->baseResponse->original["token"];
 
 
         $response = $this->withHeader("Authorization", "Bearer " . $token)
             ->postJson("api/signout");
-        $response->assertJson([
-            "message" => "Signout Successfully"
-        ])->assertOk();
+        $response->assertOk();
     }
 
     public function test_signout_without_signin()

@@ -39,7 +39,7 @@ class AuthenticationService extends BaseService
             "signin" => [
                 "Credentials is invalid"
             ]
-        ], 200);
+        ], 401);
     }
 
     public function signUp($request)
@@ -65,7 +65,7 @@ class AuthenticationService extends BaseService
             "signup" => [
                 "Signup Unsuccessfully"
             ]
-        ], 400);
+        ], 401);
     }
 
     public function signOut($request): JsonResponse
@@ -73,7 +73,7 @@ class AuthenticationService extends BaseService
         $result = $this->_authenticationRepository->signOut($request);
 
         if ($result) {
-            return $this->successResponse([], 'Signout Successfully');
+            return $this->successResponse([], 200);
         }
 
         return $this->failureResponse([
