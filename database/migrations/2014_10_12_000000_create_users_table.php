@@ -22,7 +22,7 @@ return new class extends Migration
 
             //Time stamp
             // $table->timestamp('account_verified_at')->nullable();
-            // $table->timestamps();
+            $table->timestamps();
 
             $table->rememberToken();
             $table->softDeletes();
