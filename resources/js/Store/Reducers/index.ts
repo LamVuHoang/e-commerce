@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import Action from "../../Type/Action.type";
+// import Action from "../../Type/Action.type";
 import authenticationReducer from "./authentication.reducer";
 import bannerReducer from "./banner.reducer";
 import tabReducer from "./tab.reducer";
@@ -10,7 +10,7 @@ const appReducer = combineReducers({
     tabReducer,
 });
 
-const rootReducer = (state: any, action: Action) => {
+const rootReducer = (state, action) => {
     return appReducer(state, action);
 };
 
