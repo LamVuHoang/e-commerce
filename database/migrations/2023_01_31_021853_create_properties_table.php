@@ -18,6 +18,11 @@ return new class extends Migration
             $table->integer('product_id', false, true);
             $table->string('name', 50);
             $table->timestamps();
+
+            // Keys
+            $table->foreign('product_id')
+                ->references('id')->on('products');
+            
         });
     }
 
