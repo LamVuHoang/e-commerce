@@ -27,6 +27,7 @@ services:
         image: 'postgres:15'
         ports:
             - '${FORWARD_DB_PORT:-5432}:5432'
+            # - '${FORWARD_DB_PORT:-6543}:6543'
         environment:
             PGPASSWORD: '${DB_PASSWORD:-secret}'
             POSTGRES_DB: '${DB_DATABASE}'
@@ -49,6 +50,20 @@ services:
             retries: 3
             timeout: 5s
     
+    pgadmin:
+        image: 'dpage/pgadmin4:latest'
+        ports:
+            - '5050:80'
+        environment:
+            PGADMIN_DEFAULT_EMAIL: "user@domain.com"
+            PGADMIN_DEFAULT_PASSWORD: "shougun"
+        networks:
+            - sail
+        depends_on:
+            - pgsql
+        links:
+            - pgsql
+
 networks:
     sail:
         driver: bridge
